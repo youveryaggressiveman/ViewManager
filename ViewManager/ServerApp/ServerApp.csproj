@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Fonts\DMSans-Bold.ttf" />
+    <None Remove="Assets\Fonts\DMSans-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\DMSans-Italic.ttf" />
+    <None Remove="Assets\Fonts\DMSans-Medium.ttf" />
+    <None Remove="Assets\Fonts\DMSans-MediumItalic.ttf" />
+    <None Remove="Assets\Fonts\DMSans-Regular.ttf" />
+    <None Remove="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralLogic\GeneralLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\DMSans-Bold.ttf" />
+    <Resource Include="Assets\Fonts\DMSans-BoldItalic.ttf" />
+    <Resource Include="Assets\Fonts\DMSans-Italic.ttf" />
+    <Resource Include="Assets\Fonts\DMSans-Medium.ttf" />
+    <Resource Include="Assets\Fonts\DMSans-MediumItalic.ttf" />
+    <Resource Include="Assets\Fonts\DMSans-Regular.ttf" />
+    <Resource Include="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+</Project>

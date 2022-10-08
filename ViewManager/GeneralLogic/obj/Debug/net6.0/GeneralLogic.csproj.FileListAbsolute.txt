@@ -1,0 +1,12 @@
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\bin\Debug\net6.0\GeneralLogic.deps.json
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\bin\Debug\net6.0\GeneralLogic.dll
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\bin\Debug\net6.0\GeneralLogic.pdb
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.csproj.AssemblyReference.cache
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.GeneratedMSBuildEditorConfig.editorconfig
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.AssemblyInfoInputs.cache
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.AssemblyInfo.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.csproj.CoreCompileInputs.cache
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.dll
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\refint\GeneralLogic.dll
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\GeneralLogic.pdb
+E:\GG PROGRAMIST\ViewManager\ViewManager\GeneralLogic\obj\Debug\net6.0\ref\GeneralLogic.dll

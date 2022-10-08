@@ -1,0 +1,20 @@
+﻿ServerApp
+1.0.0.0
+
+winexe
+C#
+.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\
+ServerApp
+none
+false
+TRACE;DEBUG;NET;NET6_0;NETCOREAPP
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\App.xaml
+3-691348159
+1-1606302853
+28-1245191873
+201-1348852702
+Assets\Styles\GlobalStyle.xaml;View\Pages\AuthPage.xaml;View\Windows\MainWindow.xaml;
+
+False
+
