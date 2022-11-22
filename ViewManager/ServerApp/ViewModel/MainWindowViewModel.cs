@@ -6,10 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-using System.Windows.Threading;
-using Timer = ServerApp.Core.Timer;
 
 namespace ServerApp.ViewModel
 {
@@ -35,7 +34,9 @@ namespace ServerApp.ViewModel
 
             LogManager.CreateMainFolder();
 
-            Timer.Run(CheckAllConnection, TimeSpan.FromSeconds(5));
+            Timer timer = new Timer(5000);
+            timer.Elapsed += async (sender, e) => await CheckAllConnection();
+            timer.Start();
 
             TcpConnect();
         }     
@@ -45,7 +46,7 @@ namespace ServerApp.ViewModel
             await _controller.StartTcp();
         }
 
-        private async void CheckAllConnection()
+        private async Task CheckAllConnection()
         {
                 LoadBorder(true);
 

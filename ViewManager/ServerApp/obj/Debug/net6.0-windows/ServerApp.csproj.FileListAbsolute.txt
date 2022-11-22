@@ -59,3 +59,11 @@ E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runt
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\System.IO.Ports.dll
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.IO.Ports.dll
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.0\System.Management.dll
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\MainPage.g.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\MainPage.baml
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AccountantPage.g.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AccountantPage.baml
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\UpdateUserListPage.g.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\UpdateUserListPage.baml
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.g.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.baml

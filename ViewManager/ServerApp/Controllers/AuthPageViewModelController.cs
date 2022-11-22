@@ -39,8 +39,8 @@ namespace ServerApp.Controllers
 
                     TokenForApi.SetTokenApi(endResult.Token.ToString());
 
-                    UserSingleton.User.Id = endResult.Id.ToString();
-                    UserSingleton.User.Role.Value = endResult.RoleValue.ToString();
+                    AuthUserSingleton.AuthUser.Id = endResult.Id.ToString();
+                    AuthUserSingleton.AuthUser.RoleValue = endResult.RoleValue.ToString();
 
                     return true;
                 }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\App.xaml
-3-691348159
+7199065162
 1-1606302853
-26-1043478076
+35-2069798628
 201-1348852702
-Assets\Styles\GlobalStyle.xaml;View\Pages\AuthPage.xaml;View\Windows\MainWindow.xaml;
+Assets\Styles\GlobalStyle.xaml;View\Pages\AccountantPage.xaml;View\Pages\AuthPage.xaml;View\Pages\CreateUserPage.xaml;View\Pages\MainPage.xaml;View\Pages\UpdateUserListPage.xaml;View\Windows\MainWindow.xaml;
 
 False
 

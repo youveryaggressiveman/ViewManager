@@ -1,0 +1,90 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.MainPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+       Background="{StaticResource MainColor}"
+      FontFamily="DM Sans"
+      Title="MainPage">
+    <Page.DataContext>
+        <ViewModel:MainPageViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontWeight="Bold"
+                       Grid.ColumnSpan="2"
+                       Margin="40 0 0 0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="30"
+                       Foreground="{StaticResource AdditionalColor}">
+                <Run Text="MainWindow: "/>
+                <Run Text="{Binding User.Role.Value}"/>
+                <Run Text=" mode"/>
+            </TextBlock>
+            <Border CornerRadius="5"
+                    Grid.ColumnSpan="2"
+                    Padding="10"
+                    Margin="0 0 20 0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderThickness="1">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center"
+                       Grid.Column="1"
+                       Foreground="{StaticResource AdditionalColor}"
+                       VerticalAlignment="Center"
+                       FontSize="21">
+                        <Run Text="FIO: " FontWeight="Bold"/>
+                        <Run Text="{Binding User.FIO, Mode=OneWay}"/>
+                    </TextBlock>
+                </StackPanel>
+
+            </Border>
+
+
+        </Grid >
+        <Border  Grid.Row="1"
+                 BorderBrush="{StaticResource ColorHighlight}"
+                 Background="{StaticResource NeutralColor}"
+                 CornerRadius="0 5 5 0"
+                 BorderThickness="0 1 1 1">
+            <StackPanel Orientation="Vertical"
+                    Grid.Row="1">
+                <Button Content="Update"
+                        Visibility="{Binding AccountantButtonVisibility}"
+                        Command="{Binding UpdateCommand}"
+                    Padding="15"/>
+                <Button Content="Create"
+                        Command="{Binding CreateCommand}"
+                        Visibility="{Binding AccountantButtonVisibility}"
+                    Padding="15"/>
+            </StackPanel>
+        </Border>
+        
+        <Frame x:Name="mainPageFrame"
+               NavigationUIVisibility="Hidden"
+               Grid.Row="1"
+               Grid.Column="1"
+               Margin="10"
+               />
+    </Grid>
+</Page>

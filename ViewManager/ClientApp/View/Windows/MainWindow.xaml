@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Background="{StaticResource MainColor}"
+      FontFamily="DM Sans"
+        Title="ViewManager: Client" Height="500" Width="500"
+        MinHeight="500"
+        MinWidth="500">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Background="{StaticResource ColorHighlight}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal"
+                        Margin="20 0 0 0"
+                    VerticalAlignment="Center">
+                <TextBlock Text="ViewManager"
+                            Foreground="{StaticResource AdditionalColor}"
+                           TextDecorations="Underline"
+                       FontSize="35"
+                           FontWeight="Bold"
+                       Margin="0 0 0 0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock Text="Control everything"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                        Foreground="{StaticResource AdditionalColor}"
+                       Grid.Row="1"
+                       Margin="90 -35 0 0"
+                       FontSize="21"/>
+        </Grid>
+        <TextBlock 
+                   Grid.Row="2"
+                   Opacity="0.6"
+                   HorizontalAlignment="Right"
+             Foreground="{StaticResource AdditionalColor}"
+                   VerticalAlignment="Center"
+                   Margin="0 0 20 0">
+            <Run Text="©" FontSize="21"/>
+            <Run Text="youveryaggressiveman" FontSize="18"/>
+        </TextBlock>
     </Grid>
 </Window>

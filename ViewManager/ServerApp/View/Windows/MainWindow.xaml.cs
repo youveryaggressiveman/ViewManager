@@ -27,7 +27,7 @@ namespace ServerApp
             InitializeComponent();
 
             FrameManager.MainFrame = mainFrame;
-            FrameManager.SetPage(new AuthPage());
+            FrameManager.SetPage(new AuthPage(), "mainFrame");
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,23 +18,25 @@ namespace ServerApp.Core.Singleton
 
         public static async Task<bool> CheckConnection()
         {
-                var request = WebRequest.Create(s_connectionApiString);
-                HttpWebResponse response = null;
-                try
+            try
+            {
+                using (HttpClient client = new HttpClient())
                 {
-                    response = (HttpWebResponse)await request.GetResponseAsync();
-                    response.Close();
+                    await client.GetAsync(s_connectionApiString);
 
-                    LogManager.SaveLog("Server", DateTime.Today, "Check connection: the server is successfully connected");
+                    LogManager.SaveLog("Server", DateTime.Today, " Api: Check connection: the server is successfully connected");
 
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    LogManager.SaveLog("Server", DateTime.Today, "Check connection: " + ex.Message);
 
-                    return false;
-                }             
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Server", DateTime.Today, "Api: Check connection: " + ex.Message);
+
+                return false;
+            }
         }
     }
 }

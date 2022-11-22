@@ -9,8 +9,8 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="DM Sans"
         Background="{StaticResource MainColor}"
-        Title="ViewManager" Height="750" Width="800"
-        MinHeight="750" MinWidth="800">
+        Title="ViewManager: Server" Height="750" Width="800"
+        MinHeight="800" MinWidth="800">
     <Window.DataContext>
         <ViewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Background="{StaticResource ColorHighlight}">
             <Grid.RowDefinitions>
@@ -28,6 +29,7 @@
                         Margin="20 0 0 0"
                     VerticalAlignment="Center">
                 <TextBlock Text="ViewManager"
+                            Foreground="{StaticResource AdditionalColor}"
                            TextDecorations="Underline"
                        FontSize="35"
                            FontWeight="Bold"
@@ -38,16 +40,27 @@
             <TextBlock Text="Control everything"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
+                        Foreground="{StaticResource AdditionalColor}"
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
         </Grid>
         <Frame Grid.Row="1" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+        <TextBlock 
+                   Grid.Row="2"
+                   Opacity="0.6"
+                   HorizontalAlignment="Right"
+             Foreground="{StaticResource AdditionalColor}"
+                   VerticalAlignment="Center"
+                   Margin="0 0 20 0">
+            <Run Text="©" FontSize="21"/>
+            <Run Text="youveryaggressiveman" FontSize="18"/>
+        </TextBlock>
         <Border
             x:Name="Splash"
             Visibility="{Binding Visibility}"
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Opacity=".35"
             Background="{StaticResource AdditionalColor}" />
         <Border

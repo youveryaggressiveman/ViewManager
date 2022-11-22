@@ -17,4 +17,8 @@
     <Folder Include="View\Pages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralLogic\GeneralLogic.csproj" />
+  </ItemGroup>
+
 </Project>

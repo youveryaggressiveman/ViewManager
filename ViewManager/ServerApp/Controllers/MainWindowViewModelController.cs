@@ -43,7 +43,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("TcpClient: ", DateTime.Today, ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + ex.Message);
             }
             finally
             {
@@ -77,22 +77,27 @@ namespace ServerApp.Controllers
 
                     switch (message[0])
                     {
-                        case 'I':
+                        case 'N':
+
+                            IPEndPoint ipep = (IPEndPoint)client.Client.RemoteEndPoint;
+
                             ConnectedClient connectedClient = new()
                             {
-                                Id = message.Split(";")[0].Remove(0, 4)
+                                Ip = ipep.Address.ToString(),
+                                Port = ipep.Port,
+                                Name = message.Remove(0, 6)
                             };
                             ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
 
-                            LogManager.SaveLog("TcpClient: ", DateTime.Today, message);
+                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server");
                                 break;
-                        case 'Q':
-                            LogManager.SaveLog("TcpClient: ", DateTime.Today, message);
+                        case 'C':
+                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
                                 break;
                         case 'A':
                             S_AnswerList.Add(message);
 
-                            LogManager.SaveLog("TcpClient: ", DateTime.Today, message);
+                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
                                 break;
                         default:
                                 break;
@@ -103,7 +108,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("TcpClient: ", DateTime.Today, ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + ex.Message);
             }
             finally
             {

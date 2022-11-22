@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:ClientApp"
              StartupUri="\View\Windows\MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Assets\Styles\GlobalStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

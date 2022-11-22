@@ -9,8 +9,8 @@ namespace ServerApp.Model
 {
     public class AuthUser
     {
-        public object Id { get; set; } = null;
-        public object RoleValue { get; set; } = null;
-        public object Token { get; set; } = null;
+        public string Id { get; set; } = null;
+        public string RoleValue { get; set; } = null;
+        public string Token { get; set; } = null;
     }
 }

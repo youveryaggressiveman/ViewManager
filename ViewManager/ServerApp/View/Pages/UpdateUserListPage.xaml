@@ -1,0 +1,139 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.UpdateUserListPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="{StaticResource MainColor}"
+      FontFamily="DM Sans"
+      Title="UpdateUserListPage">
+    <Page.DataContext>
+        <ViewModel:UpdateUserListPageViewModel/>
+    </Page.DataContext>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                 VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="List of teachers"
+                           FontSize="25"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+                <ListView Grid.Row="1"
+                          Margin="10"
+                          ItemsSource="{Binding UserList}"
+                          DisplayMemberPath="FIO"
+                          SelectedItem="{Binding SelectedUser}"/>
+            </Grid>
+            <Border Width="1"
+                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderThickness="1"
+                    Height="auto"
+                    Grid.Column="1"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Full description"
+                           FontSize="25"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="FIO:"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedUser.FIO, Mode=OneWay}"
+                             FontSize="18"
+                             IsEnabled="False"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Text="Login:"
+                               Grid.Row="1"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedUser.Login}"
+                             FontSize="18"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Text="Password:"
+                               Grid.Row="2"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedUser.Password}"
+                             FontSize="18"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Text="Role:"
+                               Grid.Row="3"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <ComboBox Width="200"
+                              SelectedItem="{Binding SelectedRole}"
+                              ItemsSource="{Binding RoleList}"
+                              DisplayMemberPath="Value"
+                              Grid.Column="1"
+                              Grid.Row="3"/>
+                    <TextBlock Text="Office:"
+                               Grid.Row="4"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <ComboBox Width="200"
+                              SelectedItem="{Binding SelectedOffice}"
+                              ItemsSource="{Binding OfficeList}"
+                              DisplayMemberPath="Value"
+                              Grid.Column="1"
+                              Grid.Row="4"/>
+                    <Button Grid.Row="5"
+                            Command="{Binding PutCommand}"
+                            Grid.ColumnSpan="2"
+                            Content="Update"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+
+</Page>

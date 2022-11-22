@@ -10,18 +10,38 @@ namespace ServerApp.Core
     public static class FrameManager
     {
         public static Frame MainFrame { get; set; } = null;
+        public static Frame MainPageFrame { get; set; } = null;
 
-        public static void SetPage<T>(T target) where T: Page
+        public static void SetPage<T>(T target, string frameName) where T: Page
         {
-            var content = MainFrame.Content?.GetType();
+            Type content = typeof(Frame);
 
-            if(content != typeof(T))
+            if (frameName == "mainFrame")
             {
-                MainFrame.Navigate(target);
-                MainFrame.NavigationService.RemoveBackEntry();
+                content = MainFrame.Content?.GetType();
 
-                GC.Collect();
+                if (content != typeof(T))
+                {
+                    MainFrame.Navigate(target);
+                    MainFrame.NavigationService.RemoveBackEntry();
+
+                    GC.Collect();
+                }
             }
+            else
+            {
+                content = MainPageFrame.Content?.GetType();
+
+                if (content != typeof(T))
+                {
+                    MainPageFrame.Navigate(target);
+                    MainPageFrame.NavigationService.RemoveBackEntry();
+
+                    GC.Collect();
+                }
+            }
+
+           
         }
     }
 }

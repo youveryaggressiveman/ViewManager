@@ -2,4 +2,8 @@
 FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\App.xaml;;
 FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Pages\AuthPage.xaml;;
 FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Windows\MainWindow.xaml;;
+FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Pages\MainPage.xaml;;
+FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Pages\AccountantPage.xaml;;
+FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Pages\UpdateUserListPage.xaml;;
+FE:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\View\Pages\CreateUserPage.xaml;;
 

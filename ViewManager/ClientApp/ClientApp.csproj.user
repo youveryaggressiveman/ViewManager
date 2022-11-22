@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Assets\Styles\GlobalStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

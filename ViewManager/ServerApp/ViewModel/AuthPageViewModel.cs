@@ -4,6 +4,7 @@ using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.View.Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -81,6 +82,8 @@ namespace ServerApp.ViewModel
                         MessageBox.Show(message, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         LogManager.SaveLog("Server", DateTime.Today, "Auth: " + message);
+
+                        FrameManager.SetPage(new MainPage(), "mainFrame");
                     }
                     else
                     {

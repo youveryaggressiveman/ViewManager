@@ -14,18 +14,56 @@ namespace API.Controllers
         public UserController(ViewManagerContext db) =>
             (_db) = (db);
 
-        [Authorize(Roles = "Teacher")]
-        [HttpGet("GetLogByOffice")]
-        public async Task<IActionResult> GetLogByOffice(string officeName)
+        [Authorize]
+        [HttpGet("GetUserById")]
+        public async Task<IActionResult> GetUserById(string id)
         {
-            var logs = await _db.LogByOffices.Where(log => log.OfficeId == officeName).ToListAsync();
+            var user = await _db.Users.
+                Include(r=>r.Role)
+                .FirstOrDefaultAsync(us => us.Id == id);
 
-            if (logs == null)
+            if(user == null)
             {
-                return NotFound(nameof(logs));
+                return NotFound(nameof(user));
             }
 
-            return Ok(logs);
+            return Ok(user);
+        }
+
+        [Authorize(Roles = "Accountant")]
+        [HttpGet("GetUserList")] 
+        public async Task<IActionResult> GetUserList()
+        {
+            var userList = await _db.Users.Where(us => us.RoleId == 1).ToListAsync();
+
+            if (userList.Count == 0)
+            {
+                return NotFound(nameof(userList));
+            }
+
+            return Ok(userList);
+        }
+
+        [Authorize(Roles = "Accountant")]
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> UpdateUser([FromBody]User user)
+        {
+            if (user == null)
+            {
+                return NotFound(nameof(user));
+            }
+
+            try
+            {
+                _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return BadRequest(false);
+            }
         }
     }
 }

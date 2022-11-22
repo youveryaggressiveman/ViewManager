@@ -8,7 +8,8 @@ namespace ServerApp.Model
 {
     public class ConnectedClient
     {
-        public string Id { get; set; } = null;
-        public string Text { get; set; } = null;
+        public string Ip { get; set; } = null;
+        public int Port { get; set; }
+        public string Name { get; set; } = null;
     }
 }

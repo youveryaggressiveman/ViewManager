@@ -23,6 +23,8 @@ namespace ServerApp.Model
         public int RoleId { get; set; }
         public string OfficeId { get; set; } = null!;
 
+        public string FIO => Id != null ? (LastName + " " + FirstName[0] + "." + (SecondName != null ? SecondName[0] + "." : "")) : " ";
+
         public virtual Office Office { get; set; } = null!;
         public virtual Role Role { get; set; } = null!;
 
