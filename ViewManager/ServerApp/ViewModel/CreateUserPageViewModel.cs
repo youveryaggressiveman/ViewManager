@@ -15,7 +15,8 @@ namespace ServerApp.ViewModel
 {
     public class CreateUserPageViewModel : BaseViewModel
     {
-        private readonly CreateUserPageViewModelController _controller;
+        private readonly CreateUserPageViewModelController<Specialization> _specializationController;
+        private readonly CreateUserPageViewModelController<Office> _officeController;
 
         private User _newUser;
 
@@ -81,12 +82,14 @@ namespace ServerApp.ViewModel
         {
             CreateUserCommand = new DelegateCommand(CreateUser);
 
-            _controller = new CreateUserPageViewModelController(ApiServerSingleton.GetConnectionApiString());
+            _specializationController = new CreateUserPageViewModelController<Specialization>(ApiServerSingleton.GetConnectionApiString());
+            _officeController = new CreateUserPageViewModelController<Office>(ApiServerSingleton.GetConnectionApiString());
 
             SpecializationList = new ObservableCollection<Specialization>();
             OfficeList = new ObservableCollection<Office>();
 
             NewUser = new User();
+            NewUser.Specializations = new ObservableCollection<Specialization>();
 
             LoadInfo();
         }
@@ -100,8 +103,8 @@ namespace ServerApp.ViewModel
         {
             try
             {
-                var officeList = await _controller.GetOfficeList();
-                var specList = await _controller.GetSpecializationList();
+                var officeList = await _officeController.GetList();
+                var specList = await _specializationController.GetList();
 
                 if (officeList == null || specList == null)
                 {

@@ -77,6 +77,10 @@
                         Command="{Binding CreateCommand}"
                         Visibility="{Binding AccountantButtonVisibility}"
                     Padding="15"/>
+                <Button Content="Settings"
+                        Command="{Binding SettingsCommand}"
+                        Visibility="{Binding CommonButtonVisibility}"
+                    Padding="15"/>
             </StackPanel>
         </Border>
         

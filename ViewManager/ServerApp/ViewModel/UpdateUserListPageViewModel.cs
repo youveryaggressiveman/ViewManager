@@ -1,4 +1,5 @@
-﻿using ServerApp.Command;
+﻿using GeneralLogic.Services.Files;
+using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
@@ -128,6 +129,10 @@ namespace ServerApp.ViewModel
                     if (await _userController.PutUserInfo(SelectedUser))
                     {
                         MessageBox.Show("Information has been successfully updated", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        LoadInfo();
+
+                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {SelectedUser.FIO} successfully updated");
                     }
                     else
                     {

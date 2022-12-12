@@ -1,14 +1,18 @@
-﻿<Page x:Class="ServerApp.View.Pages.CreateUserPage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.CreateUserPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{StaticResource MainColor}"
       FontFamily="DM Sans"
       Title="CreateUserPage">
+    <Page.DataContext>
+        <ViewModel:CreateUserPageViewModel/>
+    </Page.DataContext>
     <ScrollViewer HorizontalScrollBarVisibility="Auto"
               VerticalScrollBarVisibility="Auto">
         <Grid>
@@ -19,9 +23,89 @@
             <TextBlock Text="Creating a new user"
                            FontSize="25"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
+                           FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Margin="10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center">
+                        <Run Text="FirstName:"/>
+                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                    </TextBlock>
+                    <TextBox Text="{Binding NewUser.FirstName}"
+                             FontSize="18"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Grid.Row="1"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center">
+                        <Run Text="LastName:"/>
+                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                    </TextBlock>
+                    <TextBox Text="{Binding NewUser.LastName}"
+                             FontSize="18"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Text="SecondName:"
+                               Grid.Row="2"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding NewUser.SecondName}"
+                             FontSize="18"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Width="200"/>
+                    <TextBlock Grid.Row="3"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center">
+                        <Run Text="Office:"/>
+                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                    </TextBlock>
+                    <ComboBox Width="200"
+                              SelectedItem="{Binding SelectedOffice}"
+                              ItemsSource="{Binding OfficeList}"
+                              DisplayMemberPath="Value"
+                              Grid.Column="1"
+                              Grid.Row="3"/>
+                </Grid>
+                <Border Width="1"
+                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderThickness="1"
+                    Height="auto"
+                    Grid.Column="1"/>
+                <Grid Margin="10 0"
+                      Grid.Column="2">
+                    
+                </Grid>
+            </Grid>
         </Grid>
     </ScrollViewer>
-   
+
 </Page>

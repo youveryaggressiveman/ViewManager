@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace ServerApp.Controllers
 {
-    public class CreateUserPageViewModelController
+    public class CreateUserPageViewModelController<T>
     {
         private readonly string _connectionString;
 
         public CreateUserPageViewModelController(string connectionString) =>
             _connectionString = connectionString;
 
-        public async Task<IEnumerable<Office>> GetOfficeList()
+        public async Task<IEnumerable<T>> GetList()
         {
             try
             {
@@ -32,58 +32,20 @@ namespace ServerApp.Controllers
 
                     header.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenForApi.GetTokenApi());
 
-                    var result = await client.GetAsync(_connectionString + "api/Office/GetOfficeList");
+                    HttpResponseMessage? result;
+
+                    if (typeof(T).IsAssignableFrom(typeof(Specialization)))
+                    {
+                        result = await client.GetAsync(_connectionString + "api/Specialization/GetSpecializationList");
+                    }
+                    else 
+                    {
+                        result = await client.GetAsync(_connectionString + "api/Office/GetOfficeList");
+                    }               
 
                     if (result.IsSuccessStatusCode)
                     {
-                        var endResult = JsonConvert.DeserializeObject<IEnumerable<Office>>(await result.Content.ReadAsStringAsync());
-
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
-
-                        return endResult;
-                    }
-                    else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
-
-                        return null;
-                    }
-                    else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
-
-                        return null;
-                    }
-
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
-
-                throw new OperationCanceledException(ex.Message);
-            }
-        }
-
-        public async Task<IEnumerable<Specialization>> GetSpecializationList()
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    var header = client.DefaultRequestHeaders;
-                    header.Accept.Clear();
-                    header.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                    header.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenForApi.GetTokenApi());
-
-                    var result = await client.GetAsync(_connectionString + "api/Specialization/GetSpecializationList");
-
-                    if (result.IsSuccessStatusCode)
-                    {
-                        var endResult = JsonConvert.DeserializeObject<IEnumerable<Specialization>>(await result.Content.ReadAsStringAsync());
+                        var endResult = JsonConvert.DeserializeObject<IEnumerable<T>>(await result.Content.ReadAsStringAsync());
 
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
 

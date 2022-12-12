@@ -67,3 +67,5 @@ E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\UpdateUserListPage.baml
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.g.cs
 E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.baml
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\SettingsPage.g.cs
+E:\GG PROGRAMIST\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\SettingsPage.baml

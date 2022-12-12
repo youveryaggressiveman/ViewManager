@@ -21,6 +21,17 @@ namespace ServerApp.ViewModel
 
         private Visibility _accountantButtonVisibility = Visibility.Collapsed;
         private Visibility _teacherButtonVisibility = Visibility.Collapsed;
+        private Visibility _commonButtonVisibility = Visibility.Collapsed;
+
+        public Visibility CommonButtonVisibility
+        {
+            get => _commonButtonVisibility;
+            set
+            {
+                _commonButtonVisibility = value;
+                OnPropertyChanged(nameof(CommonButtonVisibility));
+            }
+        }
 
         public Visibility TeacherButtonVisibility
         {
@@ -56,6 +67,7 @@ namespace ServerApp.ViewModel
 
         public ICommand CreateCommand { get; }
         public ICommand UpdateCommand { get; }
+        public ICommand SettingsCommand { get; }
 
         public MainPageViewModel()
         {
@@ -65,8 +77,14 @@ namespace ServerApp.ViewModel
 
             CreateCommand = new DelegateCommand(Create);
             UpdateCommand = new DelegateCommand(Update);
+            SettingsCommand = new DelegateCommand(Settings);
 
             LoadInfoAboutUser();
+        }
+
+        private void Settings(object obj)
+        {
+            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
         }
 
         private void Update(object obj)
@@ -109,11 +127,13 @@ namespace ServerApp.ViewModel
             {
                 TeacherButtonVisibility = Visibility.Visible;
                 AccountantButtonVisibility = Visibility.Collapsed;
+                CommonButtonVisibility = Visibility.Visible;
             }
             else
             {
                 TeacherButtonVisibility = Visibility.Collapsed;
                 AccountantButtonVisibility = Visibility.Visible;
+                CommonButtonVisibility = Visibility.Visible;
 
                 FrameManager.SetPage(new UpdateUserListPage(), "mainPageFrame");
             }

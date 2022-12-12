@@ -29,7 +29,7 @@
                 <TextBlock Text="List of teachers"
                            FontSize="25"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
+                           FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
                 <ListView Grid.Row="1"
                           Margin="10"
@@ -50,7 +50,7 @@
                 <TextBlock Text="Full description"
                            FontSize="25"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
+                           FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
