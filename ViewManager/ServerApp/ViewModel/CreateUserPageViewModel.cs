@@ -1,4 +1,5 @@
-﻿using ServerApp.Command;
+﻿using GeneralLogic.Services.Files;
+using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
@@ -17,14 +18,37 @@ namespace ServerApp.ViewModel
     {
         private readonly CreateUserPageViewModelController<Specialization> _specializationController;
         private readonly CreateUserPageViewModelController<Office> _officeController;
+        private readonly CreateUserPageViewModelController<User> _userController;
 
         private User _newUser;
 
+        private ObservableCollection<Specialization> _selectedSpecializationList;
         private ObservableCollection<Office> _officeList;
         private ObservableCollection<Specialization> _specializationList;
 
+        private Specialization _selectedSpecializationOfSelectedList;
         private Specialization _selectedSpecialization;
         private Office _selectedOffice;
+
+        public Specialization SelectedSpecializationOfSelectedList
+        {
+            get => _selectedSpecializationOfSelectedList;
+            set
+            {
+                _selectedSpecializationOfSelectedList= value;
+                OnPropertyChanged(nameof(SelectedSpecializationOfSelectedList));
+            }
+        }
+
+        public ObservableCollection<Specialization> SelectedSpecializationList
+        {
+            get => _selectedSpecializationList;
+            set
+            {
+                _selectedSpecializationList= value;
+                OnPropertyChanged(nameof(SelectedSpecializationList));
+            }
+        }
 
         public User NewUser
         {
@@ -77,16 +101,22 @@ namespace ServerApp.ViewModel
         }
 
         public ICommand CreateUserCommand { get; }
+        public ICommand AddSpecCommand { get; }
+        public ICommand RemoveSpecCommand { get; }
 
         public CreateUserPageViewModel()
         {
+            RemoveSpecCommand = new DelegateCommand(RemoveSpec);
             CreateUserCommand = new DelegateCommand(CreateUser);
+            AddSpecCommand = new DelegateCommand(AddSpec);
 
+            _userController = new CreateUserPageViewModelController<User>(ApiServerSingleton.GetConnectionApiString());
             _specializationController = new CreateUserPageViewModelController<Specialization>(ApiServerSingleton.GetConnectionApiString());
             _officeController = new CreateUserPageViewModelController<Office>(ApiServerSingleton.GetConnectionApiString());
 
             SpecializationList = new ObservableCollection<Specialization>();
             OfficeList = new ObservableCollection<Office>();
+            SelectedSpecializationList= new ObservableCollection<Specialization>();
 
             NewUser = new User();
             NewUser.Specializations = new ObservableCollection<Specialization>();
@@ -94,9 +124,66 @@ namespace ServerApp.ViewModel
             LoadInfo();
         }
 
+        private void AddSpec(object obj)
+        {
+            if(SelectedSpecialization == null || SelectedSpecializationList.Contains(SelectedSpecialization))
+            {
+                return;
+            }
+
+            SelectedSpecializationList.Add(SelectedSpecialization);
+        }
+
+        private void RemoveSpec(object obj)
+        {
+            if(SelectedSpecializationOfSelectedList == null)
+            {
+                return;
+            }
+
+            SelectedSpecializationList.Remove(SelectedSpecializationOfSelectedList);
+        }
+
         private async void CreateUser(object obj)
         {
-            
+            if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName) 
+                    || SelectedOffice == null)
+            {
+                MessageBox.Show("All fields must be filled in!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to add a new user to the system?", "Ask", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)
+            {
+                NewUser.RoleId = 1;
+                NewUser.Office = SelectedOffice;
+                NewUser.OfficeId = SelectedOffice.Id;
+                NewUser.Specializations = SelectedSpecializationList.ToList();
+
+                try
+                {
+
+                    if (await _userController.CreateUser(NewUser))
+                    {
+                        MessageBox.Show("New user successfully added to the system", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        LoadInfo();
+
+                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {NewUser.FIO} successfully create");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to create new user, try again later", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+
+            }
         }
 
         private async void LoadInfo()

@@ -28,7 +28,7 @@ namespace API.Entity
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-1C1RNHU\\GGSERVER;Database=ViewManager;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=31-7\\SQLEXPRESS;Database=ViewManager;Trusted_Connection=True");
             }
         }
 
@@ -121,7 +121,7 @@ namespace API.Entity
                 entity.ToTable("User");
 
                 entity.Property(e => e.Id)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .HasColumnName("ID");
 
                 entity.Property(e => e.FirstName).HasMaxLength(50);

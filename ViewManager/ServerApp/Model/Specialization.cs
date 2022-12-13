@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace ServerApp.Model
         public int Id { get; set; }
         public string Value { get; set; } = null!;
 
+        [JsonIgnore]
         public virtual ICollection<User> Users { get; set; }
     }
 }

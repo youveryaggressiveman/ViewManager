@@ -1,4 +1,6 @@
-﻿using API.Entity;
+﻿using API.Core.Crypter;
+using API.Core.Data;
+using API.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +11,14 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        private readonly AutoCredentialCreator _credentialCreator;
         private readonly ViewManagerContext _db;
 
-        public UserController(ViewManagerContext db) =>
-            (_db) = (db);
+        public UserController(ViewManagerContext db)
+        {
+            _db = db;
+            _credentialCreator = new AutoCredentialCreator();
+        }
 
         [Authorize]
         [HttpGet("GetUserById")]
@@ -56,6 +62,34 @@ namespace API.Controllers
             try
             {
                 _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return BadRequest(false);
+            }
+        }
+
+        [Authorize(Roles = "Accountant")]
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser([FromBody]User newUser)
+        {
+            if (newUser == null)
+            {
+                return NotFound(nameof(newUser));
+            }
+
+            var credential = _credentialCreator.RandomString(6);
+
+            newUser.Id = new Guid().ToString();
+            newUser.Login = credential[0];
+            newUser.Password = Encrypt.HashPassword(credential[1]);
+
+            try
+            {
+                _db.Users.Add(newUser);
                 await _db.SaveChangesAsync();
 
                 return Ok(true);

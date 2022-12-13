@@ -6,6 +6,7 @@ using ServerApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -75,5 +76,60 @@ namespace ServerApp.Controllers
                 throw new OperationCanceledException(ex.Message);
             }
         }
+
+        public async Task<bool> CreateUser(T newUser)
+        {
+            try
+            {
+                using (HttpClient client = new())
+                {
+                    var header = client.DefaultRequestHeaders;
+                    header.Accept.Clear();
+                    header.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                    header.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", TokenForApi.GetTokenApi());
+
+                    var url = _connectionString + "api/User/CreateUser";
+                    var jsonObject = JsonConvert.SerializeObject(newUser);
+
+                    var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+                    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                    var result = await client.PostAsync(url, content);
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var endResult = JsonConvert.DeserializeObject<bool>(await result.Content.ReadAsStringAsync());
+
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+
+                        return endResult;
+                    }
+                    else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+
+                        return false;
+                    }
+                    else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+
+                        return false;
+                    }
+
+                    Console.WriteLine(result.Content);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+
+                throw new OperationCanceledException(ex.Message);
+            }
+        }
+
+        
     }
 }

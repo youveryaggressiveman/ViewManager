@@ -81,6 +81,7 @@
             </Grid>
             <Button Content="Authorize"
                     Grid.Row="2"
+                    IsDefault="True"
                     Command="{Binding AuthCommand}"/>
         </Grid>
     </Border>
