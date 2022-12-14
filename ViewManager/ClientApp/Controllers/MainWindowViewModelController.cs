@@ -19,7 +19,7 @@ namespace ClientApp.Controllers
         private readonly string _server;
 
         private static TcpListener s_listener = null;
-        private static TcpClient s_tcpCleint = new TcpClient();
+        private static TcpClient s_tcpClient;
 
         public MainWindowViewModelController(int port, string server) =>
             (_port, _server) = (port, server);
@@ -27,12 +27,13 @@ namespace ClientApp.Controllers
         public async Task<int> StartListenerTcp()
         {
             NetworkStream stream = null;
+            s_tcpClient = new TcpClient(_server, _port);
 
             try
             {
-                IPEndPoint ipep = (IPEndPoint)s_tcpCleint.Client.LocalEndPoint;
+                IPEndPoint ipep = (IPEndPoint)s_tcpClient.Client.LocalEndPoint;
 
-                s_listener = new TcpListener(ipep.Address,ipep.Port);
+                s_listener = new TcpListener(ipep.Address,2003);
 
                 s_listener.Start();
 
@@ -81,7 +82,7 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
-                    stream = s_tcpCleint.GetStream();
+                    stream = s_tcpClient.GetStream();
 
                     var message = "Command: " + text;
 
@@ -111,10 +112,10 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
-                using (s_tcpCleint = new TcpClient(_server, _port))
+                using (s_tcpClient = new TcpClient(_server, _port))
                 {
 
-                    stream = s_tcpCleint.GetStream();
+                    stream = s_tcpClient.GetStream();
 
                     var message = "Name: " + Environment.MachineName;
 

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\
 ClientApp
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\App.xaml
+D:\my\ViewManager\ViewManager\ClientApp\App.xaml
 2261167494
 1-1606302853
 8-931147087
-200396110562
+2001385658349
 Assets\Styles\GlobalStyle.xaml;View\Windows\MainWindow.xaml;
 
 False
