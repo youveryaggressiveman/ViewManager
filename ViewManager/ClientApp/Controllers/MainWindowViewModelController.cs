@@ -33,13 +33,13 @@ namespace ClientApp.Controllers
             {
                 IPEndPoint ipep = (IPEndPoint)s_tcpClient.Client.LocalEndPoint;
 
-                s_listener = new TcpListener(ipep.Address,2003);
+                s_listener = new TcpListener(ipep.Address,_port);
 
                 s_listener.Start();
 
                 while (true)
                 {
-                    TcpClient client = s_listener.AcceptTcpClient();
+                    TcpClient client = await s_listener.AcceptTcpClientAsync();
 
                     stream = client.GetStream();
 
