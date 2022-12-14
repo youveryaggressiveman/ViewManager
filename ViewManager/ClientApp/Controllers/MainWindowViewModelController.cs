@@ -39,6 +39,8 @@ namespace ClientApp.Controllers
 
                 while (true)
                 {
+                    await s_tcpClient.ConnectAsync(_server, _port);
+
                     TcpClient client = await s_listener.AcceptTcpClientAsync();
 
                     stream = client.GetStream();
