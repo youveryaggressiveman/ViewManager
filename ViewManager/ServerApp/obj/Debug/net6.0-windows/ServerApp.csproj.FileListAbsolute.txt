@@ -218,3 +218,10 @@ E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\A
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Styles\Themes\Dark.baml
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Styles\GlobalStyle.baml
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ServerApp.dll.config
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ServerApp.dll.config
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\MaterialDesignColors.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\MaterialDesignThemes.Wpf.dll
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Styles\Themes\Dark.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Styles\Themes\Light.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\MessageBox\CustomMessageBox.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\MessageBox\CustomMessageBox.baml

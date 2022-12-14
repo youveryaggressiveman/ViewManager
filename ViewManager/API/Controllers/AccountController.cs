@@ -1,4 +1,5 @@
-﻿using API.Entity;
+﻿using API.Core.Crypter;
+using API.Entity;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -52,27 +53,29 @@ namespace API.Controllers
 
         private async Task<ClaimsIdentity> GetIdentity(string login, string password)
         {
-            User user = await _db.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password);
+            User user = await _db.Users.FirstOrDefaultAsync(x => x.Login == login);
 
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }
 
-            var role = await _db.Roles.FirstOrDefaultAsync(x => x.Id == user.RoleId);
-            if (user != null && role != null)
+            if (Encrypt.VerifyHashedPassword(user.Password, password))
             {
-                var claims = new List<Claim>
+                var role = await _db.Roles.FirstOrDefaultAsync(x => x.Id == user.RoleId);
+                if (user != null && role != null)
+                {
+                    var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Value)
                 };
-                ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                        ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
+                    ClaimsIdentity claimsIdentity =
+                        new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                            ClaimsIdentity.DefaultRoleClaimType);
+                    return claimsIdentity;
+                }
             }
-
             // если пользователя не найдено
             return null;
         }

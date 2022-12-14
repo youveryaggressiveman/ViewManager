@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\
 ServerApp
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\App.xaml
+D:\my\ViewManager\ViewManager\ServerApp\App.xaml
 11-2087612272
 1-1606302853
 43-2017276826
-20339386844
+203750226420
 Assets\Custom\MessageBox\CustomMessageBox.xaml;Assets\Styles\GlobalStyle.xaml;Assets\Styles\Themes\Dark.xaml;Assets\Styles\Themes\Light.xaml;View\Pages\AccountantPage.xaml;View\Pages\AuthPage.xaml;View\Pages\CreateUserPage.xaml;View\Pages\MainPage.xaml;View\Pages\SettingsPage.xaml;View\Pages\UpdateUserListPage.xaml;View\Windows\MainWindow.xaml;
 
 False

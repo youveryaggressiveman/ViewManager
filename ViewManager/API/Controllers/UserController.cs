@@ -59,6 +59,11 @@ namespace API.Controllers
                 return NotFound(nameof(user));
             }
 
+            if (!await CheckLogin(user.Login))
+            {
+                return BadRequest("This password is already taken:" + user.Login);
+            }
+
             try
             {
                 _db.Users.Update(user);
@@ -87,6 +92,11 @@ namespace API.Controllers
             newUser.Login = credential[0];
             newUser.Password = Encrypt.HashPassword(credential[1]);
 
+            if (!await CheckLogin(newUser.Login))
+            {
+                return BadRequest("The password that was generated was taken. Try again:" + newUser.Login);
+            }
+
             try
             {
                 _db.Users.Add(newUser);
@@ -98,6 +108,18 @@ namespace API.Controllers
             {
                 return BadRequest(false);
             }
+        }
+
+        private async Task<bool> CheckLogin(string value)
+        {
+            var existingUser = await _db.Users.Where(user => user.Login == value).ToListAsync();
+
+            if(existingUser.Count > 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

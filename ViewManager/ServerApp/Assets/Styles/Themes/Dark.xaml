@@ -7,5 +7,6 @@
     <SolidColorBrush x:Key="NeutralColor" Color="#cfcfcf"/>
     <SolidColorBrush x:Key="ColorBotton.OnHover" Color="#FFDB40"/>
     <SolidColorBrush x:Key="ColorBotton.Click" Color="#FFE573"/>
+    <SolidColorBrush x:Key="ForegroundColor" Color="#242424" />
 
 </ResourceDictionary>

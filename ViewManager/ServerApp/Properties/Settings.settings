@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ThemeName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Light</Value>
     </Setting>
     <Setting Name="LanguageName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

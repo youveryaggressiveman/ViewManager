@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerApp.Core.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace ServerApp.Core
 {
     public static class FrameManager
     {
+        private readonly static ISettingsManager _settingsManager = new SettingsManager();
+
         public static Frame MainFrame { get; set; } = null;
         public static Frame MainPageFrame { get; set; } = null;
 
@@ -34,6 +37,8 @@ namespace ServerApp.Core
 
                 if (content != typeof(T))
                 {
+                    _settingsManager.SetTheme(Properties.Settings.Default.ThemeName);
+
                     MainPageFrame.Navigate(target);
                     MainPageFrame.NavigationService.RemoveBackEntry();
 

@@ -1,4 +1,5 @@
-﻿using ServerApp.Command;
+﻿using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Singleton;
@@ -105,7 +106,7 @@ namespace ServerApp.ViewModel
 
                 if(user == null)
                 {
-                    MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -116,7 +117,7 @@ namespace ServerApp.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
             
         }
