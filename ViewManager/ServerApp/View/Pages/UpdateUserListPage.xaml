@@ -7,7 +7,7 @@
       xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.UpdateUserListPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="{StaticResource MainColor}"
+      Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="UpdateUserListPage">
     <Page.DataContext>
@@ -38,7 +38,7 @@
                           SelectedItem="{Binding SelectedUser}"/>
             </Grid>
             <Border Width="1"
-                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderBrush="{DynamicResource NeutralColor}"
                     BorderThickness="1"
                     Height="auto"
                     Grid.Column="1"/>

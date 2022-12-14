@@ -118,7 +118,6 @@ namespace ServerApp.Controllers
                         return false;
                     }
 
-                    Console.WriteLine(result.Content);
                     return false;
                 }
             }

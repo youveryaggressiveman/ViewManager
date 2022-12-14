@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
@@ -42,6 +43,21 @@
     <Resource Include="Assets\Fonts\DMSans-MediumItalic.ttf" />
     <Resource Include="Assets\Fonts\DMSans-Regular.ttf" />
     <Resource Include="Assets\Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

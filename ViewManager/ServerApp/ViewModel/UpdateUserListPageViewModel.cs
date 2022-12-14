@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
@@ -112,12 +113,12 @@ namespace ServerApp.ViewModel
             if (string.IsNullOrWhiteSpace(SelectedUser.Login) || string.IsNullOrWhiteSpace(SelectedUser.Password) ||
                     SelectedRole == null || SelectedOffice == null)
             {
-                MessageBox.Show("All fields must be filled in!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                CustomMessageBox.Show("All fields must be filled in!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);           
 
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to change the information about this user?", "Ask", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)
+            if (CustomMessageBox.Show("Are you sure you want to change the information about this user?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
                 SelectedUser.OfficeId = SelectedOffice.Id;
                 SelectedUser.Office = SelectedOffice;
@@ -128,7 +129,7 @@ namespace ServerApp.ViewModel
                 {
                     if (await _userController.PutUserInfo(SelectedUser))
                     {
-                        MessageBox.Show("Information has been successfully updated", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        CustomMessageBox.Show("Information has been successfully updated", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LoadInfo();
 
@@ -136,12 +137,12 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Failed to update information, try again later", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        CustomMessageBox.Show("Failed to update information, try again later", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
 
 
@@ -159,7 +160,7 @@ namespace ServerApp.ViewModel
 
                 if (userList == null || roleList == null || officeList == null)
                 {
-                    MessageBox.Show("No data yet", "Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("No data yet", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -170,7 +171,7 @@ namespace ServerApp.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
 
         }

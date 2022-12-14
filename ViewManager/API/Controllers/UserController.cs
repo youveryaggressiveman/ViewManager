@@ -83,7 +83,7 @@ namespace API.Controllers
 
             var credential = _credentialCreator.RandomString(6);
 
-            newUser.Id = new Guid().ToString();
+            newUser.Id = Guid.NewGuid().ToString();
             newUser.Login = credential[0];
             newUser.Password = Encrypt.HashPassword(credential[1]);
 

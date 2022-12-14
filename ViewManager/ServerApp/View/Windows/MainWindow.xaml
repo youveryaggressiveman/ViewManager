@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FontFamily="DM Sans"
-        Background="{StaticResource MainColor}"
+        Background="{DynamicResource MainColor}"
         Title="ViewManager: Server" Height="750" Width="800"
         MinHeight="800" MinWidth="800">
     <Window.DataContext>
@@ -20,7 +20,7 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource ColorHighlight}">
+        <Grid Background="{DynamicResource ColorHighlight}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
@@ -29,7 +29,7 @@
                         Margin="20 0 0 0"
                     VerticalAlignment="Center">
                 <TextBlock Text="ViewManager"
-                            Foreground="{StaticResource AdditionalColor}"
+                            Foreground="{DynamicResource AdditionalColor}"
                            TextDecorations="Underline"
                        FontSize="35"
                            FontWeight="Bold"
@@ -40,7 +40,7 @@
             <TextBlock Text="Control everything"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                        Foreground="{StaticResource AdditionalColor}"
+                        Foreground="{DynamicResource AdditionalColor}"
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
@@ -50,7 +50,7 @@
                    Grid.Row="2"
                    Opacity="0.6"
                    HorizontalAlignment="Right"
-             Foreground="{StaticResource AdditionalColor}"
+             Foreground="{DynamicResource AdditionalColor}"
                    VerticalAlignment="Center"
                    Margin="0 0 20 0">
             <Run Text="©" FontSize="21"/>
@@ -67,7 +67,7 @@
             Grid.Row="1"
             Visibility="{Binding Visibility}"
             Grid.RowSpan="2"
-            Background="{StaticResource MainColor}"
+            Background="{DynamicResource MainColor}"
             Height="150"
             Width="400">
             <TextBlock
@@ -81,7 +81,7 @@
                         Height="50"
                         StrokeThickness="5"
                         StrokeDashArray="1,2"
-                        Stroke="{StaticResource ColorHighlight}"
+                        Stroke="{DynamicResource ColorHighlight}"
                         StrokeDashCap="Round"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"

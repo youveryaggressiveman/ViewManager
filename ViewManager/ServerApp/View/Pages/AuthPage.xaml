@@ -11,7 +11,7 @@
     <Page.DataContext>
         <ViewModel:AuthPageViewModel/>
     </Page.DataContext>
-    <Border BorderBrush="{StaticResource AdditionalColor}"
+    <Border BorderBrush="{DynamicResource AdditionalColor}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             BorderThickness="1"

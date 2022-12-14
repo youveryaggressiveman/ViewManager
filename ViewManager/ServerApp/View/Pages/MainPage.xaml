@@ -7,7 +7,7 @@
       xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.MainPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-       Background="{StaticResource MainColor}"
+       Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="MainPage">
     <Page.DataContext>
@@ -33,7 +33,7 @@
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        FontSize="30"
-                       Foreground="{StaticResource AdditionalColor}">
+                       Foreground="{DynamicResource AdditionalColor}">
                 <Run Text="MainWindow: "/>
                 <Run Text="{Binding User.Role.Value}"/>
                 <Run Text=" mode"/>
@@ -45,12 +45,12 @@
                     Grid.Column="0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderBrush="{DynamicResource NeutralColor}"
                     BorderThickness="1">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center"
                        Grid.Column="1"
-                       Foreground="{StaticResource AdditionalColor}"
+                       Foreground="{DynamicResource AdditionalColor}"
                        VerticalAlignment="Center"
                        FontSize="21">
                         <Run Text="FIO: " FontWeight="Bold"/>
@@ -63,8 +63,8 @@
 
         </Grid >
         <Border  Grid.Row="1"
-                 BorderBrush="{StaticResource ColorHighlight}"
-                 Background="{StaticResource NeutralColor}"
+                 BorderBrush="{DynamicResource ColorHighlight}"
+                 Background="{DynamicResource NeutralColor}"
                  CornerRadius="0 5 5 0"
                  BorderThickness="0 1 1 1">
             <StackPanel Orientation="Vertical"

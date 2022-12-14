@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Assets\Custom\MessageBox\CustomMessageBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Pages\AccountantPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,7 +30,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Assets\Custom\MessageBox\CustomMessageBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Assets\Styles\GlobalStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\Themes\Light.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Pages\AccountantPage.xaml">

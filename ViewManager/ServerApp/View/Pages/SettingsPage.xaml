@@ -6,11 +6,52 @@
       xmlns:local="clr-namespace:ServerApp.View.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-       Background="{StaticResource MainColor}"
+       Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="SettingsPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Settings"
+                           FontSize="25"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+        <Grid Grid.Row="1"
+              Margin="10 0 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Select a language:"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1"
+                      ItemsSource="{Binding LanguageList}"
+                      SelectedItem="{Binding SelectedLanguage}"/>
+            <TextBlock Text="Select a theme:"
+                       Grid.Row="1"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1"
+                      Grid.Row="1"
+                      ItemsSource="{Binding ThemeList}"
+                      SelectedItem="{Binding SelectedTheme}"/>
+        </Grid>
+        <Button Content="Save Changes"
+                Width="200"
+                Command="{Binding SaveChangesCommand}"
+                Grid.Row="2"
+                HorizontalAlignment="Right"/>
     </Grid>
 </Page>

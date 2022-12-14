@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
@@ -149,12 +150,12 @@ namespace ServerApp.ViewModel
             if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName) 
                     || SelectedOffice == null)
             {
-                MessageBox.Show("All fields must be filled in!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                CustomMessageBox.Show("All fields must be filled in!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing); 
 
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to add a new user to the system?", "Ask", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)
+            if (CustomMessageBox.Show("Are you sure you want to add a new user to the system?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
                 NewUser.RoleId = 1;
                 NewUser.Office = SelectedOffice;
@@ -166,7 +167,7 @@ namespace ServerApp.ViewModel
 
                     if (await _userController.CreateUser(NewUser))
                     {
-                        MessageBox.Show("New user successfully added to the system", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        CustomMessageBox.Show("New user successfully added to the system", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LoadInfo();
 
@@ -174,12 +175,12 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Failed to create new user, try again later", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        CustomMessageBox.Show("Failed to create new user, try again later", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
 
 
@@ -195,7 +196,7 @@ namespace ServerApp.ViewModel
 
                 if (officeList == null || specList == null)
                 {
-                    MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -206,7 +207,7 @@ namespace ServerApp.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Server error", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
         }
     }

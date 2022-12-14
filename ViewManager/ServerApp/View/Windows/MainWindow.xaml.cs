@@ -1,4 +1,7 @@
-﻿using ServerApp.Core;
+﻿using MaterialDesignThemes.Wpf;
+using ServerApp.Core;
+using ServerApp.Core.Settings;
+using ServerApp.Properties;
 using ServerApp.View.Pages;
 using System;
 using System.Collections.Generic;
@@ -22,12 +25,21 @@ namespace ServerApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ISettingsManager _settingsManager;
+
         public MainWindow()
         {
             InitializeComponent();
 
             FrameManager.MainFrame = mainFrame;
             FrameManager.SetPage(new AuthPage(), "mainFrame");
+
+            _settingsManager = new SettingsManager();
+
+            if (!string.IsNullOrEmpty(Settings.Default.ThemeName))
+            {
+                _settingsManager.SetTheme(Settings.Default.ThemeName);
+            }
         }
     }
 }

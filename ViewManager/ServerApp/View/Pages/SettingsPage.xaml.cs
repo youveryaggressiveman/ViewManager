@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace ServerApp.View.Pages
     /// </summary>
     public partial class SettingsPage : Page
     {
+        private readonly SettingsPageViewModel _viewModel;
+
         public SettingsPage()
         {
             InitializeComponent();
+
+            DataContext = _viewModel = new SettingsPageViewModel();
         }
     }
 }

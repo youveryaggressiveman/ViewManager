@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
@@ -72,31 +73,24 @@ namespace ServerApp.ViewModel
             {
                 SetBorder(true);
 
-                string message;
                 try
                 {
                     if (await _controller.AuthHelper(user))
                     {
-                        message = "Authorization was successful";
-
-                        MessageBox.Show(message, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        LogManager.SaveLog("Server", DateTime.Today, "Auth: " + message);
+                        LogManager.SaveLog("Server", DateTime.Today, "Auth: Authorization was successful");
 
                         FrameManager.SetPage(new MainPage(), "mainFrame");
                     }
                     else
                     {
-                        message = "There is no user with such data";
+                        CustomMessageBox.Show("There is no user with such data", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                        MessageBox.Show(message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        LogManager.SaveLog("Server", DateTime.Today, "Auth: " + message);
+                        LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erorr server!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, "Auth: " + ex.Message);
                 }
@@ -109,7 +103,7 @@ namespace ServerApp.ViewModel
             {
                 foreach (var error in results)
                 {
-                    MessageBox.Show(error.ErrorMessage, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CustomMessageBox.Show(error.ErrorMessage, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, "Auth: " + error.ErrorMessage);
                 }

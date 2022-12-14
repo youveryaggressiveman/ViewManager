@@ -7,7 +7,7 @@
       xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.CreateUserPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="{StaticResource MainColor}"
+      Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="CreateUserPage">
     <Page.DataContext>
@@ -47,7 +47,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center">
                         <Run Text="FirstName:"/>
-                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                        <Run Text="*" Foreground="{DynamicResource ColorHighlight}"/>
                     </TextBlock>
                     <TextBox Text="{Binding NewUser.FirstName}"
                              FontSize="18"
@@ -60,7 +60,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center">
                         <Run Text="LastName:"/>
-                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                        <Run Text="*" Foreground="{DynamicResource ColorHighlight}"/>
                     </TextBlock>
                     <TextBox Text="{Binding NewUser.LastName}"
                              FontSize="18"
@@ -86,7 +86,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center">
                         <Run Text="Office:"/>
-                        <Run Text="*" Foreground="{StaticResource ColorHighlight}"/>
+                        <Run Text="*" Foreground="{DynamicResource ColorHighlight}"/>
                     </TextBlock>
                     <ComboBox Width="200"
                               SelectedItem="{Binding SelectedOffice}"
@@ -96,7 +96,7 @@
                               Grid.Row="3"/>
                 </Grid>
                 <Border Width="1"
-                    BorderBrush="{StaticResource NeutralColor}"
+                    BorderBrush="{DynamicResource NeutralColor}"
                     BorderThickness="1"
                     Height="auto"
                     Grid.Column="1"/>
@@ -134,7 +134,7 @@
                                 Height="40"
                                 FontSize="25"/>
                         <Border Width="1"
-                                BorderBrush="{StaticResource NeutralColor}"
+                                BorderBrush="{DynamicResource NeutralColor}"
                                 BorderThickness="1"
                                 VerticalAlignment="Center"
                                 Height="60"
