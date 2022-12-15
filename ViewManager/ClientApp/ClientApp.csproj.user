@@ -10,6 +10,12 @@
     <Page Update="Assets\Styles\GlobalStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Assets\Styles\Themes\Dark.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\Themes\Light.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

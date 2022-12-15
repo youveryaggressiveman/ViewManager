@@ -195,3 +195,8 @@ E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\refint\API.dll
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\API.pdb
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\ref\API.dll
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\staticwebassets\msbuild.build.API.props
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.API.props
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\API\obj\Debug\net6.0\staticwebassets.pack.json

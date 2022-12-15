@@ -30,7 +30,7 @@ namespace ServerApp.ViewModel
 
         public MainWindowViewModel()
         {
-            _controller = new MainWindowViewModelController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetServer());
+            _controller = new MainWindowViewModelController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
 
             LogManager.CreateMainFolder();
 

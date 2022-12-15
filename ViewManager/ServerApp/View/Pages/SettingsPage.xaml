@@ -30,6 +30,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Text="Select a language:"
                                FontSize="18"
@@ -37,6 +38,7 @@
                                VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1"
                       ItemsSource="{Binding LanguageList}"
+                      Width="250"
                       SelectedItem="{Binding SelectedLanguage}"/>
             <TextBlock Text="Select a theme:"
                        Grid.Row="1"
@@ -45,8 +47,34 @@
                                VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
+                      Width="250"
                       ItemsSource="{Binding ThemeList}"
                       SelectedItem="{Binding SelectedTheme}"/>
+            <TextBlock Text="Network settings:"
+                       Grid.Row="2"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Row="2"
+                        Grid.Column="1">
+                <TextBlock Text="IP"
+                           FontSize="18" Margin="10 0"/>
+                <TextBox Text="{Binding Ip}"
+                         IsEnabled="False"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"
+                         Width="270"/>
+                <TextBlock Text="Port"
+                           FontSize="18" Margin="10 0"/>
+                <TextBox Text="{Binding Port}"
+                         Width="70"
+                         PreviewTextInput="Port_PreviewTextInput"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"/>
+            </StackPanel>
         </Grid>
         <Button Content="Save Changes"
                 Width="200"

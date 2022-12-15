@@ -29,11 +29,10 @@
             <Grid>
                 <TextBlock Text="Authorization"
                            Padding="200 30"
-                           FontWeight="Bold"
+                           FontWeight="SemiBold"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="30"
-                       Foreground="{StaticResource AdditionalColor}"/>
+                       FontSize="30"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>

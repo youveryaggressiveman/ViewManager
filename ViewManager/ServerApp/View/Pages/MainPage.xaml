@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontWeight="Bold"
+            <TextBlock FontWeight="SemiBold"
                        Grid.ColumnSpan="2"
                        Margin="40 0 0 0"
                        HorizontalAlignment="Left"
@@ -53,7 +53,7 @@
                        Foreground="{DynamicResource AdditionalColor}"
                        VerticalAlignment="Center"
                        FontSize="21">
-                        <Run Text="FIO: " FontWeight="Bold"/>
+                        <Run Text="FIO: " FontWeight="SemiBold"/>
                         <Run Text="{Binding User.FIO, Mode=OneWay}"/>
                     </TextBlock>
                 </StackPanel>

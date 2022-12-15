@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="{StaticResource MainColor}"
       FontFamily="DM Sans"
-        Title="ViewManager: Client" Height="500" Width="500"
+        Title="ViewManager: Client" Height="650" Width="650"
         MinHeight="500"
         MinWidth="500">
     <Grid>
@@ -40,6 +40,105 @@
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Settings"
+                           FontSize="25"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+            <Grid Grid.Row="1"
+              Margin="10 0 10 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Select a language:"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="1"
+                      ItemsSource="{Binding LanguageList}"
+                      Width="250"
+                          Margin="25 15"
+                      SelectedItem="{Binding SelectedLanguage}"/>
+                <TextBlock Text="Select a theme:"
+                       Grid.Row="1"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="1"
+                      Grid.Row="1"
+                          Margin="25 15"
+                      Width="250"
+                      ItemsSource="{Binding ThemeList}"
+                      SelectedItem="{Binding SelectedTheme}"/>
+                <TextBlock Text="Your Network settings:"
+                       Grid.Row="2"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Row="2"
+                        Grid.Column="1">
+                    <TextBlock Text="IP"
+                           FontSize="18" Margin="10 0"/>
+                    <TextBox Text="{Binding YourIp}"
+                         IsEnabled="False"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"
+                         Width="270"/>
+                    <TextBlock Text="Port"
+                           FontSize="18" Margin="10 0"/>
+                    <TextBox Text="{Binding YourPort}"
+                         Width="70"
+                         PreviewTextInput="Port_PreviewTextInput"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"/>
+                </StackPanel>
+                <TextBlock Text="Server Network settings:"
+                       Grid.Row="3"
+                               FontSize="18"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Row="3"
+                        Grid.Column="1">
+                    <TextBlock Text="IP"
+                           FontSize="18" Margin="10 0"/>
+                    <TextBox Text="{Binding ServerIp}"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"
+                         Width="270"/>
+                    <TextBlock Text="Port"
+                           FontSize="18" Margin="10 0"/>
+                    <TextBox Text="{Binding ServerPort}"
+                         Width="70"
+                         PreviewTextInput="Port_PreviewTextInput"
+                         HorizontalContentAlignment="Center"
+                         FontSize="18"/>
+                </StackPanel>
+            </Grid>
+            <Button Content="Save Changes"
+                Width="200"
+                Command="{Binding SaveChangesCommand}"
+                Grid.Row="2"
+                HorizontalAlignment="Right"/>
         </Grid>
         <TextBlock 
                    Grid.Row="2"

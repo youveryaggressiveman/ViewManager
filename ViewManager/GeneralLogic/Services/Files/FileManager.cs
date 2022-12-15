@@ -38,17 +38,17 @@ namespace GeneralLogic.Services.Files
 
         public async Task FileWriter(string text, string pcName)
         {
-            //string filePath = _path + pcName + ".txt";
+            string filePath = _path + pcName + ".txt";
 
-            //if (!File.Exists(filePath))
-            //{
-            //    File.Create(_path).Close();
-            //}
+            if (!File.Exists(filePath))
+            {
+                File.Create(_path).Close();
+            }
 
-            //using (StreamWriter streamWriter = new StreamWriter(filePath, false))
-            //{
-            //    await streamWriter.WriteLineAsync(text);
-            //}
+            using (StreamWriter streamWriter = new StreamWriter(filePath, false))
+            {
+                await streamWriter.WriteLineAsync(text);
+            }
         }
     }
 }

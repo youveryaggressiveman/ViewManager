@@ -1,9 +1,12 @@
-﻿using ServerApp.Command;
+﻿using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Command;
 using ServerApp.Core.Settings;
+using ServerApp.Core.Singleton;
 using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +23,28 @@ namespace ServerApp.ViewModel
 
         private string _selectedTheme;
         private string _selectedLanguage;
+        private string _port;
+        private string _ip;
+
+        public string Port
+        {
+            get => _port;
+            set
+            {
+                _port= value;
+                OnPropertyChanged(nameof(Port));
+            }
+        }
+
+        public string Ip
+        {
+            get=> _ip;
+            set
+            {
+                _ip = value;
+                OnPropertyChanged(nameof(Ip));
+            }
+        }
 
         public List<string> ThemeList
         {
@@ -71,6 +96,9 @@ namespace ServerApp.ViewModel
 
             _settingsManager = new SettingsManager();
 
+            Port = TcpServerSingleton.GetPort().ToString();
+            Ip = TcpServerSingleton.GetIp();
+
             ThemeList = new List<string>()
             {
                 "Light",
@@ -96,6 +124,15 @@ namespace ServerApp.ViewModel
 
         private void SaveChanges(object obj)
         {
+            if (string.IsNullOrEmpty(Port))
+            {
+                CustomMessageBox.Show("The field with the input of the port cannot be empty!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                return;
+            }
+
+            int port = int.Parse(Port);
+
             if (!string.IsNullOrEmpty(SelectedTheme))
             {
                 Settings.Default.ThemeName = SelectedTheme;
@@ -104,6 +141,17 @@ namespace ServerApp.ViewModel
             if (!string.IsNullOrEmpty(SelectedLanguage))
             {
                 Settings.Default.LanguageName = SelectedLanguage;
+            }
+
+            if (port > 1023 && port<=65535)
+            {
+                Settings.Default.Port = port;
+                TcpServerSingleton.SetPort(port);
+
+                if(CustomMessageBox.Show("In order for the network changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+                {
+                    //Перезапускать приложение
+                }
             }
 
             Settings.Default.Save();
