@@ -42,7 +42,7 @@ namespace ClientApp.Core.Singleton
         {
             var host = Dns.GetHostName();
 
-            return Dns.GetHostByName(host).AddressList[0].ToString();
+            return Dns.GetHostByName(host).AddressList[5].ToString();
         }
     }
 }

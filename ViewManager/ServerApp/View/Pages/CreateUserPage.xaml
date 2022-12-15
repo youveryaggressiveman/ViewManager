@@ -159,6 +159,7 @@
                               DisplayMemberPath="Value"
                               Grid.Column="1"/>
                     <Button Grid.Row="3"
+                            Foreground="{DynamicResource ForegroundColor}"
                             Command="{Binding CreateUserCommand}"
                             Grid.ColumnSpan="2"
                             Content="Create" />

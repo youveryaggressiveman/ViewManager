@@ -47,6 +47,7 @@
                                FontSize="28"
                                TextDecorations="Underline"/>
                     <TextBox Text="{Binding Login}"
+                             Foreground="Black"
                              Margin="10 5"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"

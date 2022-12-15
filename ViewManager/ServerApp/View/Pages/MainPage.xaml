@@ -45,7 +45,7 @@
                     Grid.Column="0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    BorderBrush="{DynamicResource NeutralColor}"
+                    BorderBrush="{DynamicResource AdditionalColor}"
                     BorderThickness="1">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center"

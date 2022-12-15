@@ -22,7 +22,7 @@
                            FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
         <Grid Grid.Row="1"
-              Margin="10 0 0 0">
+              Margin="10 0 10 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
@@ -76,7 +76,7 @@
                          FontSize="18"/>
             </StackPanel>
         </Grid>
-        <Button Content="Save Changes"
+        <Button Content="Save changes"
                 Width="200"
                 Command="{Binding SaveChangesCommand}"
                 Grid.Row="2"

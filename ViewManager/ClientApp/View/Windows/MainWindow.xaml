@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
-        Background="{StaticResource MainColor}"
-      FontFamily="DM Sans"
+        Background="{DynamicResource MainColor}"
+        FontFamily="DM Sans"
+        WindowStartupLocation="CenterScreen"
         Title="ViewManager: Client" Height="650" Width="650"
-        MinHeight="500"
-        MinWidth="500">
+        MinHeight="670"
+        MinWidth="670">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -25,7 +26,7 @@
                         Margin="20 0 0 0"
                     VerticalAlignment="Center">
                 <TextBlock Text="ViewManager"
-                            Foreground="{StaticResource AdditionalColor}"
+                           Foreground="{DynamicResource ForegroundColor}"
                            TextDecorations="Underline"
                        FontSize="35"
                            FontWeight="Bold"
@@ -36,7 +37,7 @@
             <TextBlock Text="Control everything"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                        Foreground="{StaticResource AdditionalColor}"
+                        Foreground="{DynamicResource ForegroundColor}"
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
@@ -47,11 +48,40 @@
                 <RowDefinition/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Settings"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Settings"
                            FontSize="25"
+                           Grid.ColumnSpan="2"
                            HorizontalAlignment="Center"
                            FontWeight="SemiBold"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" />
+                <Border CornerRadius="5"
+                        Grid.ColumnSpan="2"
+                        Padding="10"
+                        Margin="0 0 20 0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        BorderBrush="{DynamicResource AdditionalColor}"
+                        BorderThickness="1">
+                    <TextBlock HorizontalAlignment="Center"
+                                   Grid.Column="1"
+                                   Width="200"
+                                   Foreground="{DynamicResource AdditionalColor}"
+                                   VerticalAlignment="Center"
+                                   FontSize="21">
+                        <Run Text="Status: "
+                             FontWeight="SemiBold" />
+                        <Run Text="{Binding Status, Mode=OneWay}">
+                        </Run>
+                        </TextBlock>
+                </Border>
+            </Grid>
+            
             <Grid Grid.Row="1"
               Margin="10 0 10 0">
                 <Grid.ColumnDefinitions>
@@ -122,6 +152,7 @@
                     <TextBlock Text="IP"
                            FontSize="18" Margin="10 0"/>
                     <TextBox Text="{Binding ServerIp}"
+                             PreviewTextInput="Ip_PreviewTextInput"
                          HorizontalContentAlignment="Center"
                          FontSize="18"
                          Width="270"/>
@@ -134,21 +165,81 @@
                          FontSize="18"/>
                 </StackPanel>
             </Grid>
-            <Button Content="Save Changes"
-                Width="200"
-                Command="{Binding SaveChangesCommand}"
-                Grid.Row="2"
-                HorizontalAlignment="Right"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Save changes"
+                        Width="180"
+                        Command="{Binding SaveChangesCommand}"
+                        HorizontalAlignment="Right" 
+                        Grid.Column="1"/>
+                <Button Content="Check connection"
+                        Width="220"
+                        Command="{Binding CheckConnectionCommand}"
+                        HorizontalAlignment="Right"
+                        Grid.Column="0" />
+            </Grid>
+            
         </Grid>
         <TextBlock 
                    Grid.Row="2"
                    Opacity="0.6"
                    HorizontalAlignment="Right"
-             Foreground="{StaticResource AdditionalColor}"
+             Foreground="{DynamicResource AdditionalColor}"
                    VerticalAlignment="Center"
                    Margin="0 0 20 0">
             <Run Text="©" FontSize="21"/>
             <Run Text="youveryaggressiveman" FontSize="18"/>
         </TextBlock>
+        <Border x:Name="Splash"
+                Visibility="{Binding Visibility}"
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Opacity=".35"
+                Background="{DynamicResource AdditionalColor}" />
+        <Border Grid.Row="1"
+                CornerRadius="12"
+                BorderThickness="2"
+                BorderBrush="{DynamicResource ColorHighlight}"
+                Margin="12"
+                Padding="5"
+                Visibility="{Binding Visibility}"
+                Grid.RowSpan="2"
+                Background="{DynamicResource MainColor}"
+                Height="150"
+                Width="400">
+            <TextBlock VerticalAlignment="Center"
+                       HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse x:Name="Ellipse"
+                             Width="50"
+                             Height="50"
+                             StrokeThickness="5"
+                             StrokeDashArray="1,2"
+                             Stroke="{DynamicResource ColorHighlight}"
+                             StrokeDashCap="Round"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             RenderTransformOrigin="0.5,0.5">
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Label x:Name="label"
+                           Foreground="{DynamicResource AdditionalColor}"
+                           Content="Подождите..."
+                           FontSize="25"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0" />
+                </StackPanel>
+            </TextBlock>
+        </Border>
     </Grid>
 </Window>

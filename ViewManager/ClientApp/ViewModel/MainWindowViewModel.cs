@@ -1,4 +1,5 @@
-﻿using ClientApp.Command;
+﻿using ClientApp.Assets.Custom.MessageBox;
+using ClientApp.Command;
 using ClientApp.Controllers;
 using ClientApp.Core.Settings;
 using ClientApp.Core.Singleton;
@@ -27,12 +28,25 @@ namespace ClientApp.ViewModel
         private List<string> _themeList;
         private List<string> _languageList;
 
+        private string _status;
         private string _yourIp;
         private string _yourPort;
         private string _serverIp;
         private string _serverPort;
         private string _selectedTheme;
         private string _selectedLanguage;
+
+        private Visibility _visibility = Visibility.Collapsed;
+
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                _status= value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
 
         public string YourIp
         {
@@ -73,8 +87,6 @@ namespace ClientApp.ViewModel
                 OnPropertyChanged(nameof(ServerPort));
             }
         }
-
-        private Visibility _visibility = Visibility.Collapsed;
 
         public Visibility Visibility
         {
@@ -129,22 +141,20 @@ namespace ClientApp.ViewModel
         }
 
         public ICommand SaveChangesCommand { get; }
+        public ICommand CheckConnectionCommand { get; }
 
         public MainWindowViewModel()
         {
-            _controller = new MainWindowViewModelController(ServerSingleton.GetServerPort(), ServerSingleton.GetServerIp());    
-
-            SaveChangesCommand = new DelegateCommand(SaveChanges);
-
             YourIp = ServerSingleton.GetThisIp();
             YourPort = ServerSingleton.GetThisPort().ToString();
 
             ServerIp = ServerSingleton.GetServerIp();
-            ServerPort = ServerSingleton.GetServerIp().ToString();
+            ServerPort = ServerSingleton.GetServerPort().ToString();
 
-            Timer timer = new Timer(5000);
-            timer.Elapsed += async (sender, e) => await CheckConnection();
-            timer.Start();
+            _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
+
+            SaveChangesCommand = new DelegateCommand(SaveChanges);
+            CheckConnectionCommand = new DelegateCommand(CheckConnection);
 
             LogManager.CreateMainFolder();
 
@@ -162,6 +172,7 @@ namespace ClientApp.ViewModel
             LoadInfo();
             FileWork();
             StartTcp();
+            CheckConnection(null);
         }
 
         private void SaveChanges(object obj)
@@ -204,14 +215,22 @@ namespace ClientApp.ViewModel
             await _controller.StartListenerTcp();
         }
 
-        private async Task CheckConnection()
+        private async void CheckConnection(object obj)
         {
             LoadBorder(true);
 
             if (await _controller.SendFirstMessageTcp())
             {
-                LoadBorder(false);
-            }  
+                Status = "Connected";
+            }
+            else
+            {
+                Status = "Disconnected";
+
+                CustomMessageBox.Show("Connection with this ID and port does not exist.", Assets.Custom.MessageBox.Basic.Titles.Error, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
+
+            LoadBorder(false);
         }
 
         private void LoadBorder(bool switchBorder)

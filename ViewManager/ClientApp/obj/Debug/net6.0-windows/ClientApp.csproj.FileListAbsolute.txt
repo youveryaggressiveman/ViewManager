@@ -169,3 +169,8 @@ D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\refint\ClientAp
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.pdb
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.genruntimeconfig.cache
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ref\ClientApp.dll
+D:\my\ViewManager\ViewManager\ClientApp\bin\Debug\net6.0-windows\ClientApp.dll.config
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Styles\Themes\Dark.baml
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Styles\Themes\Light.baml
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Custom\MessageBox\CustomMessageBox.g.cs
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Custom\MessageBox\CustomMessageBox.baml

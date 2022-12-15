@@ -37,7 +37,8 @@ namespace ServerApp.View.Pages
             Regex inputRegex = new Regex(@"^[0-9]*$");
             Match match = inputRegex.Match(input);
 
-            if (!match.Success || (sender as TextBox).Text.Length >=5)
+            if (!match.Success || (sender as TextBox).Text.Length >= 5 || int.Parse((sender as TextBox).Text + e.Text) > 65535
+                    || ((sender as TextBox).Text.Length == 0 && e.Text == "0"))
             {
                 e.Handled = true;
             }

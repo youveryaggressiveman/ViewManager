@@ -32,10 +32,17 @@ namespace ClientApp
             InitializeComponent();
 
             DataContext = _viewModel = new MainWindowViewModel();
+        }
 
-            if (!string.IsNullOrEmpty(Settings.Default.ThemeName))
+        private void Ip_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string input = e.Text.ToString();
+            Regex inputRegex = new Regex(@"^[0-9]*$");
+            Match match = inputRegex.Match(input);
+
+            if (!match.Success)
             {
-                _settingsManager.SetTheme(Settings.Default.ThemeName);
+                e.Handled = true;
             }
         }
 
@@ -45,7 +52,8 @@ namespace ClientApp
             Regex inputRegex = new Regex(@"^[0-9]*$");
             Match match = inputRegex.Match(input);
 
-            if (!match.Success || (sender as TextBox).Text.Length >= 5)
+            if (!match.Success || (sender as TextBox).Text.Length >= 5 || int.Parse((sender as TextBox).Text + e.Text) > 65535
+                    || ((sender as TextBox).Text.Length == 0 && e.Text == "0"))
             {
                 e.Handled = true;
             }

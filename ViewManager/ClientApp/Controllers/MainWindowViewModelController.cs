@@ -27,10 +27,11 @@ namespace ClientApp.Controllers
         public async Task<int> StartListenerTcp()
         {
             NetworkStream stream = null;
-            s_tcpClient = new TcpClient(_server, _port);
 
             try
             {
+                s_tcpClient = new TcpClient(_server, _port);
+
                 IPEndPoint ipep = (IPEndPoint)s_tcpClient.Client.LocalEndPoint;
 
                 s_listener = new TcpListener(ipep.Address,_port);

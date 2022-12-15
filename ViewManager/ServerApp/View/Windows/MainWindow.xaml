@@ -29,7 +29,7 @@
                         Margin="20 0 0 0"
                     VerticalAlignment="Center">
                 <TextBlock Text="ViewManager"
-                            Foreground="{DynamicResource AdditionalColor}"
+                            Foreground="{DynamicResource ForegroundColor}"
                            TextDecorations="Underline"
                        FontSize="35"
                            FontWeight="Bold"
@@ -40,7 +40,7 @@
             <TextBlock Text="Control everything"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                        Foreground="{DynamicResource AdditionalColor}"
+                        Foreground="{DynamicResource ForegroundColor}"
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
@@ -62,11 +62,16 @@
             Grid.Row="0"
             Grid.RowSpan="3"
             Opacity=".35"
-            Background="{StaticResource AdditionalColor}" />
+            Background="{DynamicResource AdditionalColor}" />
         <Border
             Grid.Row="1"
-            Visibility="{Binding Visibility}"
-            Grid.RowSpan="2"
+            CornerRadius="12"
+            BorderThickness="2"
+            BorderBrush="{DynamicResource ColorHighlight}"
+            Margin="12"
+            Padding="5"
+                Visibility="{Binding Visibility}"
+                Grid.RowSpan="2"
             Background="{DynamicResource MainColor}"
             Height="150"
             Width="400">

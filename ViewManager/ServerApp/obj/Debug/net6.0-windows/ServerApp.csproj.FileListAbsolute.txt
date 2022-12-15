@@ -233,3 +233,11 @@ E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\M
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.Properties.Resources.resources
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.GenerateResource.cache
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Localization.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Localization.Abstractions.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.Properties.Resources.resources
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.GenerateResource.cache
