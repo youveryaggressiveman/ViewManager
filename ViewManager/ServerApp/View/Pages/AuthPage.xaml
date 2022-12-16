@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
       xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.AuthPage"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="800"
@@ -27,7 +28,7 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid>
-                <TextBlock Text="Authorization"
+                <TextBlock Text="{x:Static lang:Lang.TitleAuth}"
                            Padding="200 30"
                            FontWeight="SemiBold"
                        HorizontalAlignment="Center"
@@ -42,7 +43,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical"
                             Margin="10">
-                    <TextBlock Text="Input login:"
+                    <TextBlock Text="{x:Static lang:Lang.TextBlockLogin}"
                                Margin="10 0 0 0"
                                FontSize="28"
                                TextDecorations="Underline"/>
@@ -53,7 +54,7 @@
                 <StackPanel Orientation="Vertical"
                             Margin="10"
                             Grid.Row="1">
-                    <TextBlock Text="Input password:"
+                    <TextBlock Text="{x:Static lang:Lang.TextBlockPassword}"
                                Margin="10 0 0 0"
                                FontSize="28"
                                TextDecorations="Underline"/>
@@ -68,7 +69,7 @@
                     </Grid>
 
                 </StackPanel>
-                <CheckBox Content="Show password"
+                <CheckBox Content="{x:Static lang:Lang.CheckBoxAuth}"
                           FontSize="25"
                           Grid.Row="2"
                           Margin="20 30"
@@ -79,7 +80,7 @@
                           VerticalContentAlignment="Center"
                           VerticalAlignment="Center"/>
             </Grid>
-            <Button Content="Authorize"
+            <Button Content="{x:Static lang:Lang.ButtonAuth}"
                     Grid.Row="2"
                     IsDefault="True"
                     Command="{Binding AuthCommand}"/>

@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Light</Value>
     </Setting>
     <Setting Name="LanguageName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">en</Value>
+      <Value Profile="(Default)">en-US</Value>
     </Setting>
     <Setting Name="Port" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2003</Value>

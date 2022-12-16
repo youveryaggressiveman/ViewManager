@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApp"
+        xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
         xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.MainWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -101,8 +102,9 @@
                         </Ellipse.RenderTransform>
                     </Ellipse>
                     <Label
+                        Foreground="{DynamicResource AdditionalColor}"
                         x:Name="label"
-                        Content="Подождите..."
+                        Content="{x:Static lang:Lang.WaitingBlock}"
                         FontSize="25"
                         VerticalAlignment="Center"
                         Margin="5,0,0,0" />

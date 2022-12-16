@@ -1,11 +1,14 @@
-﻿using ServerApp.Assets.Custom.MessageBox;
+﻿using GeneralLogic.Services.Settings;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Core.Settings;
 using ServerApp.Core.Singleton;
 using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +20,8 @@ namespace ServerApp.ViewModel
     public class SettingsPageViewModel : BaseViewModel
     {
         private readonly ISettingsManager _settingsManager;
+
+        private readonly CheckSettings _checkSettings;
 
         private List<string> _themeList;
         private List<string> _languageList;
@@ -31,14 +36,14 @@ namespace ServerApp.ViewModel
             get => _port;
             set
             {
-                _port= value;
+                _port = value;
                 OnPropertyChanged(nameof(Port));
             }
         }
 
         public string Ip
         {
-            get=> _ip;
+            get => _ip;
             set
             {
                 _ip = value;
@@ -68,7 +73,7 @@ namespace ServerApp.ViewModel
 
         public string SelectedTheme
         {
-            get=>_selectedTheme;
+            get => _selectedTheme;
             set
             {
                 _selectedTheme = value;
@@ -94,6 +99,7 @@ namespace ServerApp.ViewModel
         {
             SaveChangesCommand = new DelegateCommand(SaveChanges);
 
+            _checkSettings = new CheckSettings();
             _settingsManager = new SettingsManager();
 
             Port = TcpServerSingleton.GetPort().ToString();
@@ -104,21 +110,27 @@ namespace ServerApp.ViewModel
                 "Light",
                 "Dark"
             };
-            LanguageList = new List<string>();
+            LanguageList = new List<string>()
+            {
+                "English",
+                "Русский"
+            };
 
             LoadInfo();
         }
 
         private void LoadInfo()
         {
+            var lang = _checkSettings.CheckLang(Settings.Default.LanguageName);
+
             if (ThemeList.Contains(Settings.Default.ThemeName))
             {
                 SelectedTheme = Settings.Default.ThemeName;
             }
 
-            if (ThemeList.Contains(Settings.Default.LanguageName))
+            if (LanguageList.Contains(lang))
             {
-                SelectedTheme = Settings.Default.LanguageName;
+                SelectedLanguage = lang;
             }
         }
 
@@ -133,6 +145,13 @@ namespace ServerApp.ViewModel
 
             int port = int.Parse(Port);
 
+            if (port <= 1023)
+            {
+                CustomMessageBox.Show("This port is reserved by the system.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                return;
+            }
+
             if (!string.IsNullOrEmpty(SelectedTheme))
             {
                 Settings.Default.ThemeName = SelectedTheme;
@@ -140,21 +159,25 @@ namespace ServerApp.ViewModel
 
             if (!string.IsNullOrEmpty(SelectedLanguage))
             {
-                Settings.Default.LanguageName = SelectedLanguage;
+                Settings.Default.LanguageName = _checkSettings.CheckCulture(SelectedLanguage);
             }
 
-            if (port > 1023 && port<=65535)
-            {
-                Settings.Default.Port = port;
-                TcpServerSingleton.SetPort(port);
 
-                if(CustomMessageBox.Show("In order for the network changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
-                {
-                    //Перезапускать приложение
-                }
-            }
+            Settings.Default.Port = port;
+            TcpServerSingleton.SetPort(port);
 
             Settings.Default.Save();
+
+            if (CustomMessageBox.Show("In order for the network changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            {
+                ProcessStartInfo Info = new ProcessStartInfo();
+                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
+                Info.WindowStyle = ProcessWindowStyle.Hidden;
+                Info.CreateNoWindow = true;
+                Info.FileName = "cmd.exe";
+                Process.Start(Info);
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
     }

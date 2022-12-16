@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
        Background="{DynamicResource MainColor}"
@@ -16,7 +17,7 @@
             <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Settings"
+        <TextBlock Text="{x:Static lang:Lang.Settings}"
                            FontSize="25"
                            HorizontalAlignment="Center"
                            FontWeight="SemiBold"
@@ -32,7 +33,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Select a language:"
+            <TextBlock Text="{x:Static lang:Lang.TextBlockSelectLang}"
                                FontSize="18"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"/>
@@ -40,7 +41,7 @@
                       ItemsSource="{Binding LanguageList}"
                       Width="250"
                       SelectedItem="{Binding SelectedLanguage}"/>
-            <TextBlock Text="Select a theme:"
+            <TextBlock Text="{x:Static lang:Lang.TextBlockSelectTheme}"
                        Grid.Row="1"
                                FontSize="18"
                                HorizontalAlignment="Left"
@@ -50,7 +51,7 @@
                       Width="250"
                       ItemsSource="{Binding ThemeList}"
                       SelectedItem="{Binding SelectedTheme}"/>
-            <TextBlock Text="Network settings:"
+            <TextBlock Text="{x:Static lang:Lang.TextBlockNetwork}"
                        Grid.Row="2"
                                FontSize="18"
                                HorizontalAlignment="Left"
@@ -61,22 +62,27 @@
                         Grid.Row="2"
                         Grid.Column="1">
                 <TextBlock Text="IP"
+                           VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
                 <TextBox Text="{Binding Ip}"
                          IsEnabled="False"
+                         VerticalAlignment="Center"
+                         HorizontalScrollBarVisibility="Auto"
                          HorizontalContentAlignment="Center"
                          FontSize="18"
-                         Width="270"/>
-                <TextBlock Text="Port"
+                         Width="200"/>
+                <TextBlock Text="{x:Static lang:Lang.TextBlockPort}"
+                           VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
                 <TextBox Text="{Binding Port}"
                          Width="70"
+                         VerticalAlignment="Center"
                          PreviewTextInput="Port_PreviewTextInput"
                          HorizontalContentAlignment="Center"
                          FontSize="18"/>
             </StackPanel>
         </Grid>
-        <Button Content="Save changes"
+        <Button Content="{x:Static lang:Lang.ButtonSaveChanges}"
                 Width="200"
                 Command="{Binding SaveChangesCommand}"
                 Grid.Row="2"

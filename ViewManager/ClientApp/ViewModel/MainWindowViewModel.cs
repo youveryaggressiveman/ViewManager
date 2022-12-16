@@ -6,9 +6,12 @@ using ClientApp.Core.Singleton;
 using ClientApp.Properties;
 using GeneralLogic.Services.Files;
 using GeneralLogic.Services.PcFeatures.Management;
+using GeneralLogic.Services.Settings;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -21,6 +24,7 @@ namespace ClientApp.ViewModel
     {
         private readonly ISettingsManager _settingsManager;
 
+        private readonly CheckSettings _checkSettings;
         private readonly FileManager _fileManager;
         private readonly PcManager _pcManager;
         private readonly MainWindowViewModelController _controller;
@@ -37,6 +41,16 @@ namespace ClientApp.ViewModel
         private string _selectedLanguage;
 
         private Visibility _visibility = Visibility.Collapsed;
+
+        public List<string> LanguageList
+        {
+            get => _languageList;
+            set
+            {
+                _languageList = value;
+                OnPropertyChanged(nameof(LanguageList));
+            }
+        }
 
         public string Status
         {
@@ -108,16 +122,6 @@ namespace ClientApp.ViewModel
             }
         }
 
-        public List<string> LanguageList
-        {
-            get => _languageList;
-            set
-            {
-                _languageList = value;
-                OnPropertyChanged(nameof(LanguageList));
-            }
-        }
-
         public string SelectedTheme
         {
             get => _selectedTheme;
@@ -158,16 +162,21 @@ namespace ClientApp.ViewModel
 
             LogManager.CreateMainFolder();
 
-            _settingsManager = new SettingsManager();
-            _pcManager = new PcManager();
-            _fileManager = new FileManager();
-
+            LanguageList = new List<string>()
+            {
+                "English",
+                "Русский"
+            };
             ThemeList = new List<string>()
             {
                 "Light",
                 "Dark"
             };
-            LanguageList = new List<string>();
+
+            _checkSettings = new CheckSettings();
+            _settingsManager = new SettingsManager();
+            _pcManager = new PcManager();
+            _fileManager = new FileManager();
 
             LoadInfo();
             FileWork();
@@ -177,29 +186,68 @@ namespace ClientApp.ViewModel
 
         private void SaveChanges(object obj)
         {
-            if (!string.IsNullOrEmpty(SelectedTheme))
+            if (string.IsNullOrEmpty(ServerPort) || string.IsNullOrEmpty(YourPort) || string.IsNullOrEmpty(ServerIp))
             {
+                CustomMessageBox.Show("The fields for entering data about the local network cannot be empty!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                return;
+            }
+
+            int serverPort = int.Parse(ServerPort);
+            int yourPort = int.Parse(YourPort);
+
+            if (serverPort <= 1023 || yourPort <= 1023)
+            {
+                CustomMessageBox.Show("This port is reserved by the system.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(SelectedTheme))
+            {;
                 Settings.Default.ThemeName = SelectedTheme;
             }
 
             if (!string.IsNullOrEmpty(SelectedLanguage))
-            {
-                Settings.Default.LanguageName = SelectedLanguage;
+            {;
+                Settings.Default.LanguageName = _checkSettings.CheckCulture(SelectedLanguage);
             }
 
+            Settings.Default.YourPort = yourPort;
+            ServerSingleton.SetThisPort(yourPort);
+
+            Settings.Default.ServerPort = serverPort;
+            ServerSingleton.SetServerPort(serverPort);
+
+            Settings.Default.ServerIp = ServerIp;
+            ServerSingleton.SetServerIp(ServerIp);
+
             Settings.Default.Save();
+
+            if (CustomMessageBox.Show("In order for the network and language changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            {
+                ProcessStartInfo Info = new ProcessStartInfo();
+                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
+                Info.WindowStyle = ProcessWindowStyle.Hidden;
+                Info.CreateNoWindow = true;
+                Info.FileName = "cmd.exe";
+                Process.Start(Info);
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
-        private void LoadInfo()
+        public void LoadInfo()
         {
+            var lang = _checkSettings.CheckLang(Settings.Default.LanguageName);
+
             if (ThemeList.Contains(Settings.Default.ThemeName))
             {
                 SelectedTheme = Settings.Default.ThemeName;
             }
 
-            if (ThemeList.Contains(Settings.Default.LanguageName))
+            if (LanguageList.Contains(lang))
             {
-                SelectedTheme = Settings.Default.LanguageName;
+                SelectedLanguage = lang;
             }
         }
 

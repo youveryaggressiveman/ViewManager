@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ServerApp.View.Pages"
+      xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
       xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.View.Pages.MainPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -34,9 +35,9 @@
                        VerticalAlignment="Center"
                        FontSize="30"
                        Foreground="{DynamicResource AdditionalColor}">
-                <Run Text="MainWindow: "/>
+                <Run Text="{x:Static lang:Lang.MainWindowTitle}"/>
                 <Run Text="{Binding User.Role.Value}"/>
-                <Run Text=" mode"/>
+                <Run Text="{x:Static lang:Lang.ModeTitle}"/>
             </TextBlock>
             <Border CornerRadius="5"
                     Grid.ColumnSpan="2"
@@ -53,7 +54,7 @@
                        Foreground="{DynamicResource AdditionalColor}"
                        VerticalAlignment="Center"
                        FontSize="21">
-                        <Run Text="FIO: " FontWeight="SemiBold"/>
+                        <Run Text="{x:Static lang:Lang.TextBlockFIO}" FontWeight="SemiBold"/>
                         <Run Text="{Binding User.FIO, Mode=OneWay}"/>
                     </TextBlock>
                 </StackPanel>
@@ -64,20 +65,20 @@
         </Grid >
         <Border  Grid.Row="1"
                  BorderBrush="{DynamicResource ColorHighlight}"
-                 Background="{DynamicResource NeutralColor}"
+                 Background="{DynamicResource MainColor}"
                  CornerRadius="0 5 5 0"
                  BorderThickness="0 1 1 1">
             <StackPanel Orientation="Vertical"
                     Grid.Row="1">
-                <Button Content="Update"
+                <Button Content="{x:Static lang:Lang.UpdateButton}"
                         Visibility="{Binding AccountantButtonVisibility}"
                         Command="{Binding UpdateCommand}"
                     Padding="15"/>
-                <Button Content="Create"
+                <Button Content="{x:Static lang:Lang.ButtonCreate}"
                         Command="{Binding CreateCommand}"
                         Visibility="{Binding AccountantButtonVisibility}"
                     Padding="15"/>
-                <Button Content="Settings"
+                <Button Content="{x:Static lang:Lang.Settings}"
                         Command="{Binding SettingsCommand}"
                         Visibility="{Binding CommonButtonVisibility}"
                     Padding="15"/>

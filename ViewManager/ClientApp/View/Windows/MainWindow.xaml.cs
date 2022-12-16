@@ -26,24 +26,11 @@ namespace ClientApp
     {
         private readonly MainWindowViewModel _viewModel;
 
-        private readonly ISettingsManager _settingsManager;
         public MainWindow()
         {
             InitializeComponent();
 
             DataContext = _viewModel = new MainWindowViewModel();
-        }
-
-        private void Ip_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            string input = e.Text.ToString();
-            Regex inputRegex = new Regex(@"^[0-9]*$");
-            Match match = inputRegex.Match(input);
-
-            if (!match.Success)
-            {
-                e.Handled = true;
-            }
         }
 
         private void Port_PreviewTextInput(object sender, TextCompositionEventArgs e)

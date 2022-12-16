@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -16,6 +17,7 @@ namespace ClientApp.Core.Settings
 
         public void SetTheme(string theme)
         {
+
             Uri uri = new(@"../../../Assets/Styles/Themes/" + theme + ".xaml", UriKind.Relative);
 
             ResourceDictionary resourceDictionary = Application.LoadComponent(uri) as ResourceDictionary;

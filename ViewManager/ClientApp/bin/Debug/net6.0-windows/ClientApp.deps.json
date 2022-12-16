@@ -12,6 +12,11 @@
         },
         "runtime": {
           "ClientApp.dll": {}
+        },
+        "resources": {
+          "ru/ClientApp.resources.dll": {
+            "locale": "ru"
+          }
         }
       },
       "HidSharp/2.1.0": {
