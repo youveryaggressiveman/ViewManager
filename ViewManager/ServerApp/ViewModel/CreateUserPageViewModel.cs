@@ -17,9 +17,9 @@ namespace ServerApp.ViewModel
 {
     public class CreateUserPageViewModel : BaseViewModel
     {
-        private readonly CreateUserPageViewModelController<Specialization> _specializationController;
-        private readonly CreateUserPageViewModelController<Office> _officeController;
-        private readonly CreateUserPageViewModelController<User> _userController;
+        private readonly UniversalController<Specialization> _specializationController;
+        private readonly UniversalController<Office> _officeController;
+        private readonly UniversalController<User> _userController;
 
         private User _newUser;
 
@@ -111,9 +111,9 @@ namespace ServerApp.ViewModel
             CreateUserCommand = new DelegateCommand(CreateUser);
             AddSpecCommand = new DelegateCommand(AddSpec);
 
-            _userController = new CreateUserPageViewModelController<User>(ApiServerSingleton.GetConnectionApiString());
-            _specializationController = new CreateUserPageViewModelController<Specialization>(ApiServerSingleton.GetConnectionApiString());
-            _officeController = new CreateUserPageViewModelController<Office>(ApiServerSingleton.GetConnectionApiString());
+            _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
+            _specializationController = new UniversalController<Specialization>(ApiServerSingleton.GetConnectionApiString());
+            _officeController = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
 
             SpecializationList = new ObservableCollection<Specialization>();
             OfficeList = new ObservableCollection<Office>();
@@ -165,7 +165,7 @@ namespace ServerApp.ViewModel
                 try
                 {
 
-                    if (await _userController.CreateUser(NewUser))
+                    if (await _userController.Create(NewUser))
                     {
                         CustomMessageBox.Show("New user successfully added to the system!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 

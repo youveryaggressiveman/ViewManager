@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.DataProtection.XmlEncryption;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace API.Core.Crypter
 {
@@ -23,6 +25,16 @@ namespace API.Core.Crypter
             return Convert.ToBase64String(dst);
         }
 
+        public static string DecryptPassword(string hashedPassword)
+        {
+            if (hashedPassword == null)
+            {
+                return null;
+            }
+
+            return "";
+        }
+
         public static bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;
@@ -34,6 +46,9 @@ namespace API.Core.Crypter
             {
                 throw new ArgumentNullException(nameof(password));
             }
+
+            var ar = Test.test();
+
             byte[] src = Convert.FromBase64String(hashedPassword);
             if ((src.Length != 0x31) || (src[0] != 0))
             {

@@ -1,20 +1,19 @@
-﻿using System;
+﻿using GeneralLogic.Services.Files;
+using ServerApp.Core.Singleton;
+using ServerApp.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Security.Cryptography.X509Certificates;
-using GeneralLogic.Services.Files;
-using ServerApp.Core.Singleton;
-using ServerApp.Model;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace ServerApp.Controllers
 {
-    public class MainWindowViewModelController
+    public class TcpController
     {
         private readonly int _port;
         private readonly string _server;
@@ -22,7 +21,7 @@ namespace ServerApp.Controllers
 
         public static ObservableCollection<string> S_AnswerList { get; set; } = new ObservableCollection<string>();
 
-        public MainWindowViewModelController(int port, string server) =>
+        public TcpController(int port, string server) =>
             (_port, _server) = (port, server);
 
 
@@ -36,7 +35,7 @@ namespace ServerApp.Controllers
                 while (true)
                 {
                     TcpClient client = await s_listener.AcceptTcpClientAsync();
-                    
+
                     Thread clientThread = new Thread(new ParameterizedThreadStart(GetDataTcp));
                     clientThread.Start(client);
                 }
@@ -90,20 +89,20 @@ namespace ServerApp.Controllers
                             ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
 
                             LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server");
-                                break;
+                            break;
                         case 'C':
                             LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
-                                break;
+                            break;
                         case 'A':
                             S_AnswerList.Add(message);
 
                             LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
-                                break;
+                            break;
                         default:
-                                break;
+                            break;
                     }
 
-                    
+
                 }
             }
             catch (Exception ex)

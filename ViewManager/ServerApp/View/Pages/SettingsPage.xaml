@@ -52,11 +52,13 @@
                       ItemsSource="{Binding ThemeList}"
                       SelectedItem="{Binding SelectedTheme}"/>
             <TextBlock Text="{x:Static lang:Lang.TextBlockNetwork}"
+                       Visibility="{Binding Visibility}"
                        Grid.Row="2"
                                FontSize="18"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding Visibility}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Grid.Row="2"
@@ -65,7 +67,7 @@
                            VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
                 <TextBox Text="{Binding Ip}"
-                         IsEnabled="False"
+                         IsReadOnly="True"
                          VerticalAlignment="Center"
                          HorizontalScrollBarVisibility="Auto"
                          HorizontalContentAlignment="Center"

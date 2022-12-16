@@ -1,8 +1,11 @@
 ﻿using GeneralLogic.Services.Settings;
 using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
+using ServerApp.Controllers;
+using ServerApp.Core;
 using ServerApp.Core.Settings;
 using ServerApp.Core.Singleton;
+using ServerApp.Model;
 using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
@@ -21,15 +24,28 @@ namespace ServerApp.ViewModel
     {
         private readonly ISettingsManager _settingsManager;
 
+        private readonly UniversalController<User> _userController;
         private readonly CheckSettings _checkSettings;
 
         private List<string> _themeList;
         private List<string> _languageList;
 
+        private Visibility _visibility = Visibility.Collapsed;
+
         private string _selectedTheme;
         private string _selectedLanguage;
         private string _port;
         private string _ip;
+
+        public Visibility Visibility
+        {
+            get => _visibility;
+            set
+            {
+                _visibility= value;
+                OnPropertyChanged(nameof(Visibility));
+            }
+        }
 
         public string Port
         {
@@ -99,6 +115,7 @@ namespace ServerApp.ViewModel
         {
             SaveChangesCommand = new DelegateCommand(SaveChanges);
 
+            _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
             _checkSettings = new CheckSettings();
             _settingsManager = new SettingsManager();
 
@@ -116,7 +133,39 @@ namespace ServerApp.ViewModel
                 "Русский"
             };
 
+            CheckUserRole();
             LoadInfo();
+        }
+
+        private async void CheckUserRole()
+        {
+            try
+            {
+                var user = await _userController.Get(AuthUserSingleton.AuthUser.Id);
+
+                if (user == null)
+                {
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                    return;
+                }
+
+                if (user.RoleId == 1)
+                {
+                    Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Visibility = Visibility.Collapsed;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
+
+            
         }
 
         private void LoadInfo()
@@ -168,7 +217,7 @@ namespace ServerApp.ViewModel
 
             Settings.Default.Save();
 
-            if (CustomMessageBox.Show("In order for the network changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
                 ProcessStartInfo Info = new ProcessStartInfo();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";

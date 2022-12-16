@@ -184,3 +184,8 @@ E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\bin\Debug\net6.0-windows\r
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Properties.Lang.Lang.resources
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Properties.Lang.Lang.ru.resources
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ru\ClientApp.resources.dll
+D:\my\ViewManager\ViewManager\ClientApp\bin\Debug\net6.0-windows\ru\ClientApp.resources.dll
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Properties.Lang.Lang.resources
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Properties.Lang.Lang.ru.resources
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.csproj.GenerateResource.cache
+D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ru\ClientApp.resources.dll

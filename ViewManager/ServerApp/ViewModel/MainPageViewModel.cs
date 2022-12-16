@@ -18,11 +18,15 @@ namespace ServerApp.ViewModel
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly MainPageViewModelController _controller;
+        private readonly TcpController _tcpController;
+
+        private readonly UniversalController<User> _userController;
 
         private Visibility _accountantButtonVisibility = Visibility.Collapsed;
         private Visibility _teacherButtonVisibility = Visibility.Collapsed;
         private Visibility _commonButtonVisibility = Visibility.Collapsed;
+
+        private User _user;
 
         public Visibility CommonButtonVisibility
         {
@@ -54,8 +58,6 @@ namespace ServerApp.ViewModel
             }
         }
 
-        private User _user;
-
         public User User
         {
             get => _user;
@@ -72,7 +74,8 @@ namespace ServerApp.ViewModel
 
         public MainPageViewModel()
         {
-            _controller = new MainPageViewModelController(ApiServerSingleton.GetConnectionApiString());
+            _tcpController = new TcpController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
+            _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
 
             User = new User();
 
@@ -98,11 +101,16 @@ namespace ServerApp.ViewModel
             FrameManager.SetPage(new CreateUserPage(), "mainPageFrame");
         }
 
+        private async void TcpConnect()
+        {
+            await _tcpController.StartTcp();
+        }
+
         private async void LoadInfoAboutUser()
         {
             try
             {
-                var user = await _controller.GetUserById();
+                var user = await _userController.Get(AuthUserSingleton.AuthUser.Id);
 
                 if(user == null)
                 {
@@ -129,15 +137,18 @@ namespace ServerApp.ViewModel
                 TeacherButtonVisibility = Visibility.Visible;
                 AccountantButtonVisibility = Visibility.Collapsed;
                 CommonButtonVisibility = Visibility.Visible;
+
+                TcpConnect();
             }
             else
             {
                 TeacherButtonVisibility = Visibility.Collapsed;
                 AccountantButtonVisibility = Visibility.Visible;
                 CommonButtonVisibility = Visibility.Visible;
-
-                FrameManager.SetPage(new UpdateUserListPage(), "mainPageFrame");
+                
             }
+
+            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
         }
     }
 }

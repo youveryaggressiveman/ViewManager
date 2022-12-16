@@ -17,9 +17,9 @@ namespace ServerApp.ViewModel
 {
     public class UpdateUserListPageViewModel : BaseViewModel
     {
-        private readonly UpdateUserListPageViewModelController<User> _userController;
-        private readonly UpdateUserListPageViewModelController<Role> _roleController;
-        private readonly UpdateUserListPageViewModelController<Office> _officeController;
+        private readonly UniversalController<User> _userController;
+        private readonly UniversalController<Role> _roleController;
+        private readonly UniversalController<Office> _officeController;
 
         private ObservableCollection<User> _userList;
         private ObservableCollection<Role> _roleList;
@@ -95,9 +95,9 @@ namespace ServerApp.ViewModel
 
         public UpdateUserListPageViewModel()
         {
-            _userController = new UpdateUserListPageViewModelController<User>(ApiServerSingleton.GetConnectionApiString());
-            _roleController = new UpdateUserListPageViewModelController<Role>(ApiServerSingleton.GetConnectionApiString());
-            _officeController = new UpdateUserListPageViewModelController<Office>(ApiServerSingleton.GetConnectionApiString());
+            _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
+            _roleController = new UniversalController<Role>(ApiServerSingleton.GetConnectionApiString());
+            _officeController = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
 
             UserList = new ObservableCollection<User>();
             OfficeList = new ObservableCollection<Office>();
@@ -132,7 +132,7 @@ namespace ServerApp.ViewModel
 
                 try
                 {
-                    if (await _userController.PutUserInfo(SelectedUser))
+                    if (await _userController.Put(SelectedUser))
                     {
                         CustomMessageBox.Show("Information has been successfully updated!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 

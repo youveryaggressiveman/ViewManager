@@ -14,8 +14,6 @@ namespace ServerApp.ViewModel
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        private readonly MainWindowViewModelController _controller;
-
         private Visibility _visibility = Visibility.Collapsed;
 
         public Visibility Visibility
@@ -30,30 +28,23 @@ namespace ServerApp.ViewModel
 
         public MainWindowViewModel()
         {
-            _controller = new MainWindowViewModelController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
-
             LogManager.CreateMainFolder();
 
             Timer timer = new Timer(5000);
             timer.Elapsed += async (sender, e) => await CheckAllConnection();
             timer.Start();
-
-            TcpConnect();
-        }     
-
-        private async void TcpConnect()
-        {
-            await _controller.StartTcp();
         }
 
         private async Task CheckAllConnection()
         {
+            if (await ApiServerSingleton.CheckConnection())
+            {
+                LoadBorder(false);
+            }
+            else
+            {
                 LoadBorder(true);
-
-                if (await ApiServerSingleton.CheckConnection())
-                {
-                    LoadBorder(false);
-                }        
+            }
         }
 
         public void LoadBorder(bool switchBorder)

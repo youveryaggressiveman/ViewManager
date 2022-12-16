@@ -73,7 +73,8 @@
                                VerticalAlignment="Center"/>
                     <TextBox Text="{Binding SelectedUser.FIO, Mode=OneWay}"
                              FontSize="18"
-                             IsEnabled="False"
+                             IsReadOnly="True"
+                             HorizontalScrollBarVisibility="Auto"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
