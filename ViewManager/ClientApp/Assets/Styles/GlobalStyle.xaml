@@ -159,7 +159,7 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <!--Style for ComboBox-->
     <Style  TargetType="{x:Type ComboBox}">
         <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
@@ -167,6 +167,8 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Margin" Value="25"/>
+        <Setter Property="MaxHeight"
+                Value="50" />
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="TextElement.Foreground" Value="{DynamicResource ForegroundColor}"/>

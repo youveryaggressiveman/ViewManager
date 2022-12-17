@@ -1,4 +1,6 @@
-﻿using GeneralLogic.Services.Settings;
+﻿using GeneralLogic.Services.Files;
+using GeneralLogic.Services.Settings;
+using ServerApp.Assets.Custom.ComputerInfoBox;
 using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
@@ -23,6 +25,7 @@ namespace ServerApp.ViewModel
     public class SettingsPageViewModel : BaseViewModel
     {
         private readonly ISettingsManager _settingsManager;
+        private readonly IFileManager _fileManager;
 
         private readonly UniversalController<User> _userController;
         private readonly CheckSettings _checkSettings;
@@ -109,15 +112,19 @@ namespace ServerApp.ViewModel
             }
         }
 
+        public ICommand CheckPcFeaturesCommand { get; }
         public ICommand SaveChangesCommand { get; }
 
         public SettingsPageViewModel()
         {
             SaveChangesCommand = new DelegateCommand(SaveChanges);
+            CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
-            _checkSettings = new CheckSettings();
             _settingsManager = new SettingsManager();
+            _fileManager = new FileManager();
+
+            _checkSettings = new();
 
             Port = TcpServerSingleton.GetPort().ToString();
             Ip = TcpServerSingleton.GetIp();
@@ -135,6 +142,20 @@ namespace ServerApp.ViewModel
 
             CheckUserRole();
             LoadInfo();
+        }
+
+        private async void CheckPcFeatures(object obj)
+        {
+            try
+            {
+                var pcInfo = await _fileManager.FileReader(Environment.MachineName);
+
+                CustomComputerInfoBox.Show("Server", pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
+            }
+            catch
+            {
+                CustomMessageBox.Show("Could not get data about your computer!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
         }
 
         private async void CheckUserRole()

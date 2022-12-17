@@ -15,10 +15,10 @@ namespace ServerApp.Model
         public string LastName { get; set; } = null!;
         public string? SecondName { get; set; }
         [Required(ErrorMessage = "Login can't be null!")]
-        [MaxLength(10, ErrorMessage ="Login can't be more 10 symbols!")]
+        [MaxLength(10, ErrorMessage ="Login can't be more 13 symbols!")]
         public string Login { get; set; } = null!;
         [Required(ErrorMessage = "Password can't be null!")]
-        [MaxLength(10, ErrorMessage = "Password can't be more 10 symbols!")]
+        [MaxLength(10, ErrorMessage = "Password can't be more 13 symbols!")]
         public string Password { get; set; } = null!;
         public int RoleId { get; set; }
         public string OfficeId { get; set; } = null!;

@@ -7,13 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Assets\Custom\MessageBox\CustomMessageBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Pages\AccountantPage.xaml.cs">
+    <Compile Update="View\Pages\AuthPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Pages\AuthPage.xaml.cs">
+    <Compile Update="View\Pages\ComputerManagementPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Pages\CreateUserPage.xaml.cs">
@@ -23,6 +26,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Pages\SettingsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Pages\StatisticsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Pages\UpdateUserListPage.xaml.cs">
@@ -35,6 +41,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Assets\Custom\MessageBox\CustomMessageBox.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -47,10 +56,10 @@
     <Page Update="Assets\Styles\Themes\Light.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Pages\AccountantPage.xaml">
+    <Page Update="View\Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Pages\AuthPage.xaml">
+    <Page Update="View\Pages\ComputerManagementPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Pages\CreateUserPage.xaml">
@@ -60,6 +69,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Pages\StatisticsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Pages\UpdateUserListPage.xaml">

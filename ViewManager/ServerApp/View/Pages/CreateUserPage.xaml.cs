@@ -24,5 +24,13 @@ namespace ServerApp.View.Pages
         {
             InitializeComponent();
         }
+
+        private void Text_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((sender as TextBox).Text.Length >= 50)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

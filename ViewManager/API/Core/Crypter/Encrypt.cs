@@ -6,6 +6,8 @@ namespace API.Core.Crypter
 {
     public class Encrypt
     {
+        private static ushort _secretKey = 0x0088;
+
         public static string HashPassword(string password)
         {
             byte[] salt;
@@ -25,16 +27,6 @@ namespace API.Core.Crypter
             return Convert.ToBase64String(dst);
         }
 
-        public static string DecryptPassword(string hashedPassword)
-        {
-            if (hashedPassword == null)
-            {
-                return null;
-            }
-
-            return "";
-        }
-
         public static bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;
@@ -46,8 +38,6 @@ namespace API.Core.Crypter
             {
                 throw new ArgumentNullException(nameof(password));
             }
-
-            var ar = Test.test();
 
             byte[] src = Convert.FromBase64String(hashedPassword);
             if ((src.Length != 0x31) || (src[0] != 0))

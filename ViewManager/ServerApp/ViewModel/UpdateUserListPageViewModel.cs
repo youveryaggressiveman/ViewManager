@@ -99,13 +99,14 @@ namespace ServerApp.ViewModel
             _roleController = new UniversalController<Role>(ApiServerSingleton.GetConnectionApiString());
             _officeController = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
 
-            UserList = new ObservableCollection<User>();
-            OfficeList = new ObservableCollection<Office>();
-            RoleList = new ObservableCollection<Role>();
-
             PutCommand = new DelegateCommand(Put);
 
             LoadInfo();
+        }
+
+        private void SetBorder(bool switchBorder)
+        {
+            ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
         }
 
         private async void Put(object obj)
@@ -125,6 +126,8 @@ namespace ServerApp.ViewModel
 
             if (CustomMessageBox.Show("Are you sure you want to change the information about this user?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
+                SetBorder(true);
+
                 SelectedUser.OfficeId = SelectedOffice.Id;
                 SelectedUser.Office = SelectedOffice;
                 SelectedUser.RoleId = SelectedRole.Id;
@@ -136,9 +139,9 @@ namespace ServerApp.ViewModel
                     {
                         CustomMessageBox.Show("Information has been successfully updated!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                        LoadInfo();
-
                         LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {SelectedUser.FIO} successfully updated");
+
+                        LoadInfo();
                     }
                     else
                     {
@@ -149,14 +152,20 @@ namespace ServerApp.ViewModel
                 {
                     CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
-
-
+                finally
+                {
+                    SetBorder(false);
+                }
             }
 
         }
 
         private async void LoadInfo()
         {
+            UserList = new ObservableCollection<User>();
+            OfficeList = new ObservableCollection<Office>();
+            RoleList = new ObservableCollection<Role>();
+
             try
             {
                 var userList = await _userController.GetList();
@@ -183,8 +192,11 @@ namespace ServerApp.ViewModel
 
         private void CheckSelectedUserInfo()
         {
-            SelectedRole = RoleList.FirstOrDefault(role => role.Id == SelectedUser.RoleId);
-            SelectedOffice = OfficeList.FirstOrDefault(office => office.Id == SelectedUser.OfficeId);
+            if (SelectedUser != null)
+            {
+                SelectedRole = RoleList.FirstOrDefault(role => role.Id == SelectedUser.RoleId);
+                SelectedOffice = OfficeList.FirstOrDefault(office => office.Id == SelectedUser.OfficeId);
+            }
         }
     }
 }

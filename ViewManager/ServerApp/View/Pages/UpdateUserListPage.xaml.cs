@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,14 @@ namespace ServerApp.View.Pages
         public UpdateUserListPage()
         {
             InitializeComponent();
+        }
+
+        private void Text_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((sender as TextBox).Text.Length >= 25)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

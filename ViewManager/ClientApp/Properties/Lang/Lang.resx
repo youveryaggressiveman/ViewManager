@@ -120,6 +120,9 @@
   <data name="CheckConnectionButton" xml:space="preserve">
     <value>Check connection</value>
   </data>
+  <data name="PcName" xml:space="preserve">
+    <value>PC Name:</value>
+  </data>
   <data name="SaveChangesButton" xml:space="preserve">
     <value>Save changes</value>
   </data>

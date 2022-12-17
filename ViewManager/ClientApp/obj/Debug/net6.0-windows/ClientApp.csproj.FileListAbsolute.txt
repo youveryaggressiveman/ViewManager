@@ -189,3 +189,5 @@ D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Prope
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.Properties.Lang.Lang.ru.resources
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ClientApp.csproj.GenerateResource.cache
 D:\my\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\ru\ClientApp.resources.dll
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.g.cs
+E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ClientApp\obj\Debug\net6.0-windows\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.baml

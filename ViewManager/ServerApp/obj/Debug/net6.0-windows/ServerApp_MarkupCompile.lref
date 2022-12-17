@@ -1,11 +1,13 @@
-﻿
-FD:\my\ViewManager\ViewManager\ServerApp\App.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\Assets\Custom\MessageBox\CustomMessageBox.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\AccountantPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\AuthPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\CreateUserPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\MainPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\SettingsPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Pages\UpdateUserListPage.xaml;;
-FD:\my\ViewManager\ViewManager\ServerApp\View\Windows\MainWindow.xaml;;
+﻿E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\App.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\Assets\Custom\MessageBox\CustomMessageBox.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\AuthPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\ComputerManagementPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\CreateUserPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\MainPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\SettingsPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\StatisticsPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Pages\UpdateUserListPage.xaml;;
+FE:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\View\Windows\MainWindow.xaml;;
 

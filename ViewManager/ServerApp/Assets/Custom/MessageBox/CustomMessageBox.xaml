@@ -59,8 +59,8 @@
                         x:Name="exitButton"
                         Click="exitButton_Click"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0 0 10 0">
+                        VerticalAlignment="Top"
+                        Margin="0 10 10 0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="Bd"
@@ -68,7 +68,7 @@
                                 <Path x:Name="Pt"
                                       Data="M0,0 M0.2,0.2 L 0.8,0.8 M0.2,0.8 L0.8,0.2 M1,1"
                                       Stretch="Uniform"
-                                      Stroke="Black"
+                                      Stroke="{DynamicResource AdditionalColor}"
                                       StrokeThickness="2" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -76,10 +76,10 @@
                                          Value="True">
                                     <Setter TargetName="Bd"
                                             Property="Background"
-                                            Value="Red" />
+                                            Value="{StaticResource Red}" />
                                     <Setter TargetName="Pt"
                                             Property="Stroke"
-                                            Value="White" />
+                                            Value="{DynamicResource MainColor}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -117,7 +117,7 @@
                     FontSize="15"
                     Name="secondButton"
                     Click="secondButton_Click"
-                    HorizontalAlignment="Right" Cursor="Hand"/>
+                    HorizontalAlignment="Right"/>
             <Button Margin="5 10 10 10"
                     Click="firstButton_Click"
                     Width="80"

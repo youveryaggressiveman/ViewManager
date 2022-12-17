@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BroadcastButton" xml:space="preserve">
+    <value>Трансляция</value>
+  </data>
   <data name="ButtonAuth" xml:space="preserve">
     <value>Авторизоваться</value>
   </data>
@@ -129,11 +132,20 @@
   <data name="CheckBoxAuth" xml:space="preserve">
     <value>Показать пароль</value>
   </data>
+  <data name="ComputerManagement" xml:space="preserve">
+    <value>Компьютеры</value>
+  </data>
+  <data name="ComputerManagementTitle" xml:space="preserve">
+    <value>Управление компьютерами</value>
+  </data>
   <data name="CreateUserTitle" xml:space="preserve">
     <value>Создание нового пользователя</value>
   </data>
   <data name="FullDescTitle" xml:space="preserve">
     <value>Полное описание</value>
+  </data>
+  <data name="InfoButton" xml:space="preserve">
+    <value>Информация</value>
   </data>
   <data name="ListTeachTitle" xml:space="preserve">
     <value>Список учителей</value>
@@ -150,8 +162,14 @@
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
   </data>
+  <data name="PcName" xml:space="preserve">
+    <value>Название ПК:</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Статистика</value>
   </data>
   <data name="TextBlockFIO" xml:space="preserve">
     <value>ФИО:</value>
@@ -197,6 +215,9 @@
   </data>
   <data name="TitleAuth" xml:space="preserve">
     <value>Авторизация</value>
+  </data>
+  <data name="TurnOffButton" xml:space="preserve">
+    <value>Выключить</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Обновить</value>

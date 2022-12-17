@@ -64,6 +64,11 @@ namespace API.Controllers
                 return BadRequest("This password is already taken:" + user.Login);
             }
 
+            user.Office = null;
+            user.Role = null;
+
+            user.Password = Encrypt.HashPassword(user.Password);
+
             try
             {
                 _db.Users.Update(user);
@@ -92,6 +97,14 @@ namespace API.Controllers
             newUser.Login = credential[0];
             newUser.Password = Encrypt.HashPassword(credential[1]);
 
+            newUser.Office = null;
+            newUser.Role = null;
+
+            foreach (var item in newUser.Specializations)
+            {
+                _db.Attach(item);
+            }
+
             if (!await CheckLogin(newUser.Login))
             {
                 return BadRequest("The password that was generated was taken. Try again:" + newUser.Login);
@@ -114,7 +127,7 @@ namespace API.Controllers
         {
             var existingUser = await _db.Users.Where(user => user.Login == value).ToListAsync();
 
-            if(existingUser.Count > 0)
+            if(existingUser.Count > 1)
             {
                 return false;
             }

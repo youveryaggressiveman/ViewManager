@@ -9,7 +9,7 @@ namespace GeneralLogic.Services.Files
 {
     public class FileManager : IFileManager
     {
-        private readonly string _path = @"C:\ViewManager\PcFeatures";
+        private readonly string _path = @"C:\ViewManager\PcFeatures\";
 
         public FileManager()
         {
@@ -38,17 +38,17 @@ namespace GeneralLogic.Services.Files
 
         public async Task FileWriter(string text, string pcName)
         {
-            //string filePath = _path + pcName + ".txt";
+            string filePath = _path + pcName + ".txt";
 
-            //if (!File.Exists(filePath))
-            //{
-            //    File.Create(_path).Close();
-            //}
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath).Close();
+            }
 
-            //using (StreamWriter streamWriter = new StreamWriter(filePath, false))
-            //{
-            //    await streamWriter.WriteLineAsync(text);
-            //}
+            using (StreamWriter streamWriter = new StreamWriter(filePath, false))
+            {
+                await streamWriter.WriteLineAsync(text);
+            }
         }
     }
 }

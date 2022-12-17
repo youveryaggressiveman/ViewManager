@@ -7,11 +7,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Assets\Custom\MessageBox\CustomMessageBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Assets\Custom\MessageBox\CustomMessageBox.xaml">
       <SubType>Designer</SubType>
     </Page>

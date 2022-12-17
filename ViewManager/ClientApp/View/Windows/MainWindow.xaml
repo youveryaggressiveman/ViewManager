@@ -9,7 +9,9 @@
         Background="{DynamicResource MainColor}"
         FontFamily="DM Sans"
         WindowStartupLocation="CenterScreen"
-        Title="ViewManager: Client" Height="650" Width="650"
+        Title="ViewManager: Client"
+        Height="650"
+        Width="650"
         MinHeight="670"
         MinWidth="670">
     <Grid>
@@ -54,6 +56,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                <Button Content="🖥️"
+                        Command="{Binding CheckPcFeaturesCommand}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Padding="5"/>
                 <TextBlock Text="{x:Static lang:Lang.WindowTitle}"
                            FontSize="25"
                            Grid.ColumnSpan="2"

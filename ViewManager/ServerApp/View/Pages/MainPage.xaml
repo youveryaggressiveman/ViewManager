@@ -78,6 +78,14 @@
                         Command="{Binding CreateCommand}"
                         Visibility="{Binding AccountantButtonVisibility}"
                     Padding="15"/>
+                <Button Content="{x:Static lang:Lang.ComputerManagement}"
+                        Command="{Binding ComputerManagmentCommand}"
+                        Visibility="{Binding TeacherButtonVisibility}"
+                    Padding="15"/>
+                <Button Content="{x:Static lang:Lang.StatisticsTitle}"
+                        Command="{Binding StatisticsCommand}"
+                        Visibility="{Binding TeacherButtonVisibility}"
+                    Padding="15"/>
                 <Button Content="{x:Static lang:Lang.Settings}"
                         Command="{Binding SettingsCommand}"
                         Visibility="{Binding CommonButtonVisibility}"

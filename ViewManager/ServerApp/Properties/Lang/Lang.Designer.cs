@@ -61,6 +61,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Broadcast.
+        /// </summary>
+        public static string BroadcastButton {
+            get {
+                return ResourceManager.GetString("BroadcastButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Authorize.
         /// </summary>
         public static string ButtonAuth {
@@ -97,6 +106,24 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Computers.
+        /// </summary>
+        public static string ComputerManagement {
+            get {
+                return ResourceManager.GetString("ComputerManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Computer management.
+        /// </summary>
+        public static string ComputerManagementTitle {
+            get {
+                return ResourceManager.GetString("ComputerManagementTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Creating a new user.
         /// </summary>
         public static string CreateUserTitle {
@@ -111,6 +138,15 @@ namespace ServerApp.Properties.Lang {
         public static string FullDescTitle {
             get {
                 return ResourceManager.GetString("FullDescTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Info.
+        /// </summary>
+        public static string InfoButton {
+            get {
+                return ResourceManager.GetString("InfoButton", resourceCulture);
             }
         }
         
@@ -160,11 +196,29 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на PC Name:.
+        /// </summary>
+        public static string PcName {
+            get {
+                return ResourceManager.GetString("PcName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Settings.
         /// </summary>
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Statistics.
+        /// </summary>
+        public static string StatisticsTitle {
+            get {
+                return ResourceManager.GetString("StatisticsTitle", resourceCulture);
             }
         }
         
@@ -300,6 +354,15 @@ namespace ServerApp.Properties.Lang {
         public static string TitleAuth {
             get {
                 return ResourceManager.GetString("TitleAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на TurnOff.
+        /// </summary>
+        public static string TurnOffButton {
+            get {
+                return ResourceManager.GetString("TurnOffButton", resourceCulture);
             }
         }
         

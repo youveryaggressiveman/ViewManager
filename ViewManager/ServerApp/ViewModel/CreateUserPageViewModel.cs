@@ -115,11 +115,7 @@ namespace ServerApp.ViewModel
             _specializationController = new UniversalController<Specialization>(ApiServerSingleton.GetConnectionApiString());
             _officeController = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
 
-            SpecializationList = new ObservableCollection<Specialization>();
-            OfficeList = new ObservableCollection<Office>();
-            SelectedSpecializationList= new ObservableCollection<Specialization>();
-
-            NewUser = new User();
+            NewUser = new();
             NewUser.Specializations = new ObservableCollection<Specialization>();
 
             LoadInfo();
@@ -145,6 +141,11 @@ namespace ServerApp.ViewModel
             SelectedSpecializationList.Remove(SelectedSpecializationOfSelectedList);
         }
 
+        private void SetBorder(bool switchBorder)
+        {
+            ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
+        }
+
         private async void CreateUser(object obj)
         {
             if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName) 
@@ -157,10 +158,21 @@ namespace ServerApp.ViewModel
 
             if (CustomMessageBox.Show("Are you sure you want to add a new user to the system?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
+                SetBorder(true);
+
                 NewUser.RoleId = 1;
                 NewUser.Office = SelectedOffice;
                 NewUser.OfficeId = SelectedOffice.Id;
                 NewUser.Specializations = SelectedSpecializationList.ToList();
+
+                NewUser.Role = new Role()
+                {
+                    Value = "Teacher",
+                    Id = 1
+                };
+                NewUser.Login = "example";
+                NewUser.Password = "example";
+                NewUser.Id = "example";
 
                 try
                 {
@@ -182,13 +194,19 @@ namespace ServerApp.ViewModel
                 {
                     CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
-
-
+                finally
+                {
+                    SetBorder(false);
+                }
             }
         }
 
         private async void LoadInfo()
         {
+            SpecializationList = new ObservableCollection<Specialization>();
+            OfficeList = new ObservableCollection<Office>();
+            SelectedSpecializationList = new ObservableCollection<Specialization>();
+
             try
             {
                 var officeList = await _officeController.GetList();

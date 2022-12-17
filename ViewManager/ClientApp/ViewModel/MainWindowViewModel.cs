@@ -1,10 +1,12 @@
-﻿using ClientApp.Assets.Custom.MessageBox;
+﻿using ClientApp.Assets.Custom.ComputerInfoBox;
+using ClientApp.Assets.Custom.MessageBox;
 using ClientApp.Command;
 using ClientApp.Controllers;
 using ClientApp.Core.Settings;
 using ClientApp.Core.Singleton;
 using ClientApp.Properties;
 using GeneralLogic.Services.Files;
+using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
 using GeneralLogic.Services.PcFeatures.Management;
 using GeneralLogic.Services.Settings;
 using System;
@@ -23,9 +25,10 @@ namespace ClientApp.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly ISettingsManager _settingsManager;
+        private readonly IFileManager _fileManager;
 
+        private readonly Visitor _visitor;
         private readonly CheckSettings _checkSettings;
-        private readonly FileManager _fileManager;
         private readonly PcManager _pcManager;
         private readonly MainWindowViewModelController _controller;
 
@@ -144,6 +147,7 @@ namespace ClientApp.ViewModel
             }
         }
 
+        public ICommand CheckPcFeaturesCommand { get; }
         public ICommand SaveChangesCommand { get; }
         public ICommand CheckConnectionCommand { get; }
 
@@ -157,6 +161,7 @@ namespace ClientApp.ViewModel
 
             _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
 
+            CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
 
@@ -173,15 +178,31 @@ namespace ClientApp.ViewModel
                 "Dark"
             };
 
-            _checkSettings = new CheckSettings();
+            _visitor = new();
+            _checkSettings = new();
+            _pcManager = new();
+
             _settingsManager = new SettingsManager();
-            _pcManager = new PcManager();
             _fileManager = new FileManager();
 
             LoadInfo();
             FileWork();
             StartTcp();
             CheckConnection(null);
+        }
+
+        private async void CheckPcFeatures(object obj)
+        {
+            try
+            {
+                var pcInfo = await _fileManager.FileReader(Environment.MachineName);
+
+                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ","").Replace("Sensor: {0}, value: {1}, ",""));
+            }
+            catch 
+            {
+                CustomMessageBox.Show("Could not get data about your computer!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
         }
 
         private void SaveChanges(object obj)
@@ -226,7 +247,7 @@ namespace ClientApp.ViewModel
 
             if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
-                ProcessStartInfo Info = new ProcessStartInfo();
+                ProcessStartInfo Info = new();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
                 Info.WindowStyle = ProcessWindowStyle.Hidden;
                 Info.CreateNoWindow = true;
@@ -252,10 +273,24 @@ namespace ClientApp.ViewModel
         }
 
         private async void FileWork()
-        {  
-            await _fileManager.FileWriter(_pcManager.LoadPcFeature(), Environment.MachineName);
+        {
+            string message = "";
 
-            LogManager.SaveLog("Client", DateTime.Today, "FileWriter: The file with the characteristics has been filled in successfully");
+            try
+            {
+                await _fileManager.FileWriter(_visitor.Monitor(), Environment.MachineName);
+
+                message = "The file with the characteristics has been filled in successfully";
+            }
+            catch
+            {
+                message = "An error occurred when filling in the character file.";
+            }
+            finally
+            {
+                LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}");
+            }
+            
         }
 
         private async void StartTcp()

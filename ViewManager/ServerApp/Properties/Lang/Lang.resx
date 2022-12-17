@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BroadcastButton" xml:space="preserve">
+    <value>Broadcast</value>
+  </data>
   <data name="ButtonAuth" xml:space="preserve">
     <value>Authorize</value>
   </data>
@@ -129,11 +132,20 @@
   <data name="CheckBoxAuth" xml:space="preserve">
     <value>Show password</value>
   </data>
+  <data name="ComputerManagement" xml:space="preserve">
+    <value>Computers</value>
+  </data>
+  <data name="ComputerManagementTitle" xml:space="preserve">
+    <value>Computer management</value>
+  </data>
   <data name="CreateUserTitle" xml:space="preserve">
     <value>Creating a new user</value>
   </data>
   <data name="FullDescTitle" xml:space="preserve">
     <value>Full description</value>
+  </data>
+  <data name="InfoButton" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="ListTeachTitle" xml:space="preserve">
     <value>List of teachers</value>
@@ -150,8 +162,14 @@
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
   </data>
+  <data name="PcName" xml:space="preserve">
+    <value>PC Name:</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Statistics</value>
   </data>
   <data name="TextBlockFIO" xml:space="preserve">
     <value>FIO:</value>
@@ -197,6 +215,9 @@
   </data>
   <data name="TitleAuth" xml:space="preserve">
     <value>Authorization</value>
+  </data>
+  <data name="TurnOffButton" xml:space="preserve">
+    <value>TurnOff</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>Update</value>

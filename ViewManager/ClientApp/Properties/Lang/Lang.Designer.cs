@@ -70,6 +70,15 @@ namespace ClientApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на PC Name:.
+        /// </summary>
+        public static string PcName {
+            get {
+                return ResourceManager.GetString("PcName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Save changes.
         /// </summary>
         public static string SaveChangesButton {

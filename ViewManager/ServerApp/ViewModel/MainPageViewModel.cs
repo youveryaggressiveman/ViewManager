@@ -68,8 +68,10 @@ namespace ServerApp.ViewModel
             }
         }
 
+        public ICommand StatisticsCommand { get; }
         public ICommand CreateCommand { get; }
         public ICommand UpdateCommand { get; }
+        public ICommand ComputerManagmentCommand { get; }
         public ICommand SettingsCommand { get; }
 
         public MainPageViewModel()
@@ -79,11 +81,23 @@ namespace ServerApp.ViewModel
 
             User = new User();
 
+            StatisticsCommand = new DelegateCommand(Statistics);
+            ComputerManagmentCommand = new DelegateCommand(ComputerManagment);
             CreateCommand = new DelegateCommand(Create);
             UpdateCommand = new DelegateCommand(Update);
             SettingsCommand = new DelegateCommand(Settings);
 
             LoadInfoAboutUser();
+        }
+
+        private void Statistics(object obj)
+        {
+            FrameManager.SetPage(new StatisticsPage(), "mainPageFrame");
+        }
+
+        private void ComputerManagment(object obj)
+        {
+            FrameManager.SetPage(new ComputerManagementPage(), "mainPageFrame");
         }
 
         private void Settings(object obj)
@@ -106,10 +120,17 @@ namespace ServerApp.ViewModel
             await _tcpController.StartTcp();
         }
 
+        private void SetBorder(bool switchBorder)
+        {
+            ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
+        }
+
         private async void LoadInfoAboutUser()
         {
             try
             {
+                SetBorder(true);
+
                 var user = await _userController.Get(AuthUserSingleton.AuthUser.Id);
 
                 if(user == null)
@@ -126,6 +147,10 @@ namespace ServerApp.ViewModel
             catch (Exception ex)
             {
                 CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
+            finally
+            {
+                SetBorder(false);
             }
             
         }

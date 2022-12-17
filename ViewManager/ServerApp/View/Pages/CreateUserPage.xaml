@@ -52,6 +52,7 @@
                     </TextBlock>
                     <TextBox Text="{Binding NewUser.FirstName}"
                              FontSize="18"
+                             PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -66,6 +67,7 @@
                     <TextBox Text="{Binding NewUser.LastName}"
                              FontSize="18"
                              Grid.Row="1"
+                             PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
@@ -79,6 +81,7 @@
                              FontSize="18"
                              Grid.Row="2"
                              Grid.Column="1"
+                             PreviewTextInput="Text_PreviewTextInput"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              Width="200"/>
