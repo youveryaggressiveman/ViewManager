@@ -183,7 +183,7 @@ namespace ServerApp.ViewModel
 
                         LoadInfo();
 
-                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {NewUser.FIO} successfully create");
+                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {NewUser.FIO} successfully create.");
                     }
                     else
                     {

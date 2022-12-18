@@ -147,6 +147,9 @@
   <data name="InfoButton" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="InputNameApp" xml:space="preserve">
+    <value> Input name:</value>
+  </data>
   <data name="ListTeachTitle" xml:space="preserve">
     <value>List of teachers</value>
   </data>
@@ -215,6 +218,12 @@
   </data>
   <data name="TitleAuth" xml:space="preserve">
     <value>Authorization</value>
+  </data>
+  <data name="ToolTipListAppButton" xml:space="preserve">
+    <value>List of allowed applications</value>
+  </data>
+  <data name="ToolTipPcInfoButton" xml:space="preserve">
+    <value>Information about your computer</value>
   </data>
   <data name="TurnOffButton" xml:space="preserve">
     <value>TurnOff</value>

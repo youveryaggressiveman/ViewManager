@@ -42,7 +42,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
             }
             finally
             {
@@ -88,15 +88,15 @@ namespace ServerApp.Controllers
                             };
                             ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
 
-                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server");
+                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
                             break;
                         case 'C':
-                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
+                            LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
                             break;
                         case 'A':
                             S_AnswerList.Add(message);
 
-                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + message);
+                            LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
                             break;
                         default:
                             break;
@@ -107,7 +107,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
             }
             finally
             {

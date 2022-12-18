@@ -151,6 +151,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на  Input name:.
+        /// </summary>
+        public static string InputNameApp {
+            get {
+                return ResourceManager.GetString("InputNameApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на List of teachers.
         /// </summary>
         public static string ListTeachTitle {
@@ -354,6 +363,24 @@ namespace ServerApp.Properties.Lang {
         public static string TitleAuth {
             get {
                 return ResourceManager.GetString("TitleAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на List of allowed applications.
+        /// </summary>
+        public static string ToolTipListAppButton {
+            get {
+                return ResourceManager.GetString("ToolTipListAppButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Information about your computer.
+        /// </summary>
+        public static string ToolTipPcInfoButton {
+            get {
+                return ResourceManager.GetString("ToolTipPcInfoButton", resourceCulture);
             }
         }
         

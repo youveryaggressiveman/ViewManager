@@ -46,7 +46,7 @@ namespace ServerApp.ViewModel
 
         public ComputerManagementPageViewModel()
         {
-            _fileManager = new FileManager();
+            _fileManager = new PcFeaturesFileManager();
 
             InfoCommand = new DelegateCommand(Info);
             BroadcastCommand = new DelegateCommand(Broadcast);

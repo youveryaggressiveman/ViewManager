@@ -4,6 +4,25 @@
     <SolidColorBrush x:Key="Red" Color="#EE204D"/>
     <SolidColorBrush x:Key="Green" Color="#A8E4A0"/>
 
+    <!--Style for ToolTip-->
+    <Style TargetType="ToolTip">
+        <Setter Property="Foreground"
+                Value="{DynamicResource AdditionalColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Background="{DynamicResource MainColor}"
+                             BorderThickness="1"
+                            Padding="5"
+                            CornerRadius="5"
+                            BorderBrush="{DynamicResource ColorHighlight}">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Style for ListViewItem-->
     <Style TargetType="ListViewItem">
         <Setter Property="Foreground"
@@ -37,11 +56,11 @@
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
-                
+
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--Style for ListView-->
     <Style TargetType="{x:Type ListView}">
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
@@ -57,7 +76,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListView}">
-                    <Border x:Name="Bd" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="1" SnapsToDevicePixels="true">
+                    <Border x:Name="Bd" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="1 3 3 3" SnapsToDevicePixels="true">
                         <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                             />

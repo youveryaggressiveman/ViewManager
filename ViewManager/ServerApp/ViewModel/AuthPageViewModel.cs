@@ -77,7 +77,7 @@ namespace ServerApp.ViewModel
                 {
                     if (await _controller.AuthHelper(user))
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Auth: Authorization was successful");
+                        LogManager.SaveLog("Server", DateTime.Today, "Auth: Authorization was successful.");
 
                         FrameManager.SetPage(new MainPage(), "mainFrame");
                     }
@@ -85,14 +85,14 @@ namespace ServerApp.ViewModel
                     {
                         CustomMessageBox.Show("There is no user with such data.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data.");
                     }
                 }
                 catch (Exception ex)
                 {
                     CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                    LogManager.SaveLog("Server", DateTime.Today, "Auth: " + ex.Message);
+                    LogManager.SaveLog("Server", DateTime.Today, $"Auth: {ex.Message}.");
                 }
                 finally
                 {
@@ -105,7 +105,7 @@ namespace ServerApp.ViewModel
                 {
                     CustomMessageBox.Show(error.ErrorMessage, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                    LogManager.SaveLog("Server", DateTime.Today, "Auth: " + error.ErrorMessage);
+                    LogManager.SaveLog("Server", DateTime.Today, $"Auth: {error.ErrorMessage}.");
                 }
             }
         }

@@ -35,13 +35,15 @@ namespace ServerApp.ViewModel
         {
             LogManager.CreateMainFolder();
 
-            _fileManager= new FileManager();
+            _fileManager= new PcFeaturesFileManager();
 
             _visitor = new();
 
             Timer timer = new Timer(5000);
             timer.Elapsed += async (sender, e) => await CheckAllConnection();
             timer.Start();
+
+            FileWork();
         }
 
         private async void FileWork()
@@ -56,11 +58,11 @@ namespace ServerApp.ViewModel
             }
             catch
             {
-                message = "An error occurred when filling in the character file.";
+                message = "An error occurred when filling in the character file";
             }
             finally
             {
-                LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}");
+                LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}.");
             }
 
         }

@@ -45,19 +45,19 @@ namespace ServerApp.Controllers
                     {
                         var endResult = JsonConvert.DeserializeObject<IEnumerable<T>>(await result.Content.ReadAsStringAsync());
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
                         return endResult;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
                         return null;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
                         return null;
                     }
@@ -68,7 +68,7 @@ namespace ServerApp.Controllers
             catch (Exception ex)
             {
 
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"Api: {ex.Message}.");
 
                 throw new OperationCanceledException(ex.Message);
             }
@@ -94,19 +94,19 @@ namespace ServerApp.Controllers
                     {
                         var endResult = JsonConvert.DeserializeObject<T>(await result.Content.ReadAsStringAsync());
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
                         return endResult;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
                         return default;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
                         return default;
                     }
@@ -116,7 +116,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"Api: {ex.Message}.");
 
                 throw new OperationCanceledException(ex.Message);
             }
@@ -146,19 +146,19 @@ namespace ServerApp.Controllers
                     {
                         var endResult = JsonConvert.DeserializeObject<bool>(await result.Content.ReadAsStringAsync());
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
                         return endResult;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
                         return false;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
                         return false;
                     }
@@ -168,7 +168,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"Api: {ex.Message}.");
 
                 throw new OperationCanceledException(ex.Message);
             }
@@ -198,19 +198,19 @@ namespace ServerApp.Controllers
                     {
                         var endResult = JsonConvert.DeserializeObject<bool>(await result.Content.ReadAsStringAsync());
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
                         return endResult;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
                         return false;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
                         return false;
                     }
@@ -220,7 +220,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"Api: {ex.Message}.");
 
                 throw new OperationCanceledException(ex.Message);
             }
@@ -246,19 +246,19 @@ namespace ServerApp.Controllers
                     {
                         var endResult = JsonConvert.DeserializeObject<bool>(await result.Content.ReadAsStringAsync());
 
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
                         return endResult;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
                         return false;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
-                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system");
+                        LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
                         return false;
                     }
@@ -268,7 +268,7 @@ namespace ServerApp.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Server", DateTime.Today, "Api: " + ex.Message);
+                LogManager.SaveLog("Server", DateTime.Today, $"Api: {ex.Message}.");
 
                 throw new OperationCanceledException(ex.Message);
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GeneralLogic.Services.Files
 {
@@ -17,6 +18,24 @@ namespace GeneralLogic.Services.Files
             if (!Directory.Exists(mainPath))
             {
                 Directory.CreateDirectory(mainPath);
+            }
+        }
+
+        public async static Task<string> ReadLog(string name, DateTime dateTime)
+        {
+            string pathFile = s_path + @"\" + name + "_" + dateTime.Day + "-" + dateTime.Month + "-" + dateTime.Year + ".txt";
+
+            if (!Directory.Exists(s_path))
+            {
+                Directory.CreateDirectory(s_path);
+
+            }
+
+            using (StreamReader streamReader =  new StreamReader(pathFile))
+            {
+                var result = await streamReader.ReadToEndAsync();
+
+                return result;
             }
         }
 
@@ -36,7 +55,7 @@ namespace GeneralLogic.Services.Files
 
             using (StreamWriter streamWriter = new StreamWriter(pathFile, true))
             {
-                await streamWriter.WriteLineAsync(answer + " - " + DateTime.Now + "\n");
+                await streamWriter.WriteLineAsync(answer + " - " + DateTime.Now + ";\n");
             }
         }
     }

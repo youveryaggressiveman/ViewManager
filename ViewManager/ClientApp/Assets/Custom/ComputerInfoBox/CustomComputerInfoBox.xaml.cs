@@ -29,7 +29,7 @@ namespace ClientApp.Assets.Custom.ComputerInfoBox
 
         public static bool Show(string pcName, string description)
         {
-            s_customComputerInfoBox = new CustomComputerInfoBox();
+            s_customComputerInfoBox = new();
 
             s_customComputerInfoBox.pcNameRun.Text = pcName;
             s_customComputerInfoBox.descriptionTextBlock.Text = description;

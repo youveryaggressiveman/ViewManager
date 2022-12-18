@@ -183,7 +183,7 @@ namespace ClientApp.ViewModel
             _pcManager = new();
 
             _settingsManager = new SettingsManager();
-            _fileManager = new FileManager();
+            _fileManager = new PcFeaturesFileManager();
 
             LoadInfo();
             FileWork();
@@ -288,7 +288,7 @@ namespace ClientApp.ViewModel
             }
             finally
             {
-                LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}");
+                LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}.");
             }
             
         }

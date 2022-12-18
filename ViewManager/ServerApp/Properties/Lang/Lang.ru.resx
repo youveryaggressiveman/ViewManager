@@ -147,6 +147,9 @@
   <data name="InfoButton" xml:space="preserve">
     <value>Информация</value>
   </data>
+  <data name="InputNameApp" xml:space="preserve">
+    <value> Введите имя:</value>
+  </data>
   <data name="ListTeachTitle" xml:space="preserve">
     <value>Список учителей</value>
   </data>
@@ -215,6 +218,12 @@
   </data>
   <data name="TitleAuth" xml:space="preserve">
     <value>Авторизация</value>
+  </data>
+  <data name="ToolTipListAppButton" xml:space="preserve">
+    <value>Список разрешенных приложений</value>
+  </data>
+  <data name="ToolTipPcInfoButton" xml:space="preserve">
+    <value>Информация о вашем ПК</value>
   </data>
   <data name="TurnOffButton" xml:space="preserve">
     <value>Выключить</value>

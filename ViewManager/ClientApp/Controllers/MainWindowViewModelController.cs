@@ -61,14 +61,14 @@ namespace ClientApp.Controllers
 
                     var command = int.Parse(result.Remove(0, 9).ToString());
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + "Command to execute: " + command);
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + $"Command to execute: {command}.");
 
                     return command;
                 }
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + ex.Message);
+                LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message};");
 
                 return 0;
             }
@@ -93,13 +93,13 @@ namespace ClientApp.Controllers
 
                     await stream.WriteAsync(data, 0, data.Length);
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + "The command is executed");
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
 
                     return true;
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + ex.Message);
+                LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message}.");
 
                 return false;
             }
@@ -126,14 +126,14 @@ namespace ClientApp.Controllers
 
                     await stream.WriteAsync(data, 0, data.Length);
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + "Successful connection to the server");
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
 
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + ex.Message);
+                LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message}.");
 
                 return false;
             }

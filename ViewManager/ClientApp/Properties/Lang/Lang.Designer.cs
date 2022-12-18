@@ -142,6 +142,15 @@ namespace ClientApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Information about your computer.
+        /// </summary>
+        public static string ToolTipPcInfoButton {
+            get {
+                return ResourceManager.GetString("ToolTipPcInfoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Wait....
         /// </summary>
         public static string WaitingWindow {

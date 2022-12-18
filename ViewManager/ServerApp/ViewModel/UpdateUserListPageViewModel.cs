@@ -139,7 +139,7 @@ namespace ServerApp.ViewModel
                     {
                         CustomMessageBox.Show("Information has been successfully updated!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {SelectedUser.FIO} successfully updated");
+                        LogManager.SaveLog("Server", DateTime.Today, $"AccountantMode: data about {SelectedUser.FIO} successfully updated.");
 
                         LoadInfo();
                     }

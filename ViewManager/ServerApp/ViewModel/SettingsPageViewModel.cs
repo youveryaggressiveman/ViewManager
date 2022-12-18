@@ -1,6 +1,7 @@
 ﻿using GeneralLogic.Services.Files;
 using GeneralLogic.Services.Settings;
 using ServerApp.Assets.Custom.ComputerInfoBox;
+using ServerApp.Assets.Custom.ListAllowAppBox;
 using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
@@ -112,17 +113,19 @@ namespace ServerApp.ViewModel
             }
         }
 
+        public ICommand OpenListAppCommand { get; }
         public ICommand CheckPcFeaturesCommand { get; }
         public ICommand SaveChangesCommand { get; }
 
         public SettingsPageViewModel()
         {
+            OpenListAppCommand = new DelegateCommand(OpenListApp);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
             _settingsManager = new SettingsManager();
-            _fileManager = new FileManager();
+            _fileManager = new PcFeaturesFileManager();
 
             _checkSettings = new();
 
@@ -142,6 +145,26 @@ namespace ServerApp.ViewModel
 
             CheckUserRole();
             LoadInfo();
+        }
+
+        private async void OpenListApp(object obj)
+        {
+            string message = "";
+
+            try
+            {
+                await CustomListAllowAppBox.Show();
+
+                message = "Approved applications have been successfully added.";
+            }
+            catch 
+            {
+                message = "An error occurred while adding the application.";
+            }
+            finally
+            {
+                LogManager.SaveLog("Server", DateTime.Today, $"TeacherMode: {message}");
+            }
         }
 
         private async void CheckPcFeatures(object obj)

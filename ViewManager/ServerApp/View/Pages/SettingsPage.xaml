@@ -22,11 +22,22 @@
                            HorizontalAlignment="Center"
                            FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
-        <Button Content="🖥️"
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+            <Button Content="🖥️"
                         Command="{Binding CheckPcFeaturesCommand}"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
+                        Margin="20 20 10 20"
+                        ToolTip="{x:Static lang:Lang.ToolTipPcInfoButton}"
                         Padding="5"/>
+            <Button Content="✔"
+                    Visibility="{Binding Visibility}"
+                        Command="{Binding OpenListAppCommand}"
+                        Margin="10 20 20 20"
+                        ToolTip="{x:Static lang:Lang.ToolTipListAppButton}"
+                        Padding="5"/>
+        </StackPanel>
+        
         <Grid Grid.Row="1"
               Margin="10 0 10 0">
             <Grid.ColumnDefinitions>

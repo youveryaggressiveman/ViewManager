@@ -34,7 +34,7 @@ namespace ClientApp.Assets.Custom.MessageBox
 
         public static bool Show(string message, Titles title, Buttons buttonOk, Buttons buttonNo)
         {
-            s_customMessageBox = new CustomMessageBox();
+            s_customMessageBox = new();
 
             s_customMessageBox.description.Text = message;
             s_customMessageBox.title.Text = s_customMessageBox.GetTitle(title);
