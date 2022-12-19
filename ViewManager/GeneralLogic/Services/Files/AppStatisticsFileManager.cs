@@ -35,13 +35,18 @@ namespace GeneralLogic.Services.Files
             }
         }
 
-        public async Task FileWriter(string text, string name)
+        public async Task FileWriter(string name, string? text = null)
         {
             string filePath = _path + name + ".txt";
 
             if (!File.Exists(filePath))
             {
                 File.Create(filePath).Close();
+            }
+
+            if(text == null)
+            {
+                return;
             }
 
             switch (name)

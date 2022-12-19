@@ -80,7 +80,9 @@ namespace ServerApp.ViewModel
         public MainPageViewModel()
         {
             _fileManager = new AppStatisticsFileManager();
-            _fileManager.FileWriter("App:", "Statistics");
+
+            _fileManager.FileWriter("Statistics", null);
+            _fileManager.FileWriter("AllowedApplications", null);
 
             _tcpController = new TcpController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());

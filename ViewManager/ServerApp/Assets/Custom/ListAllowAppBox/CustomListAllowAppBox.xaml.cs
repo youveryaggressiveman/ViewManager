@@ -82,7 +82,7 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
                 allApp += app + "\n";
             }
 
-            s_fileManager.FileWriter(allApp, "AllowedApplications");
+            s_fileManager.FileWriter("AllowedApplications", allApp);
 
             s_result = true;
             s_castomListAllowAppBox.Close();

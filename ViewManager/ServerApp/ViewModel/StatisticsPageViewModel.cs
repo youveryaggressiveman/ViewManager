@@ -91,8 +91,6 @@ namespace ServerApp.ViewModel
 
 
             LoadStat();
-            LoadStatisticToChart();
-            SetBorderInfo();
         }
 
         private void SetBorderInfo()
@@ -119,7 +117,7 @@ namespace ServerApp.ViewModel
         private async void LoadStat()
         {
             StatList = new ObservableCollection<Statistics>();
-            CountStat = new ObservableCollection<double>() { 0, 0, 0 };
+            CountStat = new ObservableCollection<double>() { 0 ,0 ,0 };
 
             try
             {
@@ -133,11 +131,19 @@ namespace ServerApp.ViewModel
 
                 statList.ToList().ForEach(StatList.Add);
 
+                CountStat.Clear();
+
                 _statisticsSort.CountNumber(StatList).ToList().ForEach(CountStat.Add);
+                
             }
             catch
             {
                 CustomMessageBox.Show("The data file could not be read.", Assets.Custom.MessageBox.Basic.Titles.Error, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
+            finally
+            {
+                LoadStatisticToChart();
+                SetBorderInfo();
             }
         }
 
@@ -146,7 +152,7 @@ namespace ServerApp.ViewModel
             Series = new ISeries[]
             {
                  new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Warning" },
-                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Danger" },
+                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Error" },
                  new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = "Approved" }
             };
         }

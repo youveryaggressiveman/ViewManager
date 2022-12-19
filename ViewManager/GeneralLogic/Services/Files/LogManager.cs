@@ -53,10 +53,10 @@ namespace GeneralLogic.Services.Files
                 File.Create(pathFile).Close();
             }
 
-            using (StreamWriter streamWriter = new StreamWriter(pathFile, true))
-            {
-                await streamWriter.WriteLineAsync(answer + " - " + DateTime.Now + ";\n");
-            }
+            //using (StreamWriter streamWriter = new StreamWriter(pathFile, true))
+            //{
+            //    await streamWriter.WriteLineAsync(answer + " - " + DateTime.Now + ";\n");
+            //}
         }
     }
 }

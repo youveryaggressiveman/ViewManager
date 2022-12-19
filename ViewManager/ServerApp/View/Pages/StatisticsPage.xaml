@@ -49,6 +49,7 @@
                       Series="{Binding Series}"
                       />
             <ListView Grid.Column="1"
+                      ItemsSource="{Binding StatList}"
                       Visibility="{Binding VisibilityChart}"
                       Margin="10"/>
         </Grid>
