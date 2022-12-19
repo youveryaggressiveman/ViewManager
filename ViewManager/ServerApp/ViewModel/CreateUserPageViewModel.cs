@@ -170,9 +170,9 @@ namespace ServerApp.ViewModel
                     Value = "Teacher",
                     Id = 1
                 };
-                NewUser.Login = "example";
-                NewUser.Password = "example";
-                NewUser.Id = "example";
+                NewUser.Login = string.Empty;
+                NewUser.Password = string.Empty;
+                NewUser.Id = string.Empty;
 
                 try
                 {

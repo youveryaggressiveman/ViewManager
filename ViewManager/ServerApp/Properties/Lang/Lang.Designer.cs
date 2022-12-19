@@ -61,6 +61,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на At the moment, there is no data to output statistics..
+        /// </summary>
+        public static string BorderSettings {
+            get {
+                return ResourceManager.GetString("BorderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Broadcast.
         /// </summary>
         public static string BroadcastButton {

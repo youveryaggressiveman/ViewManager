@@ -8,7 +8,7 @@ namespace ServerApp.Core.Tokens
 {
     public static class TokenForApi
     {
-        private static string s_tokenApi = "";
+        private static string s_tokenApi = string.Empty;
 
         public static string GetTokenApi() =>
             s_tokenApi;

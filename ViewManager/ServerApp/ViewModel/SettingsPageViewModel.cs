@@ -149,7 +149,7 @@ namespace ServerApp.ViewModel
 
         private async void OpenListApp(object obj)
         {
-            string message = "";
+            string message = string.Empty;
 
             try
             {
@@ -173,7 +173,7 @@ namespace ServerApp.ViewModel
             {
                 var pcInfo = await _fileManager.FileReader(Environment.MachineName);
 
-                CustomComputerInfoBox.Show("Server", pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
+                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
             }
             catch
             {
@@ -262,12 +262,12 @@ namespace ServerApp.ViewModel
             Settings.Default.Save();
 
             if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
-            {
+            { 
                 ProcessStartInfo Info = new ProcessStartInfo();
-                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
-                Info.WindowStyle = ProcessWindowStyle.Hidden;
+                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;
+                Info.WindowStyle = ProcessWindowStyle.Normal;
                 Info.CreateNoWindow = true;
-                Info.FileName = "cmd.exe";
+                Info.FileName = "ServerApp.exe";
                 Process.Start(Info);
                 Process.GetCurrentProcess().Kill();
             }

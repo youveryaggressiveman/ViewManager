@@ -247,11 +247,11 @@ namespace ClientApp.ViewModel
 
             if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
-                ProcessStartInfo Info = new();
-                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
-                Info.WindowStyle = ProcessWindowStyle.Hidden;
+                ProcessStartInfo Info = new ProcessStartInfo();
+                Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;
+                Info.WindowStyle = ProcessWindowStyle.Normal;
                 Info.CreateNoWindow = true;
-                Info.FileName = "cmd.exe";
+                Info.FileName = "ClientApp.exe";
                 Process.Start(Info);
                 Process.GetCurrentProcess().Kill();
             }
@@ -274,7 +274,7 @@ namespace ClientApp.ViewModel
 
         private async void FileWork()
         {
-            string message = "";
+            string message = string.Empty;
 
             try
             {

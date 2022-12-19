@@ -48,7 +48,7 @@ namespace ServerApp.ViewModel
 
         private async void FileWork()
         {
-            string message = "";
+            string message = string.Empty;
 
             try
             {

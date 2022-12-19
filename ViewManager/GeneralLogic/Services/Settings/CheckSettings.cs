@@ -10,7 +10,7 @@ namespace GeneralLogic.Services.Settings
     {
         public string CheckCulture(string value)
         {
-            var culture = "";
+            var culture = string.Empty;
 
             switch (value)
             {
@@ -29,7 +29,7 @@ namespace GeneralLogic.Services.Settings
 
         public string CheckLang(string value)
         {
-            var lang = "";
+            var lang = string.Empty;
 
             switch (value)
             {

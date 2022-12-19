@@ -42,7 +42,10 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
 
                 foreach (var app in appList)
                 {
-                    s_castomListAllowAppBox.appListView.Items.Add(app);
+                    if (app != string.Empty)
+                    {
+                        s_castomListAllowAppBox.appListView.Items.Add(app);
+                    }                 
                 }
             }
             finally
@@ -72,7 +75,7 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
 
         private void saveChangedButton_Click(object sender, RoutedEventArgs e)
         {
-            string allApp = "";
+            string allApp = string.Empty;
 
             foreach (var app in s_castomListAllowAppBox.appListView.Items)
             {

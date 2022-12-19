@@ -29,6 +29,18 @@ namespace ServerApp.ViewModel
         private Office _selectedOffice;
         private User _selectedUser;
 
+        private string _password;
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password= value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
+
         public Role SelectedRole
         {
             get => _selectedRole;
@@ -116,7 +128,7 @@ namespace ServerApp.ViewModel
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(SelectedUser.Login) || string.IsNullOrWhiteSpace(SelectedUser.Password) ||
+            if (string.IsNullOrWhiteSpace(SelectedUser.Login) || string.IsNullOrWhiteSpace(Password) ||
                     SelectedRole == null || SelectedOffice == null)
             {
                 CustomMessageBox.Show("Required fields must be filled in!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);           
@@ -132,6 +144,7 @@ namespace ServerApp.ViewModel
                 SelectedUser.Office = SelectedOffice;
                 SelectedUser.RoleId = SelectedRole.Id;
                 SelectedUser.Role = SelectedRole;
+                SelectedUser.Password = Password;
 
                 try
                 {

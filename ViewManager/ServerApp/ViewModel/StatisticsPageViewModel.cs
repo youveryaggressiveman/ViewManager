@@ -3,6 +3,7 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Core.Statistics;
 using ServerApp.Model;
 using SkiaSharp;
 using System;
@@ -11,15 +12,54 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Markup;
 
 namespace ServerApp.ViewModel
 {
     public class StatisticsPageViewModel : BaseViewModel
     {
+        private readonly IFileManager _fileManager;
+
+        private readonly StatisticsSort _statisticsSort;
+
         private IEnumerable<ISeries> _series;
 
+        public ObservableCollection<Statistics> _statList;
         private ObservableCollection<double> _countStat;
+
+        private Visibility _visibilityBorder = Visibility.Collapsed;
+        private Visibility _visibilityChart = Visibility.Collapsed;
+
+        public ObservableCollection<Statistics> StatList
+        {
+            get => _statList;
+            set
+            {
+                _statList = value;
+                OnPropertyChanged(nameof(StatList));
+            }
+        }
+
+        public Visibility VisibilityChart
+        {
+            get => _visibilityChart;
+            set
+            {
+                _visibilityChart = value;
+                OnPropertyChanged(nameof(VisibilityChart));
+            }
+        }
+
+        public Visibility VisibilityBorder
+        {
+            get => _visibilityBorder;
+            set
+            {
+                _visibilityBorder = value;
+                OnPropertyChanged(nameof(VisibilityBorder));
+            }
+        }
 
         public ObservableCollection<double> CountStat
         {
@@ -45,22 +85,55 @@ namespace ServerApp.ViewModel
         {
             Series= new ObservableCollection<ISeries>();
 
-            CountStat = new ObservableCollection<double>()
-            {
-                0,
-                0,
-                0,
-            };
+            _statisticsSort = new();
 
-            LoadStatisticToChart();
+            _fileManager = new AppStatisticsFileManager();
+
+
             LoadStat();
+            LoadStatisticToChart();
+            SetBorderInfo();
+        }
+
+        private void SetBorderInfo()
+        {
+            double statCount = 0;
+
+            foreach (var stat in CountStat)
+            {
+                statCount += stat;
+            }
+
+            if (statCount == 0)
+            {
+                VisibilityBorder = Visibility.Visible;
+                VisibilityChart = Visibility.Collapsed;
+            }
+            else
+            {
+                VisibilityBorder = Visibility.Collapsed;
+                VisibilityChart = Visibility.Visible;
+            }
         }
 
         private async void LoadStat()
         {
+            StatList = new ObservableCollection<Statistics>();
+            CountStat = new ObservableCollection<double>() { 0, 0, 0 };
+
             try
             {
-                var allLogs = await LogManager.ReadLog("Server", DateTime.Today);
+                var allStat = await _fileManager.FileReader("Statistics");
+                var statList = await _statisticsSort.Sort(allStat);
+
+                if(statList == null)
+                {
+                    return;
+                }
+
+                statList.ToList().ForEach(StatList.Add);
+
+                _statisticsSort.CountNumber(StatList).ToList().ForEach(CountStat.Add);
             }
             catch
             {

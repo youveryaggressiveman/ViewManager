@@ -25,19 +25,21 @@ namespace API.Controllers
         public async Task<IActionResult> GetUserById(string id)
         {
             var user = await _db.Users.
-                Include(r=>r.Role)
+                Include(r => r.Role)
                 .FirstOrDefaultAsync(us => us.Id == id);
 
-            if(user == null)
+            if (user == null)
             {
                 return NotFound(nameof(user));
             }
+
+            user.Password = string.Empty;
 
             return Ok(user);
         }
 
         [Authorize(Roles = "Accountant")]
-        [HttpGet("GetUserList")] 
+        [HttpGet("GetUserList")]
         public async Task<IActionResult> GetUserList()
         {
             var userList = await _db.Users.Where(us => us.RoleId == 1).ToListAsync();
@@ -47,19 +49,24 @@ namespace API.Controllers
                 return NotFound(nameof(userList));
             }
 
+            foreach (var user in userList)
+            {
+                user.Password = string.Empty;
+            }
+
             return Ok(userList);
         }
 
         [Authorize(Roles = "Accountant")]
         [HttpPut("UpdateUser")]
-        public async Task<IActionResult> UpdateUser([FromBody]User user)
+        public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
             if (user == null)
             {
                 return NotFound(nameof(user));
             }
 
-            if (!await CheckLogin(user.Login))
+            if (!await CheckLogin(user.Login, user.Id))
             {
                 return BadRequest("This password is already taken:" + user.Login);
             }
@@ -84,7 +91,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "Accountant")]
         [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser([FromBody]User newUser)
+        public async Task<IActionResult> CreateUser([FromBody] User newUser)
         {
             if (newUser == null)
             {
@@ -123,16 +130,21 @@ namespace API.Controllers
             }
         }
 
-        private async Task<bool> CheckLogin(string value)
+        private async Task<bool> CheckLogin(string value, string? Id = null)
         {
-            var existingUser = await _db.Users.Where(user => user.Login == value).ToListAsync();
+            var existingUser = await _db.Users.FirstOrDefaultAsync(user => user.Login == value);
 
-            if(existingUser.Count > 1)
+            if (Id == null && existingUser == null)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            if (existingUser.Id == Id)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

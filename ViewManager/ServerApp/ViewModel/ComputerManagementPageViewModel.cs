@@ -67,7 +67,7 @@ namespace ServerApp.ViewModel
 
         private async void Info(object obj)
         {
-            string desription = "";
+            string desription = string.Empty;
 
             try
             {

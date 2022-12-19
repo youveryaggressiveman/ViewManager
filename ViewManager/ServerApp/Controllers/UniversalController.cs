@@ -226,7 +226,7 @@ namespace ServerApp.Controllers
             }
         }
 
-        public async Task<bool> Delete(T obj, string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {

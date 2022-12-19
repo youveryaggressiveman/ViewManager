@@ -19,7 +19,7 @@ namespace ServerApp.Model
         public string Login { get; set; } = null!;
         [Required(ErrorMessage = "Password can't be null!")]
         [MaxLength(10, ErrorMessage = "Password can't be more 13 symbols!")]
-        public string Password { get; set; } = null!;
+        public string Password { get; set; }
         public int RoleId { get; set; }
         public string OfficeId { get; set; } = null!;
 

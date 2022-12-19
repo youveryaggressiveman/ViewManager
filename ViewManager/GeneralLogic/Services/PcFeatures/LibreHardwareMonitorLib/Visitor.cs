@@ -25,7 +25,7 @@ namespace GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            var text = "";
+            var text = string.Empty;
 
             foreach (IHardware hardware in computer.Hardware)
             {

@@ -1,4 +1,5 @@
-﻿using ServerApp.Assets.Custom.MessageBox;
+﻿using GeneralLogic.Services.Files;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
@@ -18,6 +19,8 @@ namespace ServerApp.ViewModel
 {
     public class MainPageViewModel : BaseViewModel
     {
+        private readonly IFileManager _fileManager;
+
         private readonly TcpController _tcpController;
 
         private readonly UniversalController<User> _userController;
@@ -76,6 +79,9 @@ namespace ServerApp.ViewModel
 
         public MainPageViewModel()
         {
+            _fileManager = new AppStatisticsFileManager();
+            _fileManager.FileWriter("App:", "Statistics");
+
             _tcpController = new TcpController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
 
