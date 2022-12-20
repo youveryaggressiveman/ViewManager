@@ -58,5 +58,17 @@ namespace ServerApp.Properties {
                 this["Port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Ip {
+            get {
+                return ((string)(this["Ip"]));
+            }
+            set {
+                this["Ip"] = value;
+            }
+        }
     }
 }

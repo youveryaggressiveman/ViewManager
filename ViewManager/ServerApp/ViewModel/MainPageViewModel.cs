@@ -171,6 +171,7 @@ namespace ServerApp.ViewModel
                 AccountantButtonVisibility = Visibility.Collapsed;
                 CommonButtonVisibility = Visibility.Visible;
 
+                TcpServerSingleton.SetIp(null);
                 TcpConnect();
             }
             else

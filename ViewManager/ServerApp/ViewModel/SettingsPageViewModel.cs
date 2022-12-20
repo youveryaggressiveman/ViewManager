@@ -12,6 +12,7 @@ using ServerApp.Model;
 using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -31,6 +32,7 @@ namespace ServerApp.ViewModel
         private readonly UniversalController<User> _userController;
         private readonly CheckSettings _checkSettings;
 
+        private List<string> _localIpList;
         private List<string> _themeList;
         private List<string> _languageList;
 
@@ -39,17 +41,7 @@ namespace ServerApp.ViewModel
         private string _selectedTheme;
         private string _selectedLanguage;
         private string _port;
-        private string _ip;
-
-        public Visibility Visibility
-        {
-            get => _visibility;
-            set
-            {
-                _visibility= value;
-                OnPropertyChanged(nameof(Visibility));
-            }
-        }
+        private string _selectedLocalIp;
 
         public string Port
         {
@@ -61,13 +53,33 @@ namespace ServerApp.ViewModel
             }
         }
 
-        public string Ip
+        public string SelectedLocalIp
         {
-            get => _ip;
+            get => _selectedLocalIp;
             set
             {
-                _ip = value;
-                OnPropertyChanged(nameof(Ip));
+                _selectedLocalIp = value;
+                OnPropertyChanged(nameof(SelectedLocalIp));
+            }
+        }
+
+        public List<string> LocalIpList
+        {
+            get => _localIpList;
+            set
+            {
+                _localIpList = value;
+                OnPropertyChanged(nameof(LocalIpList));
+            }
+        }
+
+        public Visibility Visibility
+        {
+            get => _visibility;
+            set
+            {
+                _visibility= value;
+                OnPropertyChanged(nameof(Visibility));
             }
         }
 
@@ -129,8 +141,14 @@ namespace ServerApp.ViewModel
 
             _checkSettings = new();
 
+            foreach (var tcp in TcpServerSingleton.GetLocalIp())
+            {
+                LocalIpList = tcp.ValueList;
+            }
+
+            SelectedLocalIp = TcpServerSingleton.GetIp();
+
             Port = TcpServerSingleton.GetPort().ToString();
-            Ip = TcpServerSingleton.GetIp();
 
             ThemeList = new List<string>()
             {
@@ -258,6 +276,9 @@ namespace ServerApp.ViewModel
 
             Settings.Default.Port = port;
             TcpServerSingleton.SetPort(port);
+
+            //Доделать
+            //TcpServerSingleton.SetIp();
 
             Settings.Default.Save();
 

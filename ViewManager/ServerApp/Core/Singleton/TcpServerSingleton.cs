@@ -1,8 +1,12 @@
-﻿using ServerApp.Properties;
+﻿using HarfBuzzSharp;
+using ServerApp.Model;
+using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +16,7 @@ namespace ServerApp.Core.Singleton
     public static class TcpServerSingleton
     {
         private static int s_port = Properties.Settings.Default.Port;
-        private static readonly string s_ip = SetIp();
+        private static readonly string s_ip;
 
         public static string GetIp() =>
             s_ip;
@@ -23,12 +27,47 @@ namespace ServerApp.Core.Singleton
         public static void SetPort(int value) =>
             (s_port) = (value);
 
-        private static string SetIp()
+        public static string SetIp(string value)
         {
-            var host = Dns.GetHostName();
+            if(value == null)
+            {
+                var listIp = GetLocalIp();
 
-            return Dns.GetHostByName(host).AddressList[0].ToString();
+                foreach (var ip in listIp)
+                {
+                    Properties.Settings.Default.Ip = ip.ValueList[0];
+                    break;
+                }             
+            }
+            else
+            {
+                Properties.Settings.Default.Ip = value;
+            }
+
+            Properties.Settings.Default.Save();
+
+            return Properties.Settings.Default.Ip;
         }
-            
+         
+        public static ObservableCollection<LocalIpModel> GetLocalIp()
+        {
+            var ipList = new ObservableCollection<LocalIpModel>();
+
+            var macAddresses = NetworkInterface.GetAllNetworkInterfaces()
+                                               .Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet  
+                                                        && x.OperationalStatus == OperationalStatus.Up)
+                                                            .ToList();
+            foreach (var item in macAddresses)
+            {
+                ipList.Add(new LocalIpModel()
+                {
+                    Name = item.Name,
+                    IpAddresses = item.GetIPProperties().UnicastAddresses.ToList()
+
+                });
+            }
+
+            return ipList;
+        }
     }
 }
