@@ -141,15 +141,7 @@ namespace ServerApp.ViewModel
 
             _checkSettings = new();
 
-            foreach (var tcp in TcpServerSingleton.GetLocalIp())
-            {
-                LocalIpList = tcp.ValueList;
-            }
-
-            SelectedLocalIp = TcpServerSingleton.GetIp();
-
-            Port = TcpServerSingleton.GetPort().ToString();
-
+            LocalIpList = new List<string>();
             ThemeList = new List<string>()
             {
                 "Light",
@@ -243,6 +235,22 @@ namespace ServerApp.ViewModel
             {
                 SelectedLanguage = lang;
             }
+
+            foreach (var tcp in TcpServerSingleton.GetLocalIp())
+            {
+                LocalIpList.AddRange(tcp.ValueList);
+            }
+
+            foreach (var ip in LocalIpList)
+            {
+                if (ip.Contains(TcpServerSingleton.GetIp()))
+                {
+                    SelectedLocalIp = ip;
+                    break;
+                }
+            }
+
+            Port = TcpServerSingleton.GetPort().ToString();
         }
 
         private void SaveChanges(object obj)
@@ -277,8 +285,7 @@ namespace ServerApp.ViewModel
             Settings.Default.Port = port;
             TcpServerSingleton.SetPort(port);
 
-            //Доделать
-            //TcpServerSingleton.SetIp();
+            TcpServerSingleton.SetIp(SelectedLocalIp.Split(": ")[1]);
 
             Settings.Default.Save();
 

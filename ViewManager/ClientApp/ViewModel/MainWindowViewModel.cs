@@ -32,11 +32,12 @@ namespace ClientApp.ViewModel
         private readonly PcManager _pcManager;
         private readonly MainWindowViewModelController _controller;
 
+        private List<string> _localIpList;
         private List<string> _themeList;
         private List<string> _languageList;
-
+        
+        private string _selectedLocalIp;
         private string _status;
-        private string _yourIp;
         private string _yourPort;
         private string _serverIp;
         private string _serverPort;
@@ -44,6 +45,26 @@ namespace ClientApp.ViewModel
         private string _selectedLanguage;
 
         private Visibility _visibility = Visibility.Collapsed;
+
+        public string SelectedLocalIp
+        {
+            get => _selectedLocalIp;
+            set
+            {
+                _selectedLocalIp = value;
+                OnPropertyChanged(nameof(SelectedLocalIp));
+            }
+        }
+
+        public List<string> LocalIpList
+        {
+            get => _localIpList;
+            set
+            {
+                _localIpList = value;
+                OnPropertyChanged(nameof(LocalIpList));
+            }
+        }
 
         public List<string> LanguageList
         {
@@ -62,16 +83,6 @@ namespace ClientApp.ViewModel
             {
                 _status= value;
                 OnPropertyChanged(nameof(Status));
-            }
-        }
-
-        public string YourIp
-        {
-            get => _yourIp;
-            set
-            {
-                _yourIp= value;
-                OnPropertyChanged(nameof(YourIp));
             }
         }
 
@@ -153,7 +164,6 @@ namespace ClientApp.ViewModel
 
         public MainWindowViewModel()
         {
-            YourIp = ServerSingleton.GetThisIp();
             YourPort = ServerSingleton.GetThisPort().ToString();
 
             ServerIp = ServerSingleton.GetServerIp();
@@ -167,6 +177,7 @@ namespace ClientApp.ViewModel
 
             LogManager.CreateMainFolder();
 
+            LocalIpList = new List<string>();
             LanguageList = new List<string>()
             {
                 "English",
@@ -243,6 +254,8 @@ namespace ClientApp.ViewModel
             Settings.Default.ServerIp = ServerIp;
             ServerSingleton.SetServerIp(ServerIp);
 
+            ServerSingleton.SetIp(SelectedLocalIp.Split(": ")[1]);
+
             Settings.Default.Save();
 
             if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
@@ -269,6 +282,25 @@ namespace ClientApp.ViewModel
             if (LanguageList.Contains(lang))
             {
                 SelectedLanguage = lang;
+            }
+
+            if(Settings.Default.YourIp == string.Empty)
+            {
+                ServerSingleton.SetIp(string.Empty);
+            }
+
+            foreach (var tcp in ServerSingleton.GetLocalIp())
+            {
+                LocalIpList.AddRange(tcp.ValueList);
+            }
+
+            foreach (var ip in LocalIpList)
+            {
+                if (ip.Contains(ServerSingleton.GetThisIp()))
+                {
+                    SelectedLocalIp = ip;
+                    break;
+                }
             }
         }
 

@@ -109,7 +109,6 @@ D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\GeneralLogic.dl
 D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\GeneralLogic.pdb
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.AssemblyReference.cache
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Styles\GlobalStyle.baml
-D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AccountantPage.g.cs
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AuthPage.g.cs
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.g.cs
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\MainPage.g.cs
@@ -122,7 +121,6 @@ D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\GeneratedIntern
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp_MarkupCompile.cache
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp_MarkupCompile.lref
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\App.baml
-D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AccountantPage.baml
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\AuthPage.baml
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\CreateUserPage.baml
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\MainPage.baml
@@ -257,3 +255,27 @@ E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\r
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ListAllowAppBox\CustomListAllowAppBox.g.cs
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ListAllowAppBox\CustomListAllowAppBox.baml
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\HarfBuzzSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\LiveChartsCore.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\LiveChartsCore.SkiaSharpView.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\LiveChartsCore.SkiaSharpView.WPF.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\SkiaSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\SkiaSharp.HarfBuzz.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\SkiaSharp.Views.Desktop.Common.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\SkiaSharp.Views.WPF.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\osx\native\libHarfBuzzSharp.dylib
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-x64\native\libHarfBuzzSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\libHarfBuzzSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\osx\native\libSkiaSharp.dylib
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-arm64\native\libSkiaSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-x64\native\libSkiaSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ListAllowAppBox\CustomListAllowAppBox.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\ComputerManagementPage.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\StatisticsPage.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ListAllowAppBox\CustomListAllowAppBox.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\ComputerManagementPage.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\StatisticsPage.baml

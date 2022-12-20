@@ -118,7 +118,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{x:Static lang:Lang.SubTitleChooseLanguage}"
@@ -157,20 +157,21 @@
                     <TextBlock Text="IP"
                                VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
-                    <TextBox Text="{Binding YourIp}"
-                         IsReadOnly="True"
-                         HorizontalScrollBarVisibility="Auto"
-                         HorizontalContentAlignment="Center"
-                         FontSize="18"
-                             VerticalAlignment="Center"
-                         Width="200"/>
+                    <ComboBox VerticalAlignment="Center"
+                              FontSize="18"
+                              Height="35"
+                              ToolTip="{Binding SelectedLocalIp}"
+                              SelectedItem="{Binding SelectedLocalIp}"
+                              ItemsSource="{Binding LocalIpList}"
+                              Width="190" />
                     <TextBlock Text="{x:Static lang:Lang.YourPort}"
                                VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
                     <TextBox Text="{Binding YourPort}"
                          Width="70"
-                         
-                         VerticalAlignment="Center"
+                             Height="35"
+                             VerticalContentAlignment="Center"
+                             VerticalAlignment="Center"
                          PreviewTextInput="Port_PreviewTextInput"
                          HorizontalContentAlignment="Center"
                          FontSize="18"/>

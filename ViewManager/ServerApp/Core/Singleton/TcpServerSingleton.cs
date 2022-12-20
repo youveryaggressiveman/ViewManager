@@ -16,7 +16,7 @@ namespace ServerApp.Core.Singleton
     public static class TcpServerSingleton
     {
         private static int s_port = Properties.Settings.Default.Port;
-        private static readonly string s_ip;
+        private static readonly string s_ip = Properties.Settings.Default.Ip;
 
         public static string GetIp() =>
             s_ip;
@@ -29,7 +29,7 @@ namespace ServerApp.Core.Singleton
 
         public static string SetIp(string value)
         {
-            if(value == null)
+            if(value == string.Empty && s_ip == string.Empty)
             {
                 var listIp = GetLocalIp();
 
@@ -39,7 +39,7 @@ namespace ServerApp.Core.Singleton
                     break;
                 }             
             }
-            else
+            else if(value != string.Empty && s_ip != value)
             {
                 Properties.Settings.Default.Ip = value;
             }

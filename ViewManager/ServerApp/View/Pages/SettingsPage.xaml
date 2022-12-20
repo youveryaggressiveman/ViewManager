@@ -82,13 +82,12 @@
                 <TextBlock Text="IP"
                            VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>
-                <ComboBox 
-                         VerticalAlignment="Center"
-                         FontSize="18"
-                         SelectedItem="{Binding SelectedId}"
-                         ItemsSource="{Binding LocalIpList}"
-                         Width="190">
-                </ComboBox>
+                <ComboBox VerticalAlignment="Center"
+                          FontSize="18"
+                          ToolTip="{Binding SelectedLocalIp}"
+                          SelectedItem="{Binding SelectedLocalIp}"
+                          ItemsSource="{Binding LocalIpList}"
+                          Width="190" />
                 <TextBlock Text="{x:Static lang:Lang.TextBlockPort}"
                            VerticalAlignment="Center"
                            FontSize="18" Margin="10 0"/>

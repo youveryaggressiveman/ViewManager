@@ -82,5 +82,17 @@ namespace ClientApp.Properties {
                 this["ServerIp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YourIp {
+            get {
+                return ((string)(this["YourIp"]));
+            }
+            set {
+                this["YourIp"] = value;
+            }
+        }
     }
 }
