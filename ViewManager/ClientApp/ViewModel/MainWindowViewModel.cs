@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -40,6 +41,8 @@ namespace ClientApp.ViewModel
         private string _serverPort;
         private string _selectedTheme;
         private string _selectedLanguage;
+
+        private Thread _execute;
 
         private Visibility _visibility = Visibility.Collapsed;
 
@@ -141,6 +144,7 @@ namespace ClientApp.ViewModel
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
 
             LogManager.CreateMainFolder();
+
             LanguageList = new List<string>()
             {
                 "English",
@@ -159,10 +163,50 @@ namespace ClientApp.ViewModel
             _settingsManager = new SettingsManager();
             _fileManager = new PcFeaturesFileManager();
 
+            _execute = new Thread(ExecuteCommand);
+
             LoadInfo();
             FileWork();
             StartTcp();
             CheckConnection(null);
+
+            _execute.Start();
+        }
+
+        private async void ExecuteCommand(object? obj)
+        {
+
+            while (true)
+            {
+                try
+                {
+                    var command = await _controller.StartListenerTcp();
+
+                    switch (command)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+
+                            if(await _controller.SendMessage("Shutdown command completed successfully"))
+                            {
+                                System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
+                            }
+                            
+                            break;
+                        case 4:
+
+                        default:
+                            break;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         private async void CheckPcFeatures(object obj)

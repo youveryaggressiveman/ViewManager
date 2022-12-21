@@ -2,6 +2,7 @@
 using ServerApp.Assets.Custom.ClientScreenBox;
 using ServerApp.Assets.Custom.ComputerInfoBox;
 using ServerApp.Command;
+using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
 using System;
@@ -57,9 +58,12 @@ namespace ServerApp.ViewModel
             ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
         }
 
-        private void TurnOff(object obj)
+        private async void TurnOff(object obj)
         {
-            throw new NotImplementedException();
+            if (SelectedConnectedClient != null)
+            {
+                await TcpController.SendMessage(SelectedConnectedClient, "3");
+            }
         }
 
         private void Broadcast(object obj)
@@ -73,19 +77,22 @@ namespace ServerApp.ViewModel
 
         private async void Info(object obj)
         {
-            string desription = string.Empty;
+            if (SelectedConnectedClient != null)
+            {
+                string desription = string.Empty;
 
-            try
-            {
-                desription = await _fileManager.FileReader(SelectedConnectedClient.Name);
-            }
-            catch
-            {
+                try
+                {
+                    desription = await _fileManager.FileReader(SelectedConnectedClient.Name);
+                }
+                catch
+                {
 
-            }
-            finally
-            {
-                CustomComputerInfoBox.Show(SelectedConnectedClient.Name, desription);
+                }
+                finally
+                {
+                    CustomComputerInfoBox.Show(SelectedConnectedClient.Name, desription);
+                }
             }
         }
     }

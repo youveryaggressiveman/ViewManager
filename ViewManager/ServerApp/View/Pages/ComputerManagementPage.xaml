@@ -87,7 +87,7 @@
                                         <Run Text="{x:Static lang:Lang.StatusPc}"
                                              FontWeight="SemiBold"/>
                                         <Run Text="{Binding Status}"
-                                             x:Name="status"/>
+                                             Foreground="{Binding Foreground}"/>
                                     </TextBlock>
                                 </Grid>
                             </Grid>
@@ -109,7 +109,7 @@
                             CornerRadius="2"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{DynamicResource MainColor}">
-                                            <ContentPresenter x:Name="content"/>
+                                            <ContentPresenter/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsFocused" Value="True">
@@ -120,23 +120,15 @@
                                                 <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
                                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
                                             </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
-                                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        TargetName="border"
+                                                        Value="{DynamicResource NeutralColor}" />
+                                                <Setter Property="BorderBrush"
+                                                        TargetName="border"
+                                                        Value="{DynamicResource NeutralColor}" />
                                             </Trigger>
-                                            <DataTrigger Binding="{Binding Status}"
-                                             Value="Connected">
-                                                <Setter Property="TextElement.Foreground"
-                                                        TargetName="content"
-                                            Value="{DynamicResource Green}"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Status}"
-                                         
-                                             Value="Disconnected">
-                                                <Setter Property="TextElement.Foreground"
-                                                        TargetName="content"
-                                            Value="{DynamicResource Red}"/>
-                                            </DataTrigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
 

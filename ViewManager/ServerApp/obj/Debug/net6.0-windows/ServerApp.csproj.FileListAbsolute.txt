@@ -281,3 +281,5 @@ D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\Comp
 D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Pages\StatisticsPage.baml
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ClientScreenBox\CustomClientScreenBox.g.cs
 E:\GG PROGRAMIST\VM\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ClientScreenBox\CustomClientScreenBox.baml
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ClientScreenBox\CustomClientScreenBox.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\ClientScreenBox\CustomClientScreenBox.baml

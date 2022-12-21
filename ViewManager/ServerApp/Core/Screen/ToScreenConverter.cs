@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using ServerApp.ViewModel;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,9 +13,19 @@ using System.Windows.Media.Imaging;
 
 namespace ServerApp.Core.Screen
 {
-    public static class ToScreenConverter
+    public class ToScreenConverter : BaseViewModel
     {
-        public static BitmapImage Image { get; set; }
+        public static BitmapImage Image;
+
+        public BitmapImage BitmapImage
+        {
+            get => Image;
+            set
+            {
+                Image = value;
+                OnPropertyChanged(nameof(BitmapImage));
+            }
+        }
 
         public static void Convert(byte[] bytes)
         {

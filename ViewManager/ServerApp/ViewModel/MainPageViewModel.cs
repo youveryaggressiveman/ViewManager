@@ -23,7 +23,6 @@ namespace ServerApp.ViewModel
         private readonly IFileManager _fileManager;
 
         private readonly ClientsSort _clientsSort;
-        private readonly TcpController _tcpController;
 
         private readonly UniversalController<User> _userController;
 
@@ -88,7 +87,6 @@ namespace ServerApp.ViewModel
             _fileManager.FileWriter("AllowedApplications", null);
             _fileManager.FileWriter("Clients", null);
 
-            _tcpController = new TcpController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
 
             User = new User();
@@ -129,7 +127,7 @@ namespace ServerApp.ViewModel
 
         private async void TcpConnect()
         {
-            await _tcpController.StartTcp();
+            await TcpController.StartTcp();
         }
 
         private void SetBorder(bool switchBorder)

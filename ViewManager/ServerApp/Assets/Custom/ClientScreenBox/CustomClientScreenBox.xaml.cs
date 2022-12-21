@@ -1,8 +1,10 @@
 ﻿using ServerApp.Controllers;
+using ServerApp.Core.Clients;
 using ServerApp.Core.Screen;
 using ServerApp.Core.Singleton;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -33,6 +35,8 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
 
             pcNameRun.Text = name;
 
+            ToScreenConverter.Image = GetImage("ImageScreen");
+
             _udpThread = new Thread(Start);
             _udpThread.Start();
         }
@@ -42,8 +46,21 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             _udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort());
 
             await _udpController.StartUdp();
+        }
 
-            screenImage.Source = ToScreenConverter.Image;
+        private BitmapImage GetImage(string value)
+        {
+            DirectoryInfo directoryInfo = new(@"../../../Assets/Images/");
+
+            foreach (var image in directoryInfo.GetFiles())
+            {
+                if (image.Name == value + ".png")
+                {
+                    return new BitmapImage(new Uri(image.FullName));
+                }
+            }
+
+            return null;
         }
 
         private void DragWindow(object sender, RoutedEventArgs e)

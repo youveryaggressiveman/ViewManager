@@ -176,6 +176,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border x:Name="border"
+                            Padding="3 3 3 3"
                             Background="{DynamicResource MainColor}"
                             BorderBrush="{StaticResource NeutralColor}"
                             BorderThickness="{TemplateBinding BorderThickness}"

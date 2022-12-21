@@ -187,12 +187,14 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="border"
                             CornerRadius="5"
+                            Padding="3 3 3 3"
                             Background="{DynamicResource MainColor}"
                             BorderBrush="{DynamicResource NeutralColor}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Focusable="false"
+                                      
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
                     </Border>
