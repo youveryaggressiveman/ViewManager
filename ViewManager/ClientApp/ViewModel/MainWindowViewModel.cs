@@ -9,10 +9,12 @@ using GeneralLogic.Services.Files;
 using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
 using GeneralLogic.Services.PcFeatures.Management;
 using GeneralLogic.Services.Settings;
+using HidSharp.Reports;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -137,7 +139,8 @@ namespace ClientApp.ViewModel
             ServerIp = ServerSingleton.GetServerIp();
             ServerPort = ServerSingleton.GetServerPort().ToString();
 
-            _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
+            _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp,
+                            new IPEndPoint(IPAddress.Parse(ServerIp), int.Parse(ServerPort)));
 
             CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
             SaveChangesCommand = new DelegateCommand(SaveChanges);

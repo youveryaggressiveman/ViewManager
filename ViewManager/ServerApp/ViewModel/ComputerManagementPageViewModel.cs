@@ -87,8 +87,6 @@ namespace ServerApp.ViewModel
                 try
                 {
                     await TcpController.SendMessage(SelectedConnectedClient, "1");
-
-                    
                 }
                 catch
                 {

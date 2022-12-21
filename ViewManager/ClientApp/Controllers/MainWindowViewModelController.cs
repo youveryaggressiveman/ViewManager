@@ -21,14 +21,15 @@ namespace ClientApp.Controllers
         private readonly int _port;
         private readonly string _server;
 
+        private EndPoint _remotePoint;
         private ScreenConverter _screenConverter;
         private UdpClient _udpClient;
 
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
-        public MainWindowViewModelController(int port, string server) =>
-            (_port, _server) = (port, server);
+        public MainWindowViewModelController(int port, string server, EndPoint remotePoint) =>
+            (_port, _server, _remotePoint) = (port, server, remotePoint);
 
         public async Task<int> StartListenerTcp()
         {
@@ -36,11 +37,10 @@ namespace ClientApp.Controllers
 
             try
             {
-
                 s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 IPEndPoint ipep = (IPEndPoint)s_socketClient.LocalEndPoint;
+
                 EndPoint ipPoint = new IPEndPoint(ipep.Address, _port);
 
                 s_socketServer.Bind(ipPoint);
@@ -86,21 +86,21 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
-                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port);
+                using (s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+                {
+                    await s_socketClient.ConnectAsync(_remotePoint);
+                    stream = new(s_socketClient);
 
-                await s_socketClient.ConnectAsync(remotePoint);
+                    var message = "Answer: " + text;
 
-                stream = new(s_socketClient);
+                    byte[] data = Encoding.UTF8.GetBytes(message);
 
-                var message = "Answer: " + text;
+                    await stream.WriteAsync(data, 0, data.Length);
 
-                byte[] data = Encoding.UTF8.GetBytes(message);
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
 
-                await stream.WriteAsync(data, 0, data.Length);
-
-                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
-
-                return true;
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -120,21 +120,23 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
+                using (s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+                {
+                    await s_socketClient.ConnectAsync(_remotePoint);
+                    stream = new(s_socketClient);
 
-                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port);
+                    var message = "Name: " + Environment.MachineName;
 
-                await s_socketClient.ConnectAsync(remotePoint);
-                stream = new(s_socketClient);
+                    byte[] data = Encoding.UTF8.GetBytes(message);
 
-                var message = "Name: " + Environment.MachineName;
+                    await stream.WriteAsync(data, 0, data.Length);
 
-                byte[] data = Encoding.UTF8.GetBytes(message);
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
 
-                await stream.WriteAsync(data, 0, data.Length);
+                    return true;
+                }
 
-                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
 
-                return true;
             }
             catch (Exception ex)
             {

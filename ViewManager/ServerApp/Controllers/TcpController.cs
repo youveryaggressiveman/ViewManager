@@ -26,21 +26,21 @@ namespace ServerApp.Controllers
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
-        public static async Task<string> StartTcp()
+        public static async Task StartTcp()
         {
             try
             {
                 EndPoint ipPoint = new IPEndPoint(IPAddress.Parse(s_server), s_port);
 
                 s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                
 
                 s_socketServer.Bind(ipPoint);
+                s_socketServer.Listen(1000);
 
                 while (true)
-                {                 
-                    s_socketServer.Listen(1000);
-
+                {
+                    
                     Socket client = await s_socketServer.AcceptAsync();
 
                     NetworkStream stream = null;
@@ -48,8 +48,7 @@ namespace ServerApp.Controllers
                     {
                         stream = new(client);
                         byte[] data = new byte[512];
-                        while (true)
-                        {
+
                             StringBuilder builder = new StringBuilder();
                             do
                             {
@@ -90,22 +89,20 @@ namespace ServerApp.Controllers
 
                                         LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
                                     }
-                                    return string.Empty;
+                                    break;
                                 case 'A':
 
                                     LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
 
-                                    return message.Remove(0, 7);
+                                    message.Remove(0, 7);
+                                break;
                                 default:
                                     break;
                             }
                         }
-                    }
                     catch (Exception ex)
                     {
                         LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
-
-                        return string.Empty;
                     }
                     finally
                     {
@@ -119,34 +116,41 @@ namespace ServerApp.Controllers
             catch (Exception ex)
             {
                 LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
-
-                return string.Empty;
             }
         }
 
         public static async Task<bool> SendMessage(ConnectedClient client, string text)
         {
+            NetworkStream stream = null;
             try
             {
-                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(client.Ip), s_port);
+                using (s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+                {
+                    EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(client.Ip), s_port);
+                    await s_socketClient.ConnectAsync(remotePoint);
+                    stream = new(s_socketClient);
 
-                var message = "Command: " + text;
+                    var message = "Command: " + text;
 
-                byte[] data = Encoding.UTF8.GetBytes(message);
+                    byte[] data = Encoding.UTF8.GetBytes(message);
 
-                await s_socketClient.ConnectAsync(remotePoint);
-                int bytes = await s_socketClient.SendToAsync(data, SocketFlags.None, remotePoint);
+                    await stream.WriteAsync(data, 0, data.Length);
 
-                LogManager.SaveLog("Server", DateTime.Today, "TcpServer: The command is sent.");
+                    LogManager.SaveLog("Server", DateTime.Today, "TcpServer: The command is sent.");
 
-                return true;
-
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog("Server", DateTime.Today, $"TcpServer: {ex.Message}.");
 
                 return false;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
             }
 
         }
