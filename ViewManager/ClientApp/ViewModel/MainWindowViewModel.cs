@@ -43,7 +43,6 @@ namespace ClientApp.ViewModel
         private string _selectedLanguage;
 
         private Thread _execute;
-        private Thread _start;
 
         private Visibility _visibility = Visibility.Collapsed;
 
@@ -165,14 +164,12 @@ namespace ClientApp.ViewModel
             _fileManager = new PcFeaturesFileManager();
 
             _execute = new Thread(ExecuteCommand);
-            _start = new Thread(StartTcp);
 
             LoadInfo();
             FileWork();
             CheckConnection(null);
 
             _execute.Start();
-            _start.Start();
         }
 
         private async void ExecuteCommand(object? obj)
@@ -317,16 +314,11 @@ namespace ClientApp.ViewModel
             
         }
 
-        private async void StartTcp(object? obj)
-        {
-            await _controller.StartListenerTcp();
-        }
-
         private async void CheckConnection(object obj)
         {
             LoadBorder(true);
 
-            if (await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort)))
+            if (await _controller.SendFirstMessageTcp())
             {
                 Status = "Connected";
             }

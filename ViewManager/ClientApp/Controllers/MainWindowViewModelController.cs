@@ -1,5 +1,6 @@
 ﻿using ClientApp.Core.Screen;
 using GeneralLogic.Services.Files;
+using HidSharp.Reports;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +24,8 @@ namespace ClientApp.Controllers
         private ScreenConverter _screenConverter;
         private UdpClient _udpClient;
 
-        private static TcpListener s_listener = null;
-        private static TcpClient s_tcpClient;
+        private static Socket s_socketServer = null;
+        private static Socket s_socketClient = null;
 
         public MainWindowViewModelController(int port, string server) =>
             (_port, _server) = (port, server);
@@ -35,21 +36,22 @@ namespace ClientApp.Controllers
 
             try
             {
-                s_tcpClient = new TcpClient(_server, _port);
 
-                IPEndPoint ipep = (IPEndPoint)s_tcpClient.Client.LocalEndPoint;
+                s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                s_listener = new TcpListener(ipep.Address, _port);
+                IPEndPoint ipep = (IPEndPoint)s_socketClient.LocalEndPoint;
+                EndPoint ipPoint = new IPEndPoint(ipep.Address, _port);
 
-                s_listener.Start();
+                s_socketServer.Bind(ipPoint);
 
                 while (true)
                 {
-                    await s_tcpClient.ConnectAsync(_server, _port);
+                    s_socketServer.Listen(1000);
 
-                    TcpClient client = await s_listener.AcceptTcpClientAsync();
+                    Socket client = await s_socketServer.AcceptAsync();
 
-                    stream = client.GetStream();
+                    stream = new(client);
 
                     byte[] data = new byte[256];
                     var result = new StringBuilder();
@@ -77,12 +79,6 @@ namespace ClientApp.Controllers
 
                 return 0;
             }
-            finally
-            {
-                if (s_listener != null)
-                    s_listener.Stop();
-            }
-
         }
 
         public async Task<bool> SendMessage(string text)
@@ -90,7 +86,11 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
-                stream = s_tcpClient.GetStream();
+                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port);
+
+                await s_socketClient.ConnectAsync(remotePoint);
+
+                stream = new(s_socketClient);
 
                 var message = "Answer: " + text;
 
@@ -115,26 +115,26 @@ namespace ClientApp.Controllers
             }
         }
 
-        public async Task<bool> SendFirstMessageTcp(string ip, int port)
+        public async Task<bool> SendFirstMessageTcp()
         {
             NetworkStream stream = null;
             try
             {
-                using (s_tcpClient = new TcpClient(ip, port))
-                {
 
-                    stream = s_tcpClient.GetStream();
+                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port);
 
-                    var message = "Name: " + Environment.MachineName;
+                await s_socketClient.ConnectAsync(remotePoint);
+                stream = new(s_socketClient);
 
-                    byte[] data = Encoding.UTF8.GetBytes(message);
+                var message = "Name: " + Environment.MachineName;
 
-                    await stream.WriteAsync(data, 0, data.Length);
+                byte[] data = Encoding.UTF8.GetBytes(message);
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
+                await stream.WriteAsync(data, 0, data.Length);
 
-                    return true;
-                }
+                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
+
+                return true;
             }
             catch (Exception ex)
             {
