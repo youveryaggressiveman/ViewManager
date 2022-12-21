@@ -92,7 +92,7 @@ namespace ClientApp.Controllers
             {
                 stream = s_tcpClient.GetStream();
 
-                var message = "Command: " + text;
+                var message = "Answer: " + text;
 
                 byte[] data = Encoding.UTF8.GetBytes(message);
 

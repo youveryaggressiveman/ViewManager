@@ -81,26 +81,37 @@ namespace ServerApp.Controllers
 
                             IPEndPoint ipep = (IPEndPoint)client.Client.RemoteEndPoint;
 
-                            ConnectedClient connectedClient = new()
+                            if (message.Contains($"Shutdown command completed successfully"))
                             {
-                                Ip = ipep.Address.ToString(),
-                                Port = ipep.Port,
-                                Name = message.Remove(0, 6),
-                                Status = "Connected"
-                            };
-                            
-                            await s_clientsSort.Sort(connectedClient);
+                                foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
+                                {
+                                    if(message.Contains(connectedClient.Name))
+                                    {
+                                        connectedClient.Status = "Disconnected";
+                                    }
+                                } 
+                            }
+                            else
+                            {
+                                ConnectedClient connectedClient = new()
+                                {
+                                    Ip = ipep.Address.ToString(),
+                                    Port = ipep.Port,
+                                    Name = message.Remove(0, 5),
+                                    Status = "Connected"
+                                };
 
-                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
-                            break;
-                        case 'C':
-                            LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
+                                await s_clientsSort.Sort(connectedClient);
+
+                                LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
+                            }                          
                             break;
                         case 'A':
-                            S_AnswerList.Add(message);
+                            S_AnswerList.Add(message.Remove(0, 7));                           
 
                             LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
                             break;
+
                         default:
                             break;
                     }

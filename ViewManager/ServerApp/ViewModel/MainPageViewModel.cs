@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Ribbon.Primitives;
@@ -25,6 +26,8 @@ namespace ServerApp.ViewModel
         private readonly ClientsSort _clientsSort;
 
         private readonly UniversalController<User> _userController;
+
+        private Thread _start;
 
         private Visibility _accountantButtonVisibility = Visibility.Collapsed;
         private Visibility _teacherButtonVisibility = Visibility.Collapsed;
@@ -91,6 +94,8 @@ namespace ServerApp.ViewModel
 
             User = new User();
 
+            _start = new Thread(TcpConnect);
+
             StatisticsCommand = new DelegateCommand(Statistics);
             ComputerManagmentCommand = new DelegateCommand(ComputerManagment);
             CreateCommand = new DelegateCommand(Create);
@@ -125,7 +130,7 @@ namespace ServerApp.ViewModel
             FrameManager.SetPage(new CreateUserPage(), "mainPageFrame");
         }
 
-        private async void TcpConnect()
+        private async void TcpConnect(object? obj)
         {
             await TcpController.StartTcp();
         }
@@ -175,7 +180,8 @@ namespace ServerApp.ViewModel
 
                 TcpServerSingleton.SetIp(string.Empty);
                 await _clientsSort.Sort();
-                TcpConnect();
+
+                _start.Start();
             }
             else
             {

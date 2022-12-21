@@ -43,6 +43,7 @@ namespace ClientApp.ViewModel
         private string _selectedLanguage;
 
         private Thread _execute;
+        private Thread _start;
 
         private Visibility _visibility = Visibility.Collapsed;
 
@@ -164,13 +165,14 @@ namespace ClientApp.ViewModel
             _fileManager = new PcFeaturesFileManager();
 
             _execute = new Thread(ExecuteCommand);
+            _start = new Thread(StartTcp);
 
             LoadInfo();
             FileWork();
-            StartTcp();
             CheckConnection(null);
 
             _execute.Start();
+            _start.Start();
         }
 
         private async void ExecuteCommand(object? obj)
@@ -185,19 +187,26 @@ namespace ClientApp.ViewModel
                     switch (command)
                     {
                         case 1:
+
+                            var pcInfo = _pcManager.LoadPcFeature();
+
+                            await _controller.SendMessage(pcInfo);
+
                             break;
                         case 2:
+                            await _controller.StartUdp();
                             break;
                         case 3:
 
-                            if(await _controller.SendMessage("Shutdown command completed successfully"))
+                            if (await _controller.SendMessage($"{Environment.MachineName}: Shutdown command completed successfully"))
                             {
                                 System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
                             }
                             
                             break;
                         case 4:
-
+                             _controller.StopUdp();
+                            break;
                         default:
                             break;
                     }
@@ -308,7 +317,7 @@ namespace ClientApp.ViewModel
             
         }
 
-        private async void StartTcp()
+        private async void StartTcp(object? obj)
         {
             await _controller.StartListenerTcp();
         }

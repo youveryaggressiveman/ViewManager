@@ -60,30 +60,34 @@ namespace ServerApp.ViewModel
 
         private async void TurnOff(object obj)
         {
-            if (SelectedConnectedClient != null)
+            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
                 await TcpController.SendMessage(SelectedConnectedClient, "3");
             }
         }
 
-        private void Broadcast(object obj)
+        private async void Broadcast(object obj)
         {
-            if (SelectedConnectedClient != null)
+            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
-                CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient.Name);
+                await TcpController.SendMessage(SelectedConnectedClient, "3");
+
+                CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient);
                 customClientScreenBox.ShowDialog();
             }
         }
 
         private async void Info(object obj)
         {
-            if (SelectedConnectedClient != null)
+            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
                 string desription = string.Empty;
 
                 try
                 {
-                    desription = await _fileManager.FileReader(SelectedConnectedClient.Name);
+                    await TcpController.SendMessage(SelectedConnectedClient, "1");
+
+                    
                 }
                 catch
                 {

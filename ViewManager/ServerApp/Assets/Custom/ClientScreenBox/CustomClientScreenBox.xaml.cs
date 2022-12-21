@@ -2,6 +2,7 @@
 using ServerApp.Core.Clients;
 using ServerApp.Core.Screen;
 using ServerApp.Core.Singleton;
+using ServerApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +30,15 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
         private CustomClientScreenBox s_customClientScreenBox;
         private Thread _udpThread;
 
-        public CustomClientScreenBox( string name)
+        private ConnectedClient _client;
+
+        public CustomClientScreenBox(ConnectedClient client)
         {
             InitializeComponent();
 
-            pcNameRun.Text = name;
+            _client= client;
+
+            pcNameRun.Text = client.Name;
 
             ToScreenConverter.Image = GetImage("ImageScreen");
 
@@ -75,8 +80,10 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             }
         }
 
-        private void exitButton_Click(object sender, RoutedEventArgs e)
+        private async void exitButton_Click(object sender, RoutedEventArgs e)
         {
+            await TcpController.SendMessage(_client, "4");
+
             _udpController.StopUdp();
 
             Close();
