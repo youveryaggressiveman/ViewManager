@@ -3,6 +3,7 @@ using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
+using ServerApp.Core.Clients;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
 using ServerApp.View.Pages;
@@ -21,6 +22,7 @@ namespace ServerApp.ViewModel
     {
         private readonly IFileManager _fileManager;
 
+        private readonly ClientsSort _clientsSort;
         private readonly TcpController _tcpController;
 
         private readonly UniversalController<User> _userController;
@@ -80,9 +82,11 @@ namespace ServerApp.ViewModel
         public MainPageViewModel()
         {
             _fileManager = new AppStatisticsFileManager();
+            _clientsSort = new ClientsSort();
 
             _fileManager.FileWriter("Statistics", null);
             _fileManager.FileWriter("AllowedApplications", null);
+            _fileManager.FileWriter("Clients", null);
 
             _tcpController = new TcpController(TcpServerSingleton.GetPort(), TcpServerSingleton.GetIp());
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
@@ -163,7 +167,7 @@ namespace ServerApp.ViewModel
             
         }
 
-        private void CheckRole()
+        private async void CheckRole()
         {
             if(User.RoleId == 1)
             {
@@ -172,6 +176,7 @@ namespace ServerApp.ViewModel
                 CommonButtonVisibility = Visibility.Visible;
 
                 TcpServerSingleton.SetIp(string.Empty);
+                await _clientsSort.Sort();
                 TcpConnect();
             }
             else

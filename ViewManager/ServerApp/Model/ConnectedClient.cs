@@ -11,5 +11,6 @@ namespace ServerApp.Model
         public string Ip { get; set; } = null;
         public int Port { get; set; }
         public string Name { get; set; } = null;
+        public string Status { get; set; } = null;
     }
 }

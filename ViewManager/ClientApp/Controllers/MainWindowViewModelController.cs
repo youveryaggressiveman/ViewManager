@@ -1,4 +1,5 @@
-﻿using GeneralLogic.Services.Files;
+﻿using ClientApp.Core.Screen;
+using GeneralLogic.Services.Files;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Markup;
 
 namespace ClientApp.Controllers
@@ -17,6 +19,9 @@ namespace ClientApp.Controllers
     {
         private readonly int _port;
         private readonly string _server;
+
+        private ScreenConverter _screenConverter;
+        private UdpClient _udpClient;
 
         private static TcpListener s_listener = null;
         private static TcpClient s_tcpClient;
@@ -34,7 +39,7 @@ namespace ClientApp.Controllers
 
                 IPEndPoint ipep = (IPEndPoint)s_tcpClient.Client.LocalEndPoint;
 
-                s_listener = new TcpListener(ipep.Address,_port);
+                s_listener = new TcpListener(ipep.Address, _port);
 
                 s_listener.Start();
 
@@ -85,17 +90,17 @@ namespace ClientApp.Controllers
             NetworkStream stream = null;
             try
             {
-                    stream = s_tcpClient.GetStream();
+                stream = s_tcpClient.GetStream();
 
-                    var message = "Command: " + text;
+                var message = "Command: " + text;
 
-                    byte[] data = Encoding.UTF8.GetBytes(message);
+                byte[] data = Encoding.UTF8.GetBytes(message);
 
-                    await stream.WriteAsync(data, 0, data.Length);
+                await stream.WriteAsync(data, 0, data.Length);
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
+                LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
 
-                    return true;
+                return true;
             }
             catch (Exception ex)
             {
@@ -110,12 +115,12 @@ namespace ClientApp.Controllers
             }
         }
 
-        public async Task<bool> SendFirstMessageTcp()
+        public async Task<bool> SendFirstMessageTcp(string ip, int port)
         {
             NetworkStream stream = null;
             try
             {
-                using (s_tcpClient = new TcpClient(_server, _port))
+                using (s_tcpClient = new TcpClient(ip, port))
                 {
 
                     stream = s_tcpClient.GetStream();
@@ -143,6 +148,30 @@ namespace ClientApp.Controllers
                     stream.Close();
             }
 
+        }
+
+        public async Task StartUdp()
+        {
+            _udpClient = new(_server, _port);
+
+            _screenConverter = new ScreenConverter(int.Parse(System.Windows.SystemParameters.PrimaryScreenWidth.ToString()),
+                int.Parse(System.Windows.SystemParameters.PrimaryScreenHeight.ToString()));
+
+            while (true)
+            {
+                var byteArrayList = _screenConverter.CutMsg(_screenConverter.Convert());
+
+                for (int i = 0; i < byteArrayList.Count; i++)
+                {
+
+                    await _udpClient.SendAsync(byteArrayList[i], byteArrayList[i].Length);
+                }
+            }
+        }
+
+        public void StopUdp()
+        {
+            _udpClient.Close();
         }
     }
 }

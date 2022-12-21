@@ -49,18 +49,6 @@ namespace ClientApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2003")]
-        public int YourPort {
-            get {
-                return ((int)(this["YourPort"]));
-            }
-            set {
-                this["YourPort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2022")]
         public int ServerPort {
             get {
@@ -80,18 +68,6 @@ namespace ClientApp.Properties {
             }
             set {
                 this["ServerIp"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string YourIp {
-            get {
-                return ((string)(this["YourIp"]));
-            }
-            set {
-                this["YourIp"] = value;
             }
         }
     }

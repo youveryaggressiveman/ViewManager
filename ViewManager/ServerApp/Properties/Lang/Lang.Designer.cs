@@ -61,6 +61,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Address:.
+        /// </summary>
+        public static string AddressPc {
+            get {
+                return ResourceManager.GetString("AddressPc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на At the moment, there is no data to output statistics..
         /// </summary>
         public static string BorderSettings {
@@ -142,6 +151,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Close.
+        /// </summary>
+        public static string ExitUdp {
+            get {
+                return ResourceManager.GetString("ExitUdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Full description.
         /// </summary>
         public static string FullDescTitle {
@@ -205,6 +223,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Name:.
+        /// </summary>
+        public static string NamePc {
+            get {
+                return ResourceManager.GetString("NamePc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Password:.
         /// </summary>
         public static string Password {
@@ -237,6 +264,15 @@ namespace ServerApp.Properties.Lang {
         public static string StatisticsTitle {
             get {
                 return ResourceManager.GetString("StatisticsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Status:.
+        /// </summary>
+        public static string StatusPc {
+            get {
+                return ResourceManager.GetString("StatusPc", resourceCulture);
             }
         }
         

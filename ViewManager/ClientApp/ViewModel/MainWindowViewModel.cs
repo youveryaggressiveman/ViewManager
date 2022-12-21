@@ -32,39 +32,16 @@ namespace ClientApp.ViewModel
         private readonly PcManager _pcManager;
         private readonly MainWindowViewModelController _controller;
 
-        private List<string> _localIpList;
         private List<string> _themeList;
         private List<string> _languageList;
         
-        private string _selectedLocalIp;
         private string _status;
-        private string _yourPort;
         private string _serverIp;
         private string _serverPort;
         private string _selectedTheme;
         private string _selectedLanguage;
 
         private Visibility _visibility = Visibility.Collapsed;
-
-        public string SelectedLocalIp
-        {
-            get => _selectedLocalIp;
-            set
-            {
-                _selectedLocalIp = value;
-                OnPropertyChanged(nameof(SelectedLocalIp));
-            }
-        }
-
-        public List<string> LocalIpList
-        {
-            get => _localIpList;
-            set
-            {
-                _localIpList = value;
-                OnPropertyChanged(nameof(LocalIpList));
-            }
-        }
 
         public List<string> LanguageList
         {
@@ -83,16 +60,6 @@ namespace ClientApp.ViewModel
             {
                 _status= value;
                 OnPropertyChanged(nameof(Status));
-            }
-        }
-
-        public string YourPort
-        {
-            get=> _yourPort;
-            set
-            {
-                _yourPort = value;
-                OnPropertyChanged(nameof(YourPort));
             }
         }
 
@@ -164,8 +131,6 @@ namespace ClientApp.ViewModel
 
         public MainWindowViewModel()
         {
-            YourPort = ServerSingleton.GetThisPort().ToString();
-
             ServerIp = ServerSingleton.GetServerIp();
             ServerPort = ServerSingleton.GetServerPort().ToString();
 
@@ -176,8 +141,6 @@ namespace ClientApp.ViewModel
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
 
             LogManager.CreateMainFolder();
-
-            LocalIpList = new List<string>();
             LanguageList = new List<string>()
             {
                 "English",
@@ -218,7 +181,7 @@ namespace ClientApp.ViewModel
 
         private void SaveChanges(object obj)
         {
-            if (string.IsNullOrEmpty(ServerPort) || string.IsNullOrEmpty(YourPort) || string.IsNullOrEmpty(ServerIp))
+            if (string.IsNullOrEmpty(ServerPort) || string.IsNullOrEmpty(ServerIp))
             {
                 CustomMessageBox.Show("The fields for entering data about the local network cannot be empty!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
@@ -226,9 +189,8 @@ namespace ClientApp.ViewModel
             }
 
             int serverPort = int.Parse(ServerPort);
-            int yourPort = int.Parse(YourPort);
 
-            if (serverPort <= 1023 || yourPort <= 1023)
+            if (serverPort <= 1023)
             {
                 CustomMessageBox.Show("This port is reserved by the system.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
@@ -245,16 +207,12 @@ namespace ClientApp.ViewModel
                 Settings.Default.LanguageName = _checkSettings.CheckCulture(SelectedLanguage);
             }
 
-            Settings.Default.YourPort = yourPort;
-            ServerSingleton.SetThisPort(yourPort);
 
             Settings.Default.ServerPort = serverPort;
             ServerSingleton.SetServerPort(serverPort);
 
             Settings.Default.ServerIp = ServerIp;
             ServerSingleton.SetServerIp(ServerIp);
-
-            ServerSingleton.SetIp(SelectedLocalIp.Split(": ")[1]);
 
             Settings.Default.Save();
 
@@ -282,25 +240,6 @@ namespace ClientApp.ViewModel
             if (LanguageList.Contains(lang))
             {
                 SelectedLanguage = lang;
-            }
-
-            if(Settings.Default.YourIp == string.Empty)
-            {
-                ServerSingleton.SetIp(string.Empty);
-            }
-
-            foreach (var tcp in ServerSingleton.GetLocalIp())
-            {
-                LocalIpList.AddRange(tcp.ValueList);
-            }
-
-            foreach (var ip in LocalIpList)
-            {
-                if (ip.Contains(ServerSingleton.GetThisIp()))
-                {
-                    SelectedLocalIp = ip;
-                    break;
-                }
             }
         }
 
@@ -334,7 +273,7 @@ namespace ClientApp.ViewModel
         {
             LoadBorder(true);
 
-            if (await _controller.SendFirstMessageTcp())
+            if (await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort)))
             {
                 Status = "Connected";
             }

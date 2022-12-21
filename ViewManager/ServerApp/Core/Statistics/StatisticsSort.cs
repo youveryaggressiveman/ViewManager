@@ -31,13 +31,13 @@ namespace ServerApp.Core.Statistics
             _statList = new ObservableCollection<Model.Statistics>();
             _appList = new ObservableCollection<string>();
 
-            var gg = new List<(string, int)>();
-            var gh = new List<Model.Statistics>();
+            var nameCountList = new List<(string, int)>();
+            var lastList = new List<Model.Statistics>();
 
-            var statList = allStat.Split("\r\n");
+            var statList = allStat.Replace("\r", string.Empty).Split("\n");
 
             var allApp = await _fileManager.FileReader("AllowedApplications");
-            var appList = allApp.Split("\r\n");
+            var appList = allApp.Replace("\r", string.Empty).Split("\n");
 
             foreach (var app in appList)
             {
@@ -47,37 +47,37 @@ namespace ServerApp.Core.Statistics
                 }
             }
 
-            var temp = statList.Distinct();
+            var uniqueList = statList.Distinct();
 
-            foreach (var app in temp)
+            foreach (var app in uniqueList)
             {
-                gg.Add((app, 0));
+                nameCountList.Add((app, 0));
             }
 
-            foreach (var itrm2 in temp)
+            foreach (var nameCount in uniqueList)
             {
-                var t = ("", 0);
-                foreach (var item in statList)
+                var item = (string.Empty, 0);
+                foreach (var stat in statList)
                 {
-                    if (itrm2 == item)
+                    if (nameCount == stat)
                     {
-                        var ge = gg.FirstOrDefault(re => re.Item1 == itrm2);
-                        t = (ge.Item1, t.Item2 + 1);
+                        var ge = nameCountList.FirstOrDefault(re => re.Item1 == nameCount);
+                        item = (ge.Item1, item.Item2 + 1);
                     }
                 }
 
-                var tt = t.Item1.Split(',');
-                if (gh.Count(e => tt[0] == e.Title && tt[1] == e.ClientName) < 1)
+                var splitItem = item.Item1.Split(", Client: ");
+                if (lastList.Count(e => splitItem[0] == e.Title && splitItem[1] == e.ClientName) < 1)
                 {
-                    string title = "";
-                    string imageName = "";
+                    string title = string.Empty;
+                    string imageName = string.Empty;
 
-                    if (tt[0].Contains("Error: "))
+                    if (splitItem[0].Contains("Error: "))
                     {
                         title = "Error";
                         imageName = title;
                     }
-                    else if (_appList.FirstOrDefault(e => e == tt[0]) != null)
+                    else if (_appList.FirstOrDefault(e => e == splitItem[0]) != null)
                     {
                         title = "Approved";
                         imageName = "Confirm";
@@ -88,20 +88,20 @@ namespace ServerApp.Core.Statistics
                         imageName = title;
                     }
 
-                    gh.Add(new Model.Statistics
+                    lastList.Add(new Model.Statistics
                     {
                         Title = title,
-                        ClientName = tt[1],
-                        ProcessName = tt[0].Replace("Error: ", ""),
-                        Count = t.Item2,
+                        ClientName = splitItem[1],
+                        ProcessName = splitItem[0].Replace("Error: ", string.Empty),
+                        Count = item.Item2,
                         Image = GetImage(imageName),
                     });
 
-                    t = ("", 0);
+                    item = (string.Empty, 0);
                 }
             }
 
-            foreach (var item in gh)
+            foreach (var item in lastList)
             {
                 _statList.Add(item);
             }

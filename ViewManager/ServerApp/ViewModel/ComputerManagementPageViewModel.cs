@@ -1,6 +1,8 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Assets.Custom.ClientScreenBox;
 using ServerApp.Assets.Custom.ComputerInfoBox;
 using ServerApp.Command;
+using ServerApp.Core.Singleton;
 using ServerApp.Model;
 using System;
 using System.Collections.Generic;
@@ -32,7 +34,7 @@ namespace ServerApp.ViewModel
 
         public ConnectedClient SelectedConnectedClient
         {
-            get=> _selectedConnectedClient;
+            get => _selectedConnectedClient;
             set
             {
                 _selectedConnectedClient = value;
@@ -52,7 +54,7 @@ namespace ServerApp.ViewModel
             BroadcastCommand = new DelegateCommand(Broadcast);
             TurnOffCommand = new DelegateCommand(TurnOff);
 
-            ConnectedClientList= new ObservableCollection<ConnectedClient>();
+            ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
         }
 
         private void TurnOff(object obj)
@@ -62,7 +64,11 @@ namespace ServerApp.ViewModel
 
         private void Broadcast(object obj)
         {
-            throw new NotImplementedException();
+            if (SelectedConnectedClient != null)
+            {
+                CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient.Name);
+                customClientScreenBox.ShowDialog();
+            }
         }
 
         private async void Info(object obj)

@@ -8,17 +8,11 @@
     <Setting Name="LanguageName" Type="System.String" Scope="User">
       <Value Profile="(Default)">en-US</Value>
     </Setting>
-    <Setting Name="YourPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2003</Value>
-    </Setting>
     <Setting Name="ServerPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2022</Value>
     </Setting>
     <Setting Name="ServerIp" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
-    </Setting>
-    <Setting Name="YourIp" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

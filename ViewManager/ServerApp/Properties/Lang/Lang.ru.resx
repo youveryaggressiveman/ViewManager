@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressPc" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
   <data name="BorderSettings" xml:space="preserve">
     <value>В данный момент,  нет данных для того чтобы вывести статистику.</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="CreateUserTitle" xml:space="preserve">
     <value>Создание нового пользователя</value>
   </data>
+  <data name="ExitUdp" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="FullDescTitle" xml:space="preserve">
     <value>Полное описание</value>
   </data>
@@ -165,6 +171,9 @@
   <data name="ModeTitle" xml:space="preserve">
     <value>режим</value>
   </data>
+  <data name="NamePc" xml:space="preserve">
+    <value>Название:</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль:</value>
   </data>
@@ -176,6 +185,9 @@
   </data>
   <data name="StatisticsTitle" xml:space="preserve">
     <value>Статистика</value>
+  </data>
+  <data name="StatusPc" xml:space="preserve">
+    <value>Статус:</value>
   </data>
   <data name="TextBlockFIO" xml:space="preserve">
     <value>ФИО:</value>

@@ -67,6 +67,14 @@ namespace GeneralLogic.Services.Files
                     }
 
                     break;
+                case "Clients":
+
+                    using (StreamWriter streamWriter = new StreamWriter(filePath, false))
+                    {
+                        await streamWriter.WriteLineAsync(text);
+                    }
+
+                    break;
                 default:
                     break;
             }

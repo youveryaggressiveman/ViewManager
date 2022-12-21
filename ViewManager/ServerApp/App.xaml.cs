@@ -1,4 +1,6 @@
-﻿using ServerApp.Properties;
+﻿using GeneralLogic.Services.Files;
+using ServerApp.Core.Singleton;
+using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,6 +23,25 @@ namespace ServerApp
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
 
             base.OnStartup(e);
+        }
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            IFileManager fileManager = new AppStatisticsFileManager();
+
+            string clientList = string.Empty;
+            string key = "1652456";
+
+            foreach (var client in ConnectedClientSingleton.ListConnectedClient)
+            {
+                clientList += client.Name + key;
+                clientList += client.Ip + key;
+                clientList += client.Port + key;
+                clientList += "Disconnected" + "\n";
+            }
+
+            await fileManager.FileWriter("Clients", clientList);
+
+            base.OnExit(e);
         }
     }
 }

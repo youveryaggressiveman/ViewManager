@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ServerApp.Core.Clients;
 
 namespace ServerApp.Controllers
 {
@@ -17,12 +18,20 @@ namespace ServerApp.Controllers
     {
         private readonly int _port;
         private readonly string _server;
+
+        private readonly ClientsSort _clientsSort;
+
         private static TcpListener s_listener = null;
 
         public static ObservableCollection<string> S_AnswerList { get; set; } = new ObservableCollection<string>();
 
-        public TcpController(int port, string server) =>
-            (_port, _server) = (port, server);
+        public TcpController(int port, string server)
+        {
+            _port = port;
+            _server = server;
+
+            _clientsSort= new ClientsSort();
+        }
 
 
         public async Task StartTcp()
@@ -52,7 +61,7 @@ namespace ServerApp.Controllers
 
         }
 
-        public void GetDataTcp(object? obj)
+        public async void GetDataTcp(object? obj)
         {
             var client = (TcpClient)obj;
 
@@ -84,9 +93,11 @@ namespace ServerApp.Controllers
                             {
                                 Ip = ipep.Address.ToString(),
                                 Port = ipep.Port,
-                                Name = message.Remove(0, 6)
+                                Name = message.Remove(0, 6),
+                                Status = "Connected"
                             };
-                            ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
+                            
+                            await _clientsSort.Sort(connectedClient);
 
                             LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
                             break;

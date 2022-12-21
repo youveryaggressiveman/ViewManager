@@ -5,6 +5,7 @@
                      Color="#EE204D" />
     <SolidColorBrush x:Key="Green"
                      Color="#A8E4A0" />
+    <SolidColorBrush x:Key="Blue" Color="#4285B4"/>
 
     <!--Style for ToolTip-->
     <Style TargetType="ToolTip">
