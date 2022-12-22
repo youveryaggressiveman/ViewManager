@@ -82,8 +82,6 @@ namespace ServerApp.ViewModel
         {
             if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
-                string desription = string.Empty;
-
                 try
                 {
                     await TcpController.SendMessage(SelectedConnectedClient, "1");
@@ -91,10 +89,6 @@ namespace ServerApp.ViewModel
                 catch
                 {
 
-                }
-                finally
-                {
-                    CustomComputerInfoBox.Show(SelectedConnectedClient.Name, desription);
                 }
             }
         }

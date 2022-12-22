@@ -28,8 +28,19 @@ namespace ClientApp.Controllers
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
-        public MainWindowViewModelController(int port, string server, EndPoint remotePoint) =>
-            (_port, _server, _remotePoint) = (port, server, remotePoint);
+        public MainWindowViewModelController(int port, string server, EndPoint remotePoint)
+        {
+            _port = port;
+            _server = server;
+            _remotePoint = remotePoint;
+
+            s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            EndPoint ipPoint = new IPEndPoint(IPAddress.Broadcast, _port);
+
+            s_socketServer.Bind(ipPoint);
+            s_socketServer.Listen(1000);
+        }
 
         public async Task<int> StartListenerTcp()
         {
@@ -37,18 +48,8 @@ namespace ClientApp.Controllers
 
             try
             {
-                s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-                IPEndPoint ipep = (IPEndPoint)s_socketClient.LocalEndPoint;
-
-                EndPoint ipPoint = new IPEndPoint(ipep.Address, _port);
-
-                s_socketServer.Bind(ipPoint);
-
                 while (true)
                 {
-                    s_socketServer.Listen(1000);
-
                     Socket client = await s_socketServer.AcceptAsync();
 
                     stream = new(client);

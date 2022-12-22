@@ -1,4 +1,5 @@
 ﻿using HidSharp.Utility;
+using ServerApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +23,19 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
     {
         private static CustomComputerInfoBox s_customComputerInfoBox;
         private static bool s_result = false;
+        private static string s_answer;
 
         public CustomComputerInfoBox()
         {
             InitializeComponent();
         }
 
-        public static bool Show(string pcName, string description)
+        public static bool Show(string description)
         {
             s_customComputerInfoBox = new();
 
-            s_customComputerInfoBox.pcNameRun.Text= pcName;
             s_customComputerInfoBox.descriptionTextBlock.Text= description;
+            s_answer = description;
 
             s_customComputerInfoBox.ShowDialog();
 
@@ -54,11 +56,13 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
+            TcpController.S_AnswerList.Remove(s_answer);
             Close();
         }
 
         private void pcInfoButton_Click(object sender, RoutedEventArgs e)
         {
+            TcpController.S_AnswerList.Remove(s_answer);
             s_result = true;
             s_customComputerInfoBox.Close();
         }
