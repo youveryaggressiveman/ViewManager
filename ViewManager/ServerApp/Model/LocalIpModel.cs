@@ -22,7 +22,11 @@ namespace ServerApp.Model
             {
                 foreach (var ip in IpAddresses)
                 {
-                    _valueList.Add(Name + ": " + ip.Address.ToString());
+                    if(ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+
+                        _valueList.Add(Name + ": " + ip.Address.ToString());
+                    }
                 }
 
                 return _valueList;

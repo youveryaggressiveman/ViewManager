@@ -183,7 +183,7 @@ namespace ServerApp.ViewModel
             {
                 var pcInfo = await _fileManager.FileReader(Environment.MachineName);
 
-                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
+                CustomComputerInfoBox.Show(Environment.MachineName);
             }
             catch
             {

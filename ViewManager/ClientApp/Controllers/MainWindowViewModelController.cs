@@ -1,4 +1,5 @@
-﻿using ClientApp.Core.Screen;
+﻿using ClientApp.Core.Address;
+using ClientApp.Core.Screen;
 using GeneralLogic.Services.Files;
 using HidSharp.Reports;
 using System;
@@ -18,28 +19,71 @@ namespace ClientApp.Controllers
 {
     public class MainWindowViewModelController
     {
-        private readonly int _port;
-        private readonly string _server;
+        private int _port;
+        private string _server;
 
-        private EndPoint _remotePoint;
         private ScreenConverter _screenConverter;
         private UdpClient _udpClient;
+
+        private readonly GetAddress _getAddress;
+        private readonly GetSubnetMusk _getSubnetMusk;
 
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
-        public MainWindowViewModelController(int port, string server, EndPoint remotePoint)
+        public MainWindowViewModelController(int port, string server)
         {
             _port = port;
             _server = server;
-            _remotePoint = remotePoint;
+
+            _getAddress = new();
+            _getSubnetMusk = new();
 
             s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            EndPoint ipPoint = new IPEndPoint(IPAddress.Broadcast, _port);
+            try
+            {
+                if (!GetIpAddress())
+                {
+                    throw new Exception("The IP of the server that you specified is registered in a different subnet!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-            s_socketServer.Bind(ipPoint);
-            s_socketServer.Listen(1000);
+        private bool GetIpAddress()
+        {
+            try
+            {
+                var serverIp = IPAddress.Parse(_server);
+                var mask = _getSubnetMusk.CreateByNetBitLength(24);
+                IPAddress clientIp;
+
+                foreach (var address in _getAddress.GetLocalIp())
+                {
+                    clientIp = IPAddress.Parse(address);
+                    if (_getAddress.IsInSameSubnet(serverIp, clientIp, mask))
+                    {
+                        EndPoint ipPoint = new IPEndPoint(clientIp, _port);
+
+                        s_socketServer.Bind(ipPoint);
+                        s_socketServer.Listen(1000);
+
+                        return true;
+                    }
+
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw new Exception("The IP of the server you specified does not exist!");
+            }
+           
         }
 
         public async Task<int> StartListenerTcp()
@@ -82,14 +126,29 @@ namespace ClientApp.Controllers
             }
         }
 
-        public async Task<bool> SendMessage(string text)
+        public async Task SendMessage(string text)
         {
             NetworkStream stream = null;
+
+            try
+            {
+                if (!GetIpAddress())
+                {
+                    throw new Exception("The IP of the server that you specified is registered in a different subnet!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
             try
             {
                 using (s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    await s_socketClient.ConnectAsync(_remotePoint);
+                    EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port);
+
+                    await s_socketClient.ConnectAsync(remotePoint);
                     stream = new(s_socketClient);
 
                     var message = "Answer: " + text;
@@ -99,15 +158,13 @@ namespace ClientApp.Controllers
                     await stream.WriteAsync(data, 0, data.Length);
 
                     LogManager.SaveLog("Client", DateTime.Today, "TcpClient: The command is executed.");
-
-                    return true;
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message}.");
 
-                return false;
+                throw new Exception("Connection with this ID and port does not exist!");
             }
             finally
             {
@@ -116,14 +173,29 @@ namespace ClientApp.Controllers
             }
         }
 
-        public async Task<bool> SendFirstMessageTcp()
+        public async Task SendFirstMessageTcp(string ip, int port)
         {
             NetworkStream stream = null;
+
+            try
+            {
+                if (!GetIpAddress())
+                {
+                    throw new Exception("The IP of the server that you specified is registered in a different subnet!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
             try
             {
                 using (s_socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    await s_socketClient.ConnectAsync(_remotePoint);
+                    EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(ip), port);
+
+                    await s_socketClient.ConnectAsync(remotePoint);
                     stream = new(s_socketClient);
 
                     var message = "Name: " + Environment.MachineName;
@@ -132,9 +204,10 @@ namespace ClientApp.Controllers
 
                     await stream.WriteAsync(data, 0, data.Length);
 
-                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
+                    _server = ip;
+                    _port = port;
 
-                    return true;
+                    LogManager.SaveLog("Client", DateTime.Today, "TcpClient: Successful connection to the server.");
                 }
 
 
@@ -143,7 +216,7 @@ namespace ClientApp.Controllers
             {
                 LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message}.");
 
-                return false;
+                throw new Exception("Connection with this ID and port does not exist!");
             }
             finally
             {

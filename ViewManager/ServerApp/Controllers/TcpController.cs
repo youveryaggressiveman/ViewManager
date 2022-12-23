@@ -51,7 +51,6 @@ namespace ServerApp.Controllers
 
                 s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-
                 s_socketServer.Bind(ipPoint);
                 s_socketServer.Listen(1000);
 

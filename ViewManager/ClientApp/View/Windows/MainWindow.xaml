@@ -14,6 +14,97 @@
         Width="650"
         MinHeight="670"
         MinWidth="670">
+    <Window.Resources>
+        <Storyboard x:Key="Storyboard" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#FFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="sc#0.25, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="sc#0.75, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#FFFFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#BFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#1, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#7FFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#BFFFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#7FFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0.75, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#1, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#3FFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#7FFFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#3FFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0.5, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0.75, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="#FFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#3FFFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0.25, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0.5, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="#BFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#1, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#00FFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse5" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0.25, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="sc#0.5, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0.75, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#FFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#00FFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse6" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="sc#0.25, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0.5, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="#BFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#00FFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetName="ellipse7" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <EasingColorKeyFrame KeyTime="00:00:00" Value="#00FFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.1000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.2000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.3000000" Value="sc#0, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.4000000" Value="sc#0.25, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.5000000" Value="sc#0.5, 1, 0.623960435, 0"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#FFFFCF00"/>
+                <EasingColorKeyFrame KeyTime="00:00:00.7000000" Value="#00FFCF00"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger
+            RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard
+                Storyboard="{StaticResource Storyboard}" />
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -225,25 +316,17 @@
             <TextBlock VerticalAlignment="Center"
                        HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <Ellipse x:Name="Ellipse"
-                             Width="50"
-                             Height="50"
-                             StrokeThickness="5"
-                             StrokeDashArray="1,2"
-                             Stroke="{DynamicResource ColorHighlight}"
-                             StrokeDashCap="Round"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             RenderTransformOrigin="0.5,0.5">
-                        <Ellipse.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
+                    <Grid>
+        <Ellipse x:Name="ellipse1" HorizontalAlignment="Left" Height="10.5" Margin="10,0,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse" HorizontalAlignment="Left" Height="10.5" Margin="25,0,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse7" HorizontalAlignment="Left" Height="10.5" Margin="35,10,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse2" HorizontalAlignment="Left" Height="10.5" Margin="0,10,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse4" HorizontalAlignment="Left" Height="10.5" Margin="10,35,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse5" HorizontalAlignment="Left" Height="10.5" Margin="25,35,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse6" HorizontalAlignment="Left" Height="10.5" Margin="35,25,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+        <Ellipse x:Name="ellipse3" HorizontalAlignment="Left" Height="10.5" Margin="0,25,0,0" VerticalAlignment="Top" Width="10" Fill="#FFFFCF00"/>
+
+    </Grid>
                     <Label x:Name="label"
                            Foreground="{DynamicResource AdditionalColor}"
                            Content="{x:Static lang:Lang.WaitingWindow}"

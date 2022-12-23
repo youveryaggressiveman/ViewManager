@@ -11,6 +11,7 @@
       Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="StatisticsPage">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -152,6 +153,16 @@
                                             Value="{DynamicResource Blue}"/>
 
                                         </DataTrigger>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2">
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
 

@@ -36,7 +36,20 @@
                           Margin="10"
                           ItemsSource="{Binding UserList}"
                           DisplayMemberPath="FIO"
-                          SelectedItem="{Binding SelectedUser}"/>
+                          SelectedItem="{Binding SelectedUser}">
+                    <ListView.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </ListView.Triggers>
+                </ListView>
             </Grid>
             <Border Width="1"
                     BorderBrush="{DynamicResource NeutralColor}"

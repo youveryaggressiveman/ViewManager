@@ -33,11 +33,12 @@ namespace ClientApp.ViewModel
         private readonly Visitor _visitor;
         private readonly CheckSettings _checkSettings;
         private readonly PcManager _pcManager;
-        private readonly MainWindowViewModelController _controller;
+
+        private MainWindowViewModelController _controller;
 
         private List<string> _themeList;
         private List<string> _languageList;
-        
+
         private string _status;
         private string _serverIp;
         private string _serverPort;
@@ -63,24 +64,24 @@ namespace ClientApp.ViewModel
             get => _status;
             set
             {
-                _status= value;
+                _status = value;
                 OnPropertyChanged(nameof(Status));
             }
         }
 
         public string ServerIp
         {
-            get=> _serverIp;
+            get => _serverIp;
             set
             {
-                _serverIp= value;
+                _serverIp = value;
                 OnPropertyChanged(nameof(ServerIp));
             }
         }
 
         public string ServerPort
         {
-            get => _serverPort; 
+            get => _serverPort;
             set
             {
                 _serverPort = value;
@@ -139,12 +140,19 @@ namespace ClientApp.ViewModel
             ServerIp = ServerSingleton.GetServerIp();
             ServerPort = ServerSingleton.GetServerPort().ToString();
 
-            _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp,
-                            new IPEndPoint(IPAddress.Parse(ServerIp), int.Parse(ServerPort)));
-
             CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
+
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
+            
 
             LogManager.CreateMainFolder();
 
@@ -168,20 +176,26 @@ namespace ClientApp.ViewModel
 
             _execute = new Thread(ExecuteCommand);
 
-            LoadInfo();
-            FileWork();
+            _execute.Start();
+
             CheckConnection(null);
 
-            _execute.Start();
+            LoadInfo();
+            FileWork();
         }
 
         private async void ExecuteCommand(object? obj)
         {
-
-            while (true)
+            if(_controller == null)
             {
-                try
+                return;
+            }
+
+            try
+            {
+                while (true)
                 {
+
                     var command = await _controller.StartListenerTcp();
 
                     switch (command)
@@ -197,24 +211,22 @@ namespace ClientApp.ViewModel
                             await _controller.StartUdp();
                             break;
                         case 3:
+                            await _controller.SendMessage($"{Environment.MachineName}: Shutdown command completed successfully");
 
-                            if (await _controller.SendMessage($"{Environment.MachineName}: Shutdown command completed successfully"))
-                            {
-                                System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
-                            }
-                            
+                            System.Diagnostics.Process.Start("cmd", "/c shutdown -s -f -t 00");
                             break;
                         case 4:
-                             _controller.StopUdp();
+                            _controller.StopUdp();
                             break;
                         default:
                             break;
                     }
                 }
-                catch
-                {
 
-                }
+            }
+            catch
+            {
+                Status = "Disconnected";
             }
         }
 
@@ -224,9 +236,9 @@ namespace ClientApp.ViewModel
             {
                 var pcInfo = await _fileManager.FileReader(Environment.MachineName);
 
-                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ","").Replace("Sensor: {0}, value: {1}, ",""));
+                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
             }
-            catch 
+            catch
             {
                 CustomMessageBox.Show("Could not get data about your computer!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
@@ -251,12 +263,14 @@ namespace ClientApp.ViewModel
             }
 
             if (!string.IsNullOrEmpty(SelectedTheme))
-            {;
+            {
+                ;
                 Settings.Default.ThemeName = SelectedTheme;
             }
 
             if (!string.IsNullOrEmpty(SelectedLanguage))
-            {;
+            {
+                ;
                 Settings.Default.LanguageName = _checkSettings.CheckCulture(SelectedLanguage);
             }
 
@@ -269,7 +283,7 @@ namespace ClientApp.ViewModel
 
             Settings.Default.Save();
 
-            if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            if (CustomMessageBox.Show("The saves have been saved successfully! The application will be restarted.", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing))
             {
                 ProcessStartInfo Info = new ProcessStartInfo();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;
@@ -314,25 +328,34 @@ namespace ClientApp.ViewModel
             {
                 LogManager.SaveLog("Client", DateTime.Today, $"FileWriter: {message}.");
             }
-            
+
         }
 
-        private async void CheckConnection(object obj)
+        private async void CheckConnection(object? obj)
         {
-            LoadBorder(true);
-
-            if (await _controller.SendFirstMessageTcp())
+            try
             {
+                LoadBorder(true);
+
+                _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
+
+                await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort));
+
+                CustomMessageBox.Show("The connection is established, for the full operation of the application, click the \"Save changes\" button.", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
                 Status = "Connected";
             }
-            else
+            catch (Exception ex)
             {
                 Status = "Disconnected";
 
-                CustomMessageBox.Show("Connection with this ID and port does not exist.", Assets.Custom.MessageBox.Basic.Titles.Error, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-            }
+                CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
-            LoadBorder(false);
+            }
+            finally
+            {
+                LoadBorder(false);
+            }
         }
 
         private void LoadBorder(bool switchBorder)
