@@ -65,12 +65,15 @@ namespace ClientApp.Controllers
                 foreach (var address in _getAddress.GetLocalIp())
                 {
                     clientIp = IPAddress.Parse(address);
-                    if (_getAddress.IsInSameSubnet(serverIp, clientIp, mask))
+                    if (_getAddress.IsInSameSubnet(serverIp, clientIp, mask.Length))
                     {
                         EndPoint ipPoint = new IPEndPoint(clientIp, _port);
 
-                        s_socketServer.Bind(ipPoint);
-                        s_socketServer.Listen(1000);
+                        if(s_socketServer.LocalEndPoint == null)
+                        {
+                            s_socketServer.Bind(ipPoint);
+                            s_socketServer.Listen(1000);
+                        }
 
                         return true;
                     }
@@ -198,7 +201,7 @@ namespace ClientApp.Controllers
                     await s_socketClient.ConnectAsync(remotePoint);
                     stream = new(s_socketClient);
 
-                    var message = "Name: " + Environment.MachineName;
+                    var message = $"Name: {Environment.MachineName} ";
 
                     byte[] data = Encoding.UTF8.GetBytes(message);
 

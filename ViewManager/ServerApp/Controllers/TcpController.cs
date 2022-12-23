@@ -17,10 +17,8 @@ using ServerApp.Assets.Custom.ComputerInfoBox;
 
 namespace ServerApp.Controllers
 {
-    public static class TcpController
+    public class TcpController
     {
-        private static ObservableCollection<string> s_answerList = new ObservableCollection<string>();
-
         private static readonly int s_port = TcpServerSingleton.GetPort();
         private static readonly string s_server = TcpServerSingleton.GetIp();
 
@@ -29,19 +27,7 @@ namespace ServerApp.Controllers
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
-        public static ObservableCollection<string> S_AnswerList
-        {
-            get => s_answerList;
-            set
-            {
-                s_answerList = value;
-
-                if (s_answerList != null || s_answerList.Count > 0)
-                {
-                    CustomComputerInfoBox.Show(s_answerList[0]);
-                }
-            }
-        }
+        public static string S_Answer { get; set; }
 
         public static async Task StartTcp()
         {
@@ -110,7 +96,7 @@ namespace ServerApp.Controllers
 
                                 LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
 
-                                S_AnswerList.Add(message.Remove(0, 7));
+                                S_Answer = (message.Remove(0, 7));
                                 break;
                             default:
                                 break;

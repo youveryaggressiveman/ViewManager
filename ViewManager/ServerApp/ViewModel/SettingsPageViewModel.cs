@@ -183,7 +183,7 @@ namespace ServerApp.ViewModel
             {
                 var pcInfo = await _fileManager.FileReader(Environment.MachineName);
 
-                CustomComputerInfoBox.Show(Environment.MachineName);
+                CustomComputerInfoBox.Show(pcInfo, Environment.MachineName);
             }
             catch
             {

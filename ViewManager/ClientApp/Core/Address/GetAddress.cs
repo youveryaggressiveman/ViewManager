@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,10 +24,10 @@ namespace ClientApp.Core.Address
             {
                 foreach (var address in item.GetIPProperties().UnicastAddresses.ToList())
                 {
-                    if(address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    if (address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
                         ipList.Add(address.Address.ToString());
-                    } 
+                    }
                 }
             }
 
@@ -49,20 +50,17 @@ namespace ClientApp.Core.Address
             return new IPAddress(broadcastAddress);
         }
 
-        public bool IsInSameSubnet(IPAddress addressServer, IPAddress addressClient, IPAddress subnetMask)
+        public bool IsInSameSubnet(IPAddress addressServer, IPAddress addressClient, int subnetMask)
         {
-            try
+            if (addressServer.AddressFamily != AddressFamily.InterNetwork
+                || addressClient.AddressFamily != AddressFamily.InterNetwork)
             {
-                IPAddress network1 = GetNetworkAddress(addressClient, subnetMask);
-                IPAddress network2 = GetNetworkAddress(addressServer, subnetMask);
+                return false;
+            }
+            uint mask = unchecked(0xFFFFFFFF >> (32 - subnetMask));
+            return (BitConverter.ToUInt32(addressServer.GetAddressBytes()) & mask)
+                    == (BitConverter.ToUInt32(addressClient.GetAddressBytes()) & mask);
 
-                return network1.Equals(network2);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            
         }
     }
 }

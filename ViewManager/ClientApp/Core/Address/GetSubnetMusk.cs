@@ -13,7 +13,7 @@ namespace ClientApp.Core.Address
         public readonly IPAddress ClassB = IPAddress.Parse("255.255.0.0");
         public readonly IPAddress ClassC = IPAddress.Parse("255.255.255.0");
 
-        public IPAddress CreateByHostBitLength(int hostpartLength)
+        public byte[] CreateByHostBitLength(int hostpartLength)
         {
             int hostPartLength = hostpartLength;
             int netPartLength = 32 - hostPartLength;
@@ -37,16 +37,16 @@ namespace ClientApp.Core.Address
                     binaryMask[i] = Convert.ToByte(binaryDigit, 2);
                 }
             }
-            return new IPAddress(binaryMask);
+            return binaryMask;
         }
 
-        public IPAddress CreateByNetBitLength(int netpartLength)
+        public byte[] CreateByNetBitLength(int netpartLength)
         {
             int hostPartLength = 32 - netpartLength;
             return CreateByHostBitLength(hostPartLength);
         }
 
-        public IPAddress CreateByHostNumber(int numberOfHosts)
+        public byte[] CreateByHostNumber(int numberOfHosts)
         {
             int maxNumber = numberOfHosts + 1;
 

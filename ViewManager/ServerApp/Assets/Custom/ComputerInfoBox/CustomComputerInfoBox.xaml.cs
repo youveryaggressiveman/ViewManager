@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ServerApp.Assets.Custom.ComputerInfoBox
 {
@@ -23,22 +24,34 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
     {
         private static CustomComputerInfoBox s_customComputerInfoBox;
         private static bool s_result = false;
-        private static string s_answer;
+        private static DispatcherTimer s_dispatcherTimer;
 
         public CustomComputerInfoBox()
         {
             InitializeComponent();
         }
 
-        public static bool Show(string description)
+        public static bool Show(string description, string pcName)
         {
             s_customComputerInfoBox = new();
 
-            s_customComputerInfoBox.descriptionTextBlock.Text= description;
-            s_answer = description;
+            if (!string.IsNullOrEmpty(description))
+            {
+                s_customComputerInfoBox.descriptionTextBlock.Text = description;
+
+            }
+            else
+            {
+                s_dispatcherTimer = new DispatcherTimer();
+                s_dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+                s_dispatcherTimer.Tick += (object? sender, EventArgs e) =>
+                {
+                    s_customComputerInfoBox.descriptionTextBlock.Text = TcpController.S_Answer;
+                };
+                s_dispatcherTimer.Start();
+            }
 
             s_customComputerInfoBox.ShowDialog();
-
             return s_result;
         }
 
@@ -56,14 +69,14 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            TcpController.S_AnswerList.Remove(s_answer);
+            s_dispatcherTimer.Stop();
             Close();
         }
 
         private void pcInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            TcpController.S_AnswerList.Remove(s_answer);
             s_result = true;
+            s_dispatcherTimer.Stop();
             s_customComputerInfoBox.Close();
         }
     }

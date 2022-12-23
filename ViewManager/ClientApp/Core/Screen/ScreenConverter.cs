@@ -29,7 +29,6 @@ namespace ClientApp.Core.Screen
         {
             _graphics.CopyFromScreen(0, 0, 0, 0, new Size(_screenWidth, _screenHeight));
 
-            // Получаем изображение в виде массива байтов
             using (MemoryStream memoryStream = new())
             {
                 _backGround.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);

@@ -146,7 +146,7 @@ namespace ClientApp.ViewModel
 
             try
             {
-                
+                _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
             }
             catch (Exception ex)
             {
@@ -336,8 +336,6 @@ namespace ClientApp.ViewModel
             try
             {
                 LoadBorder(true);
-
-                _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
 
                 await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort));
 
