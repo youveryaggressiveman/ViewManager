@@ -337,6 +337,11 @@ namespace ClientApp.ViewModel
             {
                 LoadBorder(true);
 
+                if(_controller == null)
+                {
+                    throw new Exception("The IP of the server you specified does not exist!");
+                }
+
                 await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort));
 
                 CustomMessageBox.Show("The connection is established, for the full operation of the application, click the \"Save changes\" button.", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
