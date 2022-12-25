@@ -1,4 +1,5 @@
-﻿using ServerApp.Controllers;
+﻿using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Controllers;
 using ServerApp.Core.Clients;
 using ServerApp.Core.Screen;
 using ServerApp.Core.Singleton;
@@ -36,21 +37,25 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
         {
             InitializeComponent();
 
+            Owner = Application.Current.MainWindow;
+
             _client= client;
 
             pcNameRun.Text = client.Name;
 
             ToScreenConverter.Image = GetImage("ImageScreen");
 
-            _udpThread = new Thread(Start);
-            _udpThread.Start();
+            _udpThread = new Thread(new ParameterizedThreadStart(Start));
+            _udpThread.Start(client);
         }
 
         private async void Start(object? obj)
         {
-            _udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort());
+            var client = (ConnectedClient)obj;
 
-            await _udpController.StartUdp();
+            _udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort() + 1, client.Ip);
+
+            _udpController.Start();
         }
 
         private BitmapImage GetImage(string value)
@@ -82,11 +87,17 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
 
         private async void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            await TcpController.SendMessage(_client, "4");
+            try
+            {
+                await TcpController.SendMessage(_client, "4");
 
-            _udpController.StopUdp();
-
-            Close();
+                _udpController.StopUdp();
+                Close();
+            }
+            catch
+            {
+                CustomMessageBox.Show("The broadcast was turned off.", MessageBox.Basic.Titles.Information, MessageBox.Basic.Buttons.Ok, MessageBox.Basic.Buttons.Nothing);
+            }
         }
     }
 }

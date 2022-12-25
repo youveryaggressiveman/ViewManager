@@ -29,6 +29,8 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
         public CustomComputerInfoBox()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
         }
 
         public static bool Show(string description, string pcName)
@@ -69,14 +71,22 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            s_dispatcherTimer.Stop();
+            if(s_dispatcherTimer!= null)
+            {
+                s_dispatcherTimer.Stop();
+            }
+            
             Close();
         }
 
         private void pcInfoButton_Click(object sender, RoutedEventArgs e)
         {
+            if (s_dispatcherTimer != null)
+            {
+                s_dispatcherTimer.Stop();
+            }
+
             s_result = true;
-            s_dispatcherTimer.Stop();
             s_customComputerInfoBox.Close();
         }
     }

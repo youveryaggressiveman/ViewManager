@@ -1,6 +1,7 @@
 ﻿using GeneralLogic.Services.Files;
 using ServerApp.Assets.Custom.ClientScreenBox;
 using ServerApp.Assets.Custom.ComputerInfoBox;
+using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
@@ -63,7 +64,15 @@ namespace ServerApp.ViewModel
         {
             if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
-                await TcpController.SendMessage(SelectedConnectedClient, "3");
+                try
+                {
+                    await TcpController.SendMessage(SelectedConnectedClient, "3");
+                }
+                catch
+                {
+                    CustomMessageBox.Show("The selected PC could not be turned off.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+                
             }
         }
 
@@ -71,10 +80,18 @@ namespace ServerApp.ViewModel
         {
             if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
             {
-                await TcpController.SendMessage(SelectedConnectedClient, "3");
+                try
+                {
+                    await TcpController.SendMessage(SelectedConnectedClient, "2");
 
-                CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient);
-                customClientScreenBox.ShowDialog();
+                    CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient);
+                    customClientScreenBox.ShowDialog();
+                }
+                catch
+                {
+                    CustomMessageBox.Show("Could not enable the broadcast of the selected client.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+                
             }
         }
 
@@ -90,7 +107,7 @@ namespace ServerApp.ViewModel
                 }
                 catch
                 {
-
+                    CustomMessageBox.Show("Could not get information about the selected PC.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
         }

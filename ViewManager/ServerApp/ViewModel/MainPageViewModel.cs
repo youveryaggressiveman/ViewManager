@@ -161,7 +161,17 @@ namespace ServerApp.ViewModel
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                if (ex.GetBaseException() is Exception)
+                {
+                    if (await ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).CheckToken())
+                    {
+                        LoadInfoAboutUser();
+                    }
+                }
+                else
+                {
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
             }
             finally
             {

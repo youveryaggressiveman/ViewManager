@@ -1,4 +1,5 @@
 ﻿using ServerApp.Core.Screen;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
@@ -17,44 +19,64 @@ namespace ServerApp.Controllers
 
         private readonly string _ip;
         private readonly int _port;
+        private readonly string _clientIp;
 
-        private UdpClient _udpServer;
+        private Thread _start;
+        private static Socket s_udpSocketClient = null;
 
-        public UdpController(string ip, int port) =>
-            (_ip, _port) = (ip, port);
-
-        public async Task StartUdp()
+        public UdpController(string ip, int port, string clientIp)
         {
-            var localIP = new IPEndPoint(IPAddress.Parse(_ip), _port);
+            _ip = ip;
+            _port = port;
+            _clientIp = clientIp;
 
-            _udpServer = new UdpClient(localIP);
+            _start = new Thread(StartUdp);
+        }
+
+        public void Start()
+        {
+            _start.Start();
+        }
+
+        private async void StartUdp(object? obj)
+        {
+            var localIp = new IPEndPoint(IPAddress.Parse(_ip), _port + 1);
+            var remoteIp = new IPEndPoint(IPAddress.Parse(_clientIp), _port + 1);
+
+            s_udpSocketClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            s_udpSocketClient.Bind(localIp);
+            s_udpSocketClient.Listen(1000);
 
             while (true)
             {
-                if(_udpServer == null)
+                if(s_udpSocketClient == null)
                 {
-                    break;
+                    return;
                 }
 
                 try
                 {
                     using (MemoryStream memoryStream = new())
                     {
-                        var result = await _udpServer.ReceiveAsync();
+                        byte[] data = new byte[65507];
 
-                        memoryStream.Write(result.Buffer, 2, result.Buffer.Length - 2);
+                        await s_udpSocketClient.ReceiveFromAsync(data, SocketFlags.None, remoteIp);
 
-                        int countMsg = result.Buffer[0] - 1;
+                        memoryStream.Write(data, 2, data.Length - 2);
+
+                        int countMsg = data[0] - 1;
 
                         if (countMsg > 10)
                         {
                             throw new Exception("Потеря первого пакета");
-                        }
+                        };
+
+                        byte[] image = new byte[65507];
 
                         for (int i = 0; i < countMsg; i++)
                         {
-                            var answer = await _udpServer.ReceiveAsync();
-                            memoryStream.Write(answer.Buffer, 0, answer.Buffer.Length);
+                            await s_udpSocketClient.ReceiveFromAsync(image, SocketFlags.None, remoteIp);
+                            memoryStream.Write(image, 0, image.Length);
                         }
 
                         ToScreenConverter.Convert(memoryStream.ToArray());
@@ -70,11 +92,11 @@ namespace ServerApp.Controllers
 
         public void StopUdp()
         {
-            
-            _udpServer.Close();
-            _udpServer.Dispose();
 
-            _udpServer = null;
+            s_udpSocketClient.Close();
+            s_udpSocketClient.Dispose();
+
+            s_udpSocketClient = null;
         }
     }
 }

@@ -11,7 +11,7 @@
         WindowStyle="None"
         Height="650"
         Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterOwner">
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="AllowsTransparency"

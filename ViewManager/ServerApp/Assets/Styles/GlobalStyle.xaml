@@ -146,10 +146,10 @@
                                  Value="false">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ColorHighlight}" />
+                                    Value="{DynamicResource NeutralColor}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource NeutralColor}" />
+                                    Value="{DynamicResource ColorBotton.Click}" />
                             <Setter Property="TextElement.Foreground"
                                     TargetName="contentPresenter"
                                     Value="{DynamicResource AdditionalColor}" />
@@ -191,7 +191,7 @@
                                  Value="false">
                             <Setter Property="Opacity"
                                     TargetName="border"
-                                    Value="0.56" />
+                                    Value="0.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="true">
@@ -521,9 +521,9 @@
             </Trigger>
             <Trigger Property="UIElement.IsEnabled"
                      Value="False">
-                <Setter Property="Panel.Background"
+                <Setter Property="Panel.Opacity"
                         TargetName="Border"
-                        Value="{DynamicResource MainColor}" />
+                        Value="0.5" />
                 <Setter Property="Panel.Background"
                         TargetName="ButtonBorder"
                         Value="{DynamicResource MainColor}" />

@@ -25,6 +25,8 @@ namespace ClientApp.Assets.Custom.ComputerInfoBox
         public CustomComputerInfoBox()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
         }
 
         public static bool Show(string pcName, string description)

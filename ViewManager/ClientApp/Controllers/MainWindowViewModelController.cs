@@ -5,6 +5,7 @@ using HidSharp.Reports;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -23,11 +24,13 @@ namespace ClientApp.Controllers
         private string _server;
 
         private ScreenConverter _screenConverter;
-        private UdpClient _udpClient;
 
         private readonly GetAddress _getAddress;
         private readonly GetSubnetMusk _getSubnetMusk;
 
+        private Thread _start;
+
+        private static Socket s_udpSocketClient = null;
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
 
@@ -40,6 +43,8 @@ namespace ClientApp.Controllers
             _getSubnetMusk = new();
 
             s_socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            _start = new Thread(StartUdp);
 
             try
             {
@@ -229,28 +234,43 @@ namespace ClientApp.Controllers
 
         }
 
-        public async Task StartUdp()
+        public void Start()
         {
-            _udpClient = new(_server, _port);
+            _start.Start();
+        }
 
-            _screenConverter = new ScreenConverter(int.Parse(System.Windows.SystemParameters.PrimaryScreenWidth.ToString()),
-                int.Parse(System.Windows.SystemParameters.PrimaryScreenHeight.ToString()));
+        private async void StartUdp(object? obj)
+        {
 
-            while (true)
+            try
             {
-                var byteArrayList = _screenConverter.CutMsg(_screenConverter.Convert());
+                EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(_server), _port + 1);
 
-                for (int i = 0; i < byteArrayList.Count; i++)
+                s_udpSocketClient = new(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+                _screenConverter = new ScreenConverter(int.Parse(System.Windows.SystemParameters.PrimaryScreenWidth.ToString()),
+                    int.Parse(System.Windows.SystemParameters.PrimaryScreenHeight.ToString()));
+
+                while (true)
                 {
+                    var message = _screenConverter.CutMsg(_screenConverter.Convert());
 
-                    await _udpClient.SendAsync(byteArrayList[i], byteArrayList[i].Length);
+                    for (int i = 0; i < message.Count; i++)
+                    {
+                        await s_udpSocketClient.SendAsync(message[i], SocketFlags.None);
+                    }
                 }
             }
+            catch
+            {
+
+            }
+            
         }
 
         public void StopUdp()
         {
-            _udpClient.Close();
+            s_udpSocketClient.Close();
         }
     }
 }

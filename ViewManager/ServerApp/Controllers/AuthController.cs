@@ -17,11 +17,11 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ServerApp.Controllers
 {
-    public class AuthPageViewModelController
+    public class AuthController
     {
         private readonly string _connectionString;
 
-        public AuthPageViewModelController(string connectionString) =>
+        public AuthController(string connectionString) =>
             _connectionString = connectionString;
 
         public async Task<bool> AuthHelper(User user)

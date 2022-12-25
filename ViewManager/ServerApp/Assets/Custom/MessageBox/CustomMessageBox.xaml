@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         Title="" Height="200" Width="350"
-        MaxHeight="200" MaxWidth="350" WindowStartupLocation="CenterScreen">
+        MaxHeight="200" MaxWidth="350" WindowStartupLocation="CenterOwner">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="AllowsTransparency"

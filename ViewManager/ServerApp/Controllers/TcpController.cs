@@ -42,82 +42,93 @@ namespace ServerApp.Controllers
 
                 while (true)
                 {
-
                     Socket client = await s_socketServer.AcceptAsync();
 
-                    NetworkStream stream = null;
-                    try
-                    {
-                        stream = new(client);
-                        byte[] data = new byte[512];
-
-                        StringBuilder builder = new StringBuilder();
-                        do
-                        {
-                            int bytes = await stream.ReadAsync(data, 0, data.Length);
-                            builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
-                        }
-                        while (stream.DataAvailable);
-
-                        string message = builder.ToString();
-
-                        switch (message[0])
-                        {
-                            case 'N':
-
-                                IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
-
-                                if (message.Contains($"Shutdown command completed successfully"))
-                                {
-                                    foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
-                                    {
-                                        if (message.Contains(connectedClient.Name))
-                                        {
-                                            connectedClient.Status = "Disconnected";
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    ConnectedClient connectedClient = new()
-                                    {
-                                        Ip = ipep.Address.ToString(),
-                                        Port = ipep.Port,
-                                        Name = message.Remove(0, 5),
-                                        Status = "Connected"
-                                    };
-
-                                    await s_clientsSort.Sort(connectedClient);
-
-                                    LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
-                                }
-                                break;
-                            case 'A':
-
-                                LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
-
-                                S_Answer = (message.Remove(0, 7));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
-                    }
-                    finally
-                    {
-                        if (stream != null)
-                            stream.Close();
-                        if (client != null)
-                            client.Close();
-                    }
+                    Thread clientThread = new Thread(new ParameterizedThreadStart(GetData));
+                    clientThread.Start(client);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
+            }
+            finally
+            {
+                s_socketServer.Close();
+            }
+        }
+
+        private static async void GetData(object? obj)
+        {
+            var client = (Socket)obj;
+
+            NetworkStream stream = null;
+            try
+            {
+                stream = new(client);
+                byte[] data = new byte[512];
+
+                StringBuilder builder = new StringBuilder();
+                do
+                {
+                    int bytes = await stream.ReadAsync(data, 0, data.Length);
+                    builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
+                }
+                while (stream.DataAvailable);
+
+                string message = builder.ToString();
+
+                switch (message[0])
+                {
+                    case 'N':
+
+                        IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
+
+                        if (message.Contains($"Shutdown command completed successfully"))
+                        {
+                            foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
+                            {
+                                if (message.Contains(connectedClient.Name))
+                                {
+                                    connectedClient.Status = "Disconnected";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ConnectedClient connectedClient = new()
+                            {
+                                Ip = ipep.Address.ToString(),
+                                Port = ipep.Port,
+                                Name = message.Remove(0, 5),
+                                Status = "Connected"
+                            };
+
+                            await s_clientsSort.Sort(connectedClient);
+
+                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
+                        }
+                        break;
+                    case 'A':
+
+                        LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
+
+                        S_Answer = (message.Remove(0, 7));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {ex.Message}.");
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+                if (client != null)
+                    client.Close();
             }
         }
 

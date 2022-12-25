@@ -31,6 +31,18 @@ namespace ServerApp.ViewModel
 
         private string _password;
 
+        private bool _isEnabled = false;
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
         public string Password
         {
             get => _password;
@@ -88,6 +100,15 @@ namespace ServerApp.ViewModel
             {
                 _selectedUser = value;
                 OnPropertyChanged(nameof(SelectedUser));
+
+                if(_selectedUser == null)
+                {
+                    IsEnabled = false;
+                }
+                else
+                {
+                    IsEnabled = true;
+                }
 
                 CheckSelectedUserInfo();
             }
@@ -163,7 +184,17 @@ namespace ServerApp.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    if (ex.GetBaseException() is Exception)
+                    {
+                        if (await ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).CheckToken())
+                        {
+                            Put(null);
+                        }
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    }
                 }
                 finally
                 {
@@ -175,6 +206,8 @@ namespace ServerApp.ViewModel
 
         private async void LoadInfo()
         {
+            SelectedUser = null;
+
             UserList = new ObservableCollection<User>();
             OfficeList = new ObservableCollection<Office>();
             RoleList = new ObservableCollection<Role>();
@@ -198,7 +231,17 @@ namespace ServerApp.ViewModel
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                if (ex.GetBaseException() is Exception)
+                {
+                    if (await ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).CheckToken())
+                    {
+                        LoadInfo();
+                    }
+                }
+                else
+                {
+                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
             }
 
         }

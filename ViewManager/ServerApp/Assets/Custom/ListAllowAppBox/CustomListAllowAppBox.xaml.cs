@@ -29,6 +29,8 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
         public CustomListAllowAppBox()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
         }
 
         public async static Task<bool> Show()

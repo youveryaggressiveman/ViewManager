@@ -87,6 +87,7 @@
                     <TextBox Text="{Binding SelectedUser.FIO, Mode=OneWay}"
                              FontSize="18"
                              IsReadOnly="True"
+                             IsEnabled="{Binding IsEnabled}"
                              HorizontalScrollBarVisibility="Auto"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
@@ -101,6 +102,7 @@
                     <TextBox Text="{Binding SelectedUser.Login}"
                              FontSize="18"
                              Grid.Row="1"
+                             IsEnabled="{Binding IsEnabled}"
                              PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
@@ -115,6 +117,7 @@
                     <TextBox Text="{Binding Password}"
                              FontSize="18"
                              Grid.Row="2"
+                             IsEnabled="{Binding IsEnabled}"
                              PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
                              HorizontalAlignment="Center"
@@ -131,6 +134,7 @@
                               ItemsSource="{Binding RoleList}"
                               DisplayMemberPath="Value"
                               Grid.Column="1"
+                              IsEnabled="{Binding IsEnabled}"
                               Grid.Row="3"/>
                     <TextBlock Text="{x:Static lang:Lang.TextBlockOffice}"
                                Grid.Row="4"
@@ -142,11 +146,13 @@
                               SelectedItem="{Binding SelectedOffice}"
                               ItemsSource="{Binding OfficeList}"
                               DisplayMemberPath="Value"
+                              IsEnabled="{Binding IsEnabled}"
                               Grid.Column="1"
                               Grid.Row="4"/>
                     <Button Grid.Row="5"
                             Command="{Binding PutCommand}"
                             Grid.ColumnSpan="2"
+                            IsEnabled="{Binding IsEnabled}"
                             Content="{x:Static lang:Lang.UpdateButton}"/>
                 </Grid>
             </Grid>

@@ -5,6 +5,7 @@ using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.Properties;
 using ServerApp.View.Pages;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace ServerApp.ViewModel
 {
     public class AuthPageViewModel : BaseViewModel
     {
-        private readonly AuthPageViewModelController _controller;
+        private readonly AuthController _controller;
 
         private string _login;
         private string _password;
@@ -51,7 +52,7 @@ namespace ServerApp.ViewModel
         {
             AuthCommand = new DelegateCommand(Auth);
 
-            _controller = new AuthPageViewModelController(ApiServerSingleton.GetConnectionApiString());
+            _controller = new AuthController(ApiServerSingleton.GetConnectionApiString());
         }
 
         private void SetBorder(bool switchBorder)
@@ -79,6 +80,10 @@ namespace ServerApp.ViewModel
                     if (await _controller.AuthHelper(user))
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Auth: Authorization was successful.");
+
+                        Settings.Default.Login= Login;
+                        Settings.Default.Password = Password;
+                        Settings.Default.Save();
 
                         FrameManager.SetPage(new MainPage(), "mainFrame");
                     }

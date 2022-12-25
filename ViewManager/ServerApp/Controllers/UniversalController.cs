@@ -59,7 +59,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
-                        return null;
+                        throw new Exception("The user is not logged in");
                     }
 
                     return null;
@@ -108,7 +108,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
-                        return default;
+                        throw new Exception("The user is not logged in");
                     }
 
                     return default;
@@ -160,7 +160,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
-                        return false;
+                        throw new Exception("The user is not logged in");
                     }
 
                     return false;
@@ -212,7 +212,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
-                        return false;
+                        throw new Exception("The user is not logged in");
                     }
 
                     return false;
@@ -260,7 +260,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The user is not logged in to the system.");
 
-                        return false;
+                        throw new Exception("The user is not logged in");
                     }
 
                     return false;

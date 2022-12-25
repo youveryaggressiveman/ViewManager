@@ -8,7 +8,7 @@
         xmlns:lang="clr-namespace:ClientApp.Properties.Lang"
          WindowStyle="None"
         Title="" Height="400" Width="500"
-        MaxHeight="400" MaxWidth="500" WindowStartupLocation="CenterScreen">
+        MaxHeight="400" MaxWidth="500" WindowStartupLocation="CenterOwner">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="AllowsTransparency"

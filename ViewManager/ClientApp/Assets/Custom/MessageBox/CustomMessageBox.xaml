@@ -11,7 +11,7 @@
         Width="350"
         MaxHeight="200"
         MaxWidth="350"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterOwner">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="AllowsTransparency"

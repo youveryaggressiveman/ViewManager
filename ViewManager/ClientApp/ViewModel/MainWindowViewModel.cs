@@ -208,7 +208,7 @@ namespace ClientApp.ViewModel
 
                             break;
                         case 2:
-                            await _controller.StartUdp();
+                             _controller.Start();
                             break;
                         case 3:
                             await _controller.SendMessage($"{Environment.MachineName}: Shutdown command completed successfully");
