@@ -12,8 +12,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 
 namespace ServerApp.ViewModel
@@ -57,6 +57,13 @@ namespace ServerApp.ViewModel
             BroadcastCommand = new DelegateCommand(Broadcast);
             TurnOffCommand = new DelegateCommand(TurnOff);
 
+            Timer timer = new Timer(3000);
+            timer.Elapsed += (sender, e) => AddNewClientList();
+            timer.Start();
+        }
+
+        private void AddNewClientList()
+        {
             ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
         }
 

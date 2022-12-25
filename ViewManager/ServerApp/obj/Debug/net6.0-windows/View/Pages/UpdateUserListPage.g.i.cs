@@ -55,7 +55,7 @@ namespace ServerApp.View.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ServerApp;component/view/pages/updateuserlistpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ServerApp;V1.0.0.0;component/view/pages/updateuserlistpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\Pages\UpdateUserListPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
