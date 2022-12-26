@@ -32,7 +32,7 @@ namespace ServerApp
             string clientList = string.Empty;
             string key = "1652456";
 
-            foreach (var client in ComputerManagementPageViewModel.S_ConnectedClientList)
+            foreach (var client in ConnectedClientSingleton.ListConnectedClient)
             {
                 clientList += client.Name + key;
                 clientList += client.Ip + key;

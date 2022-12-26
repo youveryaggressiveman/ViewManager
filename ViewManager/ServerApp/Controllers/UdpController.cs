@@ -60,7 +60,7 @@ namespace ServerApp.Controllers
                 {
                     using (MemoryStream memoryStream = new())
                     {
-                        byte[] data = new byte[65507];
+                        byte[] data = new byte[65500];
 
                         await s_udpSocketClient.ReceiveFromAsync(data, SocketFlags.None, remoteIp);
 
@@ -73,15 +73,17 @@ namespace ServerApp.Controllers
                             throw new Exception("Потеря первого пакета");
                         };
 
-                        byte[] image = new byte[65507];
-
                         for (int i = 0; i < countMsg; i++)
                         {
+                            byte[] image = new byte[65500];
+
                             await s_udpSocketClient.ReceiveFromAsync(image, SocketFlags.None, remoteIp);
                             memoryStream.Write(image, 0, image.Length);
+
+                            ToScreenConverter.Convert(memoryStream.ToArray());
                         }
 
-                        ToScreenConverter.Convert(memoryStream.ToArray());
+                        ToScreenConverter.Builder();
                     }
                 }
                 catch
@@ -94,11 +96,18 @@ namespace ServerApp.Controllers
 
         public void StopUdp()
         {
+            try
+            {
+                s_udpSocketClient.Close();
+                s_udpSocketClient.Dispose();
 
-            s_udpSocketClient.Close();
-            s_udpSocketClient.Dispose();
+                s_udpSocketClient = null;
+            }
+            catch
+            {
 
-            s_udpSocketClient = null;
+            }
+            
         }
     }
 }

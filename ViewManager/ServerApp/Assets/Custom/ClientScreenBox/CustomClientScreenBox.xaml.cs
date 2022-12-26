@@ -58,7 +58,7 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             {
                 s_customClientScreenBox.image.Dispatcher.Invoke(() =>
                 {
-                    s_customClientScreenBox.image.Source = ToScreenConverter.S_Image;
+                   
                 }, DispatcherPriority.Normal); 
             };
             s_dispatcherTimer.Start();

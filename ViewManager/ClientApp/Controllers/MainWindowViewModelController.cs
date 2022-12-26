@@ -270,7 +270,17 @@ namespace ClientApp.Controllers
 
         public void StopUdp()
         {
-            s_udpSocketClient.Close();
+            try
+            {
+                if (s_socketClient != null)
+                {
+                    s_udpSocketClient.Close();
+                }
+            }
+            catch 
+            {
+
+            }
         }
     }
 }

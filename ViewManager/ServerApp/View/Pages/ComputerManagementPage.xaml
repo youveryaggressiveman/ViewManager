@@ -41,7 +41,7 @@
                         Command="{Binding TurnOffCommand}"
                         Padding="10"/>
                 </StackPanel>
-                <ListView ItemsSource="{Binding S_ConnectedClientList}"
+                <ListView ItemsSource="{Binding ConnectedClientList}"
                       Margin="10"
                       Grid.Row="1"
                       SelectedItem="{Binding SelectedConnectedClient}">

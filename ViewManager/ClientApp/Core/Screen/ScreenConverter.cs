@@ -61,49 +61,6 @@ namespace ClientApp.Core.Screen
             }
 
             return msg;
-        }
-
-        public List<byte[]> Test(byte[] bt)
-        {
-            List<byte[]> msg = new List<byte[]>();
-            int count = (int)(bt.Length / 65500);
-
-            if (bt.Length / 65500.0 > count)
-                count++;
-            else if (count <= 0)
-                count++;
-
-            byte[] intBytes = BitConverter.GetBytes(count);
-            Array.Reverse(intBytes);
-            msg.Add(intBytes);
-
-            using (MemoryStream memoryStream = new(bt))
-            {
-                System.Drawing.Bitmap bmp =
-                (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(memoryStream);
-
-                int currentWidth = bmp.Width / count;
-                int currentHeight = bmp.Height;
-
-                int lastWidth = 0;
-                for (int i = 0; i < count; i++)
-                {
-                    var resultBitmap = bmp.Clone(new Rectangle(lastWidth, 0, currentWidth - lastWidth, currentHeight), bmp.PixelFormat);
-
-                    var stream = new MemoryStream();
-                    resultBitmap.Save(stream, ImageFormat.Bmp);
-
-                    lastWidth = currentWidth;
-
-                    currentWidth += bmp.Width / count;
-
-                    msg.Add(stream.ToArray());
-                }
-            }
-
-            return msg;
-        }
-
-            
+        }            
     }
 }

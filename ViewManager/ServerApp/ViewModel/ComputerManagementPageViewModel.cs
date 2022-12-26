@@ -21,16 +21,17 @@ namespace ServerApp.ViewModel
     public class ComputerManagementPageViewModel : BaseViewModel
     {
         private readonly IFileManager _fileManager;
-
-        private static ObservableCollection<ConnectedClient> s_connectedClientList = new ObservableCollection<ConnectedClient>();
         private ConnectedClient _selectedConnectedClient;
 
-        public static ObservableCollection<ConnectedClient> S_ConnectedClientList
+        private ObservableCollection<ConnectedClient> _connectedClientList;
+
+        public ObservableCollection<ConnectedClient> ConnectedClientList
         {
-            get => s_connectedClientList;
+            get => _connectedClientList;
             set
             {
-                s_connectedClientList = value;
+                _connectedClientList = value;
+                OnPropertyChanged(nameof(ConnectedClientList));
             }
         }
 
@@ -51,6 +52,15 @@ namespace ServerApp.ViewModel
         public ComputerManagementPageViewModel()
         {
             _fileManager = new PcFeaturesFileManager();
+
+            ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
+
+            Timer timer = new Timer(3000);
+            timer.Elapsed += (sender, e) => 
+            {
+                ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
+            };
+            timer.Start();
 
             InfoCommand = new DelegateCommand(Info);
             BroadcastCommand = new DelegateCommand(Broadcast);

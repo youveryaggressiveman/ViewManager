@@ -87,7 +87,7 @@ namespace ServerApp.Controllers
 
                         if (message.Contains($"Shutdown command completed successfully"))
                         {
-                            foreach (var connectedClient in ComputerManagementPageViewModel.S_ConnectedClientList)
+                            foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
                             {
                                 if (message.Contains(connectedClient.Name))
                                 {
