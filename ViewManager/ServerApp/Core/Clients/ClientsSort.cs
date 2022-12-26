@@ -1,6 +1,7 @@
 ﻿using GeneralLogic.Services.Files;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace ServerApp.Core.Clients
                     {
                         var addClient = client.Split("1652456");
 
-                        ConnectedClientSingleton.ListConnectedClient.Add(new ConnectedClient()
+                        ComputerManagementPageViewModel.S_ConnectedClientList.Add(new ConnectedClient()
                         {
                             Name = addClient[0],
                             Ip = addClient[1],
@@ -43,7 +44,7 @@ namespace ServerApp.Core.Clients
             }
             else
             {
-                foreach (var client in ConnectedClientSingleton.ListConnectedClient)
+                foreach (var client in ComputerManagementPageViewModel.S_ConnectedClientList)
                 {
                     if(client.Name == connectedClient.Name)
                     {
@@ -53,7 +54,7 @@ namespace ServerApp.Core.Clients
                     }
                 }
 
-                ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
+                ComputerManagementPageViewModel.S_ConnectedClientList.Add(connectedClient);
             }
         }
     }

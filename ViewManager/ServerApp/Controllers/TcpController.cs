@@ -14,6 +14,7 @@ using ServerApp.Core.Clients;
 using System.Net.Mail;
 using System.Security.Policy;
 using ServerApp.Assets.Custom.ComputerInfoBox;
+using ServerApp.ViewModel;
 
 namespace ServerApp.Controllers
 {
@@ -86,7 +87,7 @@ namespace ServerApp.Controllers
 
                         if (message.Contains($"Shutdown command completed successfully"))
                         {
-                            foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
+                            foreach (var connectedClient in ComputerManagementPageViewModel.S_ConnectedClientList)
                             {
                                 if (message.Contains(connectedClient.Name))
                                 {

@@ -22,16 +22,15 @@ namespace ServerApp.ViewModel
     {
         private readonly IFileManager _fileManager;
 
-        private ObservableCollection<ConnectedClient> _connectedClientList;
+        private static ObservableCollection<ConnectedClient> s_connectedClientList = new ObservableCollection<ConnectedClient>();
         private ConnectedClient _selectedConnectedClient;
 
-        public ObservableCollection<ConnectedClient> ConnectedClientList
+        public static ObservableCollection<ConnectedClient> S_ConnectedClientList
         {
-            get => _connectedClientList;
+            get => s_connectedClientList;
             set
             {
-                _connectedClientList = value;
-                OnPropertyChanged(nameof(ConnectedClientList));
+                s_connectedClientList = value;
             }
         }
 
@@ -56,15 +55,6 @@ namespace ServerApp.ViewModel
             InfoCommand = new DelegateCommand(Info);
             BroadcastCommand = new DelegateCommand(Broadcast);
             TurnOffCommand = new DelegateCommand(TurnOff);
-
-            Timer timer = new Timer(3000);
-            timer.Elapsed += (sender, e) => AddNewClientList();
-            timer.Start();
-        }
-
-        private void AddNewClientList()
-        {
-            ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
         }
 
         private async void TurnOff(object obj)

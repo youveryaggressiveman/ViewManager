@@ -1,6 +1,7 @@
 ﻿using GeneralLogic.Services.Files;
 using ServerApp.Core.Singleton;
 using ServerApp.Properties;
+using ServerApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,7 +32,7 @@ namespace ServerApp
             string clientList = string.Empty;
             string key = "1652456";
 
-            foreach (var client in ConnectedClientSingleton.ListConnectedClient)
+            foreach (var client in ComputerManagementPageViewModel.S_ConnectedClientList)
             {
                 clientList += client.Name + key;
                 clientList += client.Ip + key;
