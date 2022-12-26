@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ServerApp.Assets.Custom.ClientScreenBox
 {
@@ -27,50 +29,41 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
     /// </summary>
     public partial class CustomClientScreenBox : Window
     {
-        private UdpController _udpController;
-        private CustomClientScreenBox s_customClientScreenBox;
-        private Thread _udpThread;
+        private static UdpController s_udpController;
+        private static CustomClientScreenBox s_customClientScreenBox;
+        private static DispatcherTimer s_dispatcherTimer;
+        private static ConnectedClient s_client;
 
-        private ConnectedClient _client;
-
-        public CustomClientScreenBox(ConnectedClient client)
+        public CustomClientScreenBox()
         {
             InitializeComponent();
 
             Owner = Application.Current.MainWindow;
-
-            _client= client;
-
-            pcNameRun.Text = client.Name;
-
-            ToScreenConverter.Image = GetImage("ImageScreen");
-
-            _udpThread = new Thread(new ParameterizedThreadStart(Start));
-            _udpThread.Start(client);
         }
 
-        private async void Start(object? obj)
+        public static void Show(ConnectedClient client)
         {
-            var client = (ConnectedClient)obj;
+            s_customClientScreenBox = new();
 
-            _udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort() + 1, client.Ip);
+            s_client = client;
 
-            _udpController.Start();
-        }
+            s_customClientScreenBox.pcNameRun.Text = client.Name;
 
-        private BitmapImage GetImage(string value)
-        {
-            DirectoryInfo directoryInfo = new(@"../../../Assets/Images/");
+            s_udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort(), client.Ip, client.Port);
+            s_udpController.Start();
 
-            foreach (var image in directoryInfo.GetFiles())
+            s_dispatcherTimer = new DispatcherTimer();
+            s_dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 200);
+            s_dispatcherTimer.Tick += (object? sender, EventArgs e) =>
             {
-                if (image.Name == value + ".png")
+                s_customClientScreenBox.image.Dispatcher.Invoke(() =>
                 {
-                    return new BitmapImage(new Uri(image.FullName));
-                }
-            }
+                    s_customClientScreenBox.image.Source = ToScreenConverter.S_Image;
+                }, DispatcherPriority.Normal); 
+            };
+            s_dispatcherTimer.Start();
 
-            return null;
+            s_customClientScreenBox.ShowDialog();
         }
 
         private void DragWindow(object sender, RoutedEventArgs e)
@@ -89,9 +82,9 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
         {
             try
             {
-                await TcpController.SendMessage(_client, "4");
+                await TcpController.SendMessage(s_client, "4");
 
-                _udpController.StopUdp();
+                s_udpController.StopUdp();
                 Close();
             }
             catch

@@ -77,13 +77,11 @@
                 </Button.Template>
             </Button>
         </Border>
-        <Image x:Name="screenImage"
+        <Image 
                Grid.Row="1"
-               Margin="20"
-               Source="{Binding BitmapImage}">
-            <Image.DataContext>
-                <Screen:ToScreenConverter />
-            </Image.DataContext>
+               Name="image"
+               Margin="10"
+               >
         </Image>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

@@ -20,17 +20,20 @@ namespace ServerApp.Controllers
         private readonly string _ip;
         private readonly int _port;
         private readonly string _clientIp;
+        private readonly int _clientPort;
 
         private Thread _start;
+
         private static Socket s_udpSocketClient = null;
 
-        public UdpController(string ip, int port, string clientIp)
+        public UdpController(string ip, int port, string clientIp, int clientPort)
         {
             _ip = ip;
             _port = port;
             _clientIp = clientIp;
 
             _start = new Thread(StartUdp);
+            _clientPort = clientPort;
         }
 
         public void Start()
@@ -40,12 +43,11 @@ namespace ServerApp.Controllers
 
         private async void StartUdp(object? obj)
         {
-            var localIp = new IPEndPoint(IPAddress.Parse(_ip), _port + 1);
-            var remoteIp = new IPEndPoint(IPAddress.Parse(_clientIp), _port + 1);
+            var remoteIp = new IPEndPoint(IPAddress.Parse(_ip), _port + 1);
+            EndPoint localIp = new IPEndPoint(IPAddress.Any, _port + 1);
 
             s_udpSocketClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             s_udpSocketClient.Bind(localIp);
-            s_udpSocketClient.Listen(1000);
 
             while (true)
             {

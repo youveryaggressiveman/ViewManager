@@ -257,7 +257,7 @@ namespace ClientApp.Controllers
 
                     for (int i = 0; i < message.Count; i++)
                     {
-                        await s_udpSocketClient.SendAsync(message[i], SocketFlags.None);
+                        await s_udpSocketClient.SendToAsync(message[i], SocketFlags.None, remotePoint);
                     }
                 }
             }

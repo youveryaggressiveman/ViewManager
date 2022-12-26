@@ -81,8 +81,7 @@ namespace ServerApp.ViewModel
                 {
                     await TcpController.SendMessage(SelectedConnectedClient, "2");
 
-                    CustomClientScreenBox customClientScreenBox = new(SelectedConnectedClient);
-                    customClientScreenBox.ShowDialog();
+                    CustomClientScreenBox.Show(SelectedConnectedClient);
                 }
                 catch
                 {

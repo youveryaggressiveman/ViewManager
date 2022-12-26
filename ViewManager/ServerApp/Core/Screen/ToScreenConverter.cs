@@ -2,30 +2,24 @@
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace ServerApp.Core.Screen
 {
     public class ToScreenConverter : BaseViewModel
     {
-        public static BitmapImage Image;
-
-        public BitmapImage BitmapImage
-        {
-            get => Image;
-            set
-            {
-                Image = value;
-                OnPropertyChanged(nameof(BitmapImage));
-            }
-        }
+        public static BitmapImage? S_Image { get; set; }
 
         public static void Convert(byte[] bytes)
         {
@@ -33,8 +27,7 @@ namespace ServerApp.Core.Screen
             {
                 System.Drawing.Bitmap bmp =
                 (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(memoryStream);
-
-                Image = ConvertToBitmapImage(bmp);
+                S_Image = ConvertToBitmapImage(bmp);
             }
         }
 
