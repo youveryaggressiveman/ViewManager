@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bfZw0/xLOO+iAKWPzm2Wrw0JQSF3ECRvzcORoSK9HKZ1QWxkGoPD6Hhh3TpJycSmFCwCq6rk76jifn/+W9iMqw==",
+  "dgSpecHash": "/hBYrOqbIAQVCcvfAgnpEordX+6D97YphZH3pbJVgnxVDa9jwsZb0njcWYG8pFlNvPQs2p80fCUnxT+0YoT8zg==",
   "success": true,
-  "projectFilePath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+  "projectFilePath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\повелитель\\.nuget\\packages\\hidsharp\\2.1.0\\hidsharp.2.1.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\librehardwaremonitorlib\\0.9.1\\librehardwaremonitorlib.0.9.1.nupkg.sha512",

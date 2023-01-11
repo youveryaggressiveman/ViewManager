@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "k4L1TXJ71cTKF3LXfRoViZBFaKpPwjvg5vZXOPbwRhDH34ZEeLiLHEgAckkwBwtUwlU+G83tzzpSAeOJWaR+tw==",
+  "dgSpecHash": "3xP8xS7Xg817NUd/PF5bZFN7/LzoajDAwBduHNj/PRdMJ5Rrx0w3LVmt48W9e1/gJjmXxk5hFp51+zFvbdJ5ww==",
   "success": true,
-  "projectFilePath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
+  "projectFilePath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\повелитель\\.nuget\\packages\\harfbuzzsharp\\2.8.2.3\\harfbuzzsharp.2.8.2.3.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\2.8.2.3\\harfbuzzsharp.nativeassets.macos.2.8.2.3.nupkg.sha512",

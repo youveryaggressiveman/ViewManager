@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8bgwSG3HNjvTxdtAXgE4FvP3ampcszflmLitdNrd1aVbG9dlX2Re+3JZdkSC5Tgw7jK3UEqqlj576sSemeEFcA==",
+  "dgSpecHash": "QsJf5dpzSVb6yscXUp4m3bDjYo4lQWR7DB/dtfSze0uWajdxBRHil6aNE4XT/HHQmCbw0FWh3NnK0NX50rbqJA==",
   "success": true,
-  "projectFilePath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
+  "projectFilePath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\повелитель\\.nuget\\packages\\hidsharp\\2.1.0\\hidsharp.2.1.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\librehardwaremonitorlib\\0.9.1\\librehardwaremonitorlib.0.9.1.nupkg.sha512",
@@ -17,7 +17,7 @@
     "C:\\Users\\повелитель\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\6.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\6.0.0\\runtime.osx-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
-    "C:\\Users\\повелитель\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\повелитель\\.nuget\\packages\\system.drawing.common\\4.7.2\\system.drawing.common.4.7.2.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\system.io.filesystem.accesscontrol\\5.0.0\\system.io.filesystem.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\system.io.ports\\6.0.0\\system.io.ports.6.0.0.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\system.management\\5.0.0\\system.management.5.0.0.nupkg.sha512",

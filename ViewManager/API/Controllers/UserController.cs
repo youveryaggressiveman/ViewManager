@@ -38,7 +38,7 @@ namespace API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "Accountant")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetUserList")]
         public async Task<IActionResult> GetUserList()
         {
@@ -57,7 +57,7 @@ namespace API.Controllers
             return Ok(userList);
         }
 
-        [Authorize(Roles = "Accountant")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
@@ -89,7 +89,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize(Roles = "Accountant")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody] User newUser)
         {

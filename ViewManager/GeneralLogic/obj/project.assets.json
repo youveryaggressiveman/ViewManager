@@ -806,11 +806,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+      "projectUniqueName": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
       "projectName": "GeneralLogic",
-      "projectPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+      "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
       "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
-      "outputPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
+      "outputPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",

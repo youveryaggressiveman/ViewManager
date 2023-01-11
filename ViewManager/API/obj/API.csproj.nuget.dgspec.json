@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\API.csproj": {}
+    "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\API.csproj": {}
   },
   "projects": {
-    "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\API.csproj": {
+    "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\API.csproj",
+        "projectUniqueName": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\API.csproj",
+        "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\API.csproj",
         "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
-        "outputPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\obj\\",
+        "outputPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",

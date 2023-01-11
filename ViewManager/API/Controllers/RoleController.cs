@@ -14,7 +14,7 @@ namespace API.Controllers
         public RoleController(ViewManagerContext db) =>
             (_db) = (db);
 
-        [Authorize(Roles = "Accountant")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetRoleList")]
         public async Task<IActionResult> GetRoleList()
         {

@@ -166,7 +166,7 @@
                             Foreground="{DynamicResource ForegroundColor}"
                             Command="{Binding CreateUserCommand}"
                             Grid.ColumnSpan="2"
-                            Content="Create" />
+                            Content="{x:Static lang:Lang.ButtonCreate}" />
                 </Grid>
             </Grid>
         </Grid>

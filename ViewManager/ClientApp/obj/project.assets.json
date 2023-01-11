@@ -238,10 +238,10 @@
           }
         }
       },
-      "System.Drawing.Common/4.7.0": {
+      "System.Drawing.Common/4.7.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.NETCore.Platforms": "3.1.4",
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "compile": {
@@ -679,13 +679,14 @@
         "version.txt"
       ]
     },
-    "System.Drawing.Common/4.7.0": {
-      "sha512": "v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
+    "System.Drawing.Common/4.7.2": {
+      "sha512": "I2y4KBK3VCvU/WqE2xv7NjQ67maXHttkFSHYKgU2evrG9Yqh0oFjfORXt5hZTk+BVjdyFo2h0/YQZsca33BGmg==",
       "type": "package",
-      "path": "system.drawing.common/4.7.0",
+      "path": "system.drawing.common/4.7.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -712,7 +713,7 @@
         "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll",
         "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll",
         "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.xml",
-        "system.drawing.common.4.7.0.nupkg.sha512",
+        "system.drawing.common.4.7.2.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -931,7 +932,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "GeneralLogic >= 1.0.0",
-      "System.Drawing.Common >= 4.7.0"
+      "System.Drawing.Common >= 4.7.2"
     ]
   },
   "packageFolders": {
@@ -940,11 +941,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
+      "projectUniqueName": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
       "projectName": "ClientApp",
-      "projectPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
+      "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
       "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
-      "outputPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\ClientApp\\obj\\",
+      "outputPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ClientApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -961,8 +962,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
-              "projectPath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
+            "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
+              "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
             }
           }
         }
@@ -979,7 +980,7 @@
         "dependencies": {
           "System.Drawing.Common": {
             "target": "Package",
-            "version": "[4.7.0, )"
+            "version": "[4.7.2, )"
           }
         },
         "imports": [

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6hHXw1hCVq/aunCdxKXD2BdrIq4MLPbro1PJexIO18GQPZ2a8sNbqbnqc87C0OD57JhDdRSCbxnLSxzI8MfNNA==",
+  "dgSpecHash": "R3eYsX09yQdFhA8rehlmwIvOZmBgpxWHcbz7wUGvPmJUZVGTZJsA4Ac0BZl1Rz6v2NlKCOqzdxFPdblprfnTtw==",
   "success": true,
-  "projectFilePath": "E:\\GG PROGRAMIST\\VM\\ViewManager\\ViewManager\\API\\API.csproj",
+  "projectFilePath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\повелитель\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\повелитель\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
