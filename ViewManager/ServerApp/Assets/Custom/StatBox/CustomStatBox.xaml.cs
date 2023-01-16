@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +24,71 @@ namespace ServerApp.Assets.Custom.StatBox
         public CustomStatBox()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
+
+            SystemSounds.Asterisk.Play();
+        }
+
+        private static CustomStatBox s_customStatBox;
+        private static bool s_result = false;
+
+        public static bool Show(string message, string title, string status)
+        {
+            s_customStatBox = new();
+
+            s_customStatBox.description.Text = $"What do you want to do with the app: {message}?";
+            s_customStatBox.title.Text = title;
+            s_customStatBox.image.Source = s_customStatBox.GetImage(status);
+
+            s_customStatBox.ShowDialog();
+
+            return s_result;
+        }
+
+
+        private BitmapImage GetImage(string value)
+        {
+            DirectoryInfo directoryInfo = new(@"../../../Assets/Custom/MessageBox/Icons/");
+
+            foreach (var image in directoryInfo.GetFiles())
+            {
+                if (image.Name == value + ".png")
+                {
+                    return new BitmapImage(new Uri(image.FullName));
+                }
+            }
+
+            return null;
+        }
+
+        private void DragWindow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private void exitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void secondButton_Click(object sender, RoutedEventArgs e)
+        {
+            s_result = false;
+            s_customStatBox.Close();
+        }
+
+        private void firstButton_Click(object sender, RoutedEventArgs e)
+        {
+            s_result = true;
+            s_customStatBox.Close();
         }
     }
 }

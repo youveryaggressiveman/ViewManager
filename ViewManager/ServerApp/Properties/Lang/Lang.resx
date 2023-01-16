@@ -183,6 +183,12 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="StatBoxNo" xml:space="preserve">
+    <value>Ban</value>
+  </data>
+  <data name="StatBoxYes" xml:space="preserve">
+    <value>Allow</value>
+  </data>
   <data name="StatisticsTitle" xml:space="preserve">
     <value>Statistics</value>
   </data>

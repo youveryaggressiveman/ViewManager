@@ -183,6 +183,12 @@
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="StatBoxNo" xml:space="preserve">
+    <value>Запретить</value>
+  </data>
+  <data name="StatBoxYes" xml:space="preserve">
+    <value>Разрешить</value>
+  </data>
   <data name="StatisticsTitle" xml:space="preserve">
     <value>Статистика</value>
   </data>

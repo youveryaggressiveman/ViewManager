@@ -8,6 +8,7 @@ using ClientApp.Properties;
 using GeneralLogic.Services.Files;
 using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
 using GeneralLogic.Services.PcFeatures.Management;
+using GeneralLogic.Services.PcFeatures.TaskManager;
 using GeneralLogic.Services.Settings;
 using HidSharp.Reports;
 using System;
@@ -33,6 +34,7 @@ namespace ClientApp.ViewModel
         private readonly Visitor _visitor;
         private readonly CheckSettings _checkSettings;
         private readonly PcManager _pcManager;
+        private readonly Dispatcher _dispatcher;
 
         private MainWindowViewModelController _controller;
 
@@ -152,7 +154,10 @@ namespace ClientApp.ViewModel
             {
                 CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
-            
+
+            System.Timers.Timer timer = new System.Timers.Timer(5000);
+            timer.Elapsed += async (sender, e) => await SendApp();
+            timer.Start();
 
             LogManager.CreateMainFolder();
 
@@ -167,6 +172,7 @@ namespace ClientApp.ViewModel
                 "Dark"
             };
 
+            _dispatcher = new();
             _visitor = new();
             _checkSettings = new();
             _pcManager = new();
@@ -182,6 +188,29 @@ namespace ClientApp.ViewModel
 
             LoadInfo();
             FileWork();
+        }
+
+        private async Task SendApp()
+        {
+            try
+            {
+                var appList = await _dispatcher.GetIncludeApps();
+
+                if(appList == null)
+                {
+                    return;
+                }
+
+                foreach (var app in appList)
+                {
+                    await _controller.SendMessage($"{app}, Client: {Environment.MachineName}");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Client", DateTime.Today, $"SendApp: {ex.Message}.");
+            }
         }
 
         private async void ExecuteCommand(object? obj)
@@ -218,6 +247,8 @@ namespace ClientApp.ViewModel
                         case 4:
                             _controller.StopUdp();
                             break;
+                        case 5:
+                           
                         default:
                             break;
                     }

@@ -10,49 +10,41 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
 {
     public class Dispatcher
     {
-        public static ObservableCollection<string> S_AnswerList= new ObservableCollection<string>();
-            
-        public ObservableCollection<string> ProcessList = new ObservableCollection<string>(); 
+        private List<string> _answerList;
+        private ObservableCollection<string> _processList;
 
         public Dispatcher()
         {
-            System.Timers.Timer timer = new(5000);
-            timer.Elapsed += (sender, e) => GetIncludeApps();
-            timer.Start();
+            _processList = new ObservableCollection<string>();
+            _answerList = new List<string>();
         }
 
-        public void GetIncludeApps()
+        public Task<List<string>> GetIncludeApps()
         {
-            S_AnswerList = new ObservableCollection<string>();
+            _processList = new ObservableCollection<string>();
 
             System.Diagnostics.Process[] processList = System.Diagnostics.Process.GetProcesses();
-            if(ProcessList.Count== 0)
-            {
-                foreach (System.Diagnostics.Process process in processList)
-                {
-                    if (process.MainWindowTitle != string.Empty)
-                    {
-                        ProcessList.Add(process.MainWindowTitle);
-                        S_AnswerList.Add(process.MainWindowTitle);
-                    }
 
+            foreach (System.Diagnostics.Process process in processList)
+            {
+                if (process.MainWindowTitle != string.Empty)
+                {
+                    _processList.Add(process.MainWindowTitle);
                 }
+            }
+
+            if(_processList.SequenceEqual(_answerList))
+            {
+                return null;
             }
             else
             {
-                foreach (var processNow in ProcessList)
-                {
-                    foreach (var process in processList)
-                    {
-                        if(process.MainWindowTitle != string.Empty && process.MainWindowTitle == processNow)
-                        {
+                _answerList.AddRange(_processList);
+                var allprocessList = _answerList.Distinct().ToList();
+                _answerList = allprocessList;
 
-                        }
-                    }
-                }
+                return Task.FromResult(allprocessList);
             }
-
-            return;
         }
     }
 }

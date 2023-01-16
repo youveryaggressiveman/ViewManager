@@ -4,9 +4,129 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApp.Assets.Custom.StatBox"
+         xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
         mc:Ignorable="d"
-        Title="CustomStatBox" Height="450" Width="800">
+        WindowStyle="None"
+        Title="" Height="250" Width="400"
+        MaxHeight="250" MaxWidth="400" WindowStartupLocation="CenterOwner">
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="AllowsTransparency"
+              Value="True" />
+            <Setter Property="WindowStyle"
+              Value="None" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Window">
+                        <Grid>
+                            <Border Background="{DynamicResource MainColor}"
+                              CornerRadius="12"
+                                    BorderThickness="2"
+                                    BorderBrush="{DynamicResource ColorHighlight}"
+                                    Margin="12"
+                                    Padding="5">
+
+                            </Border>
+                            <ContentPresenter Margin="12" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Border Background="Transparent"
+                MouseLeftButtonDown="DragWindow">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="title"
+                           HorizontalAlignment="Left"
+                           Margin="10 0 0 0"
+                           FontSize="18"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold" />
+                <Button Height="25"
+                        Width="25"
+                        Grid.Column="1"
+                        x:Name="exitButton"
+                        Click="exitButton_Click"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0 10 10 0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bd"
+                                    Background="Transparent">
+                                <Path x:Name="Pt"
+                                      Data="M0,0 M0.2,0.2 L 0.8,0.8 M0.2,0.8 L0.8,0.2 M1,1"
+                                      Stretch="Uniform"
+                                      Stroke="{DynamicResource AdditionalColor}"
+                                      StrokeThickness="2" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter TargetName="Bd"
+                                            Property="Background"
+                                            Value="{StaticResource Red}" />
+                                    <Setter TargetName="Pt"
+                                            Property="Stroke"
+                                            Value="{DynamicResource MainColor}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Name="image" 
+                   Width="50"
+                   VerticalAlignment="Center"
+                   Margin="15 5 15 5"
+                   Height="50"/>
+            <TextBlock Grid.Column="1"
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Name="description"/>
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="10 10 5 10"
+                    Width="100"
+                    FontSize="15"
+                    Content="{x:Static lang:Lang.StatBoxNo}"
+                    Name="secondButton"
+                    Click="secondButton_Click"
+                    HorizontalAlignment="Right"/>
+            <Button Margin="5 10 10 10"
+                    Click="firstButton_Click"
+                    Width="100"
+                    Grid.Column="1"
+                    Content="{x:Static lang:Lang.StatBoxYes}"
+                    FontSize="15"
+                    IsDefault="True"
+                    Name="firstButton"
+                    HorizontalAlignment="Right"/>
+        </Grid>
     </Grid>
 </Window>

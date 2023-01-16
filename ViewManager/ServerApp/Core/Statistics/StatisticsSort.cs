@@ -84,7 +84,7 @@ namespace ServerApp.Core.Statistics
                     }
                     else
                     {
-                        title = "Warning";
+                        title = "Verified";
                         imageName = title;
                     }
 
@@ -136,7 +136,7 @@ namespace ServerApp.Core.Statistics
             {
                 switch (stat.Title)
                 {
-                    case "Warning":
+                    case "Verified":
                         countWarning += stat.Count;
                         break;
                     case "Error":

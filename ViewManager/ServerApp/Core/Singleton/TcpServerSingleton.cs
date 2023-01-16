@@ -29,13 +29,13 @@ namespace ServerApp.Core.Singleton
 
         public static string SetIp(string value)
         {
-            if(value == string.Empty && s_ip == string.Empty)
+            if(value == string.Empty && (s_ip == string.Empty || s_ip.Contains(": ")))
             {
                 var listIp = GetLocalIp();
 
                 foreach (var ip in listIp)
                 {
-                    Properties.Settings.Default.Ip = ip.ValueList[0];
+                    Properties.Settings.Default.Ip = ip.ValueList[0].Split(": ")[1];
                     break;
                 }             
             }

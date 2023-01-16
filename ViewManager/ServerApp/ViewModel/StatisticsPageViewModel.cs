@@ -3,6 +3,9 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Assets.Custom.StatBox;
+using ServerApp.Controllers;
+using ServerApp.Core.Singleton;
 using ServerApp.Core.Statistics;
 using ServerApp.Model;
 using SkiaSharp;
@@ -25,11 +28,25 @@ namespace ServerApp.ViewModel
 
         private IEnumerable<ISeries> _series;
 
-        public ObservableCollection<Statistics> _statList;
+        private ObservableCollection<Statistics> _statList;
         private ObservableCollection<double> _countStat;
+
+        private Statistics _selectedStat;
 
         private Visibility _visibilityBorder = Visibility.Collapsed;
         private Visibility _visibilityChart = Visibility.Collapsed;
+
+        public Statistics SelectedStat
+        {
+            get => _selectedStat;
+            set
+            {
+                _selectedStat = value;
+                OnPropertyChanged(nameof(SelectedStat));
+
+                SelectStat();
+            }
+        }
 
         public ObservableCollection<Statistics> StatList
         {
@@ -93,6 +110,23 @@ namespace ServerApp.ViewModel
             LoadStat();
         }
 
+        private async void SelectStat()
+        {
+            var client = ConnectedClientSingleton.ListConnectedClient.FirstOrDefault(user => user.Name == SelectedStat.ClientName);
+
+            if (client != null)
+            {
+                return;
+            }
+
+            if (!CustomStatBox.Show(SelectedStat.ProcessName, SelectedStat.ClientName, SelectedStat.Title))
+            { 
+                await TcpController.SendMessage(client, "5");
+            }
+
+            SelectedStat.Title = "Verified";
+        }
+
         private void SetBorderInfo()
         {
             double statCount = 0;
@@ -151,7 +185,7 @@ namespace ServerApp.ViewModel
         {
             Series = new ISeries[]
             {
-                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Warning" },
+                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Verified" },
                  new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Error" },
                  new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = "Approved" }
             };

@@ -49,6 +49,7 @@
                       Series="{Binding Series}"
                       />
             <ListView Grid.Column="1"
+                      SelectedItem="{Binding SelectedStat}"
                       ItemsSource="{Binding StatList}"
                       Visibility="{Binding VisibilityChart}"
                       Margin="10">
@@ -147,7 +148,7 @@
 
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Title}"
-                                             Value="Warning">
+                                             Value="Verified">
                                             <Setter Property="Background"
                                         TargetName="border"
                                             Value="{DynamicResource Blue}"/>

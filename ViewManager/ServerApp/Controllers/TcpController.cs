@@ -85,36 +85,41 @@ namespace ServerApp.Controllers
 
                         IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
 
-                        if (message.Contains($"Shutdown command completed successfully"))
+                        ConnectedClient connectedClient = new()
                         {
-                            foreach (var connectedClient in ConnectedClientSingleton.ListConnectedClient)
-                            {
-                                if (message.Contains(connectedClient.Name))
-                                {
-                                    connectedClient.Status = "Disconnected";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            ConnectedClient connectedClient = new()
-                            {
-                                Ip = ipep.Address.ToString(),
-                                Port = ipep.Port,
-                                Name = message.Remove(0, 5),
-                                Status = "Connected"
-                            };
+                            Ip = ipep.Address.ToString(),
+                            Port = ipep.Port,
+                            Name = message.Remove(0, 5),
+                            Status = "Connected"
+                        };
 
-                            await s_clientsSort.Sort(connectedClient);
+                        await s_clientsSort.Sort(connectedClient);
 
-                            LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
-                        }
+                        LogManager.SaveLog("Server", DateTime.Today, "TcpClient: " + connectedClient.Name + ": Successful connection to the server.");
                         break;
                     case 'A':
 
+                        if (message.Contains($"Shutdown command completed successfully"))
+                        {
+                            foreach (var joinClient in ConnectedClientSingleton.ListConnectedClient)
+                            {
+                                if (message.Contains(joinClient.Name))
+                                {
+                                    joinClient.Status = "Disconnected";
+                                }
+                            }
+                        }
+                        else if (message.Contains(", Client: "))
+                        {
+
+                        }
+                        else
+                        {
+                            S_Answer = (message.Remove(0, 7));
+                        }
+
                         LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
 
-                        S_Answer = (message.Remove(0, 7));
                         break;
                     default:
                         break;
