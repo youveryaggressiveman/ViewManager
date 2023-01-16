@@ -259,6 +259,24 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ban.
+        /// </summary>
+        public static string StatBoxNo {
+            get {
+                return ResourceManager.GetString("StatBoxNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Allow.
+        /// </summary>
+        public static string StatBoxYes {
+            get {
+                return ResourceManager.GetString("StatBoxYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Statistics.
         /// </summary>
         public static string StatisticsTitle {

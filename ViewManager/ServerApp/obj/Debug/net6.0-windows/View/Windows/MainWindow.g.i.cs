@@ -143,7 +143,7 @@ namespace ServerApp {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ServerApp;component/view/windows/mainwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ServerApp;V1.0.0.0;component/view/windows/mainwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\Windows\MainWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
