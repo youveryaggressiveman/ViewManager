@@ -29,10 +29,35 @@ namespace ServerApp
         {
             IFileManager fileManager = new AppStatisticsFileManager();
 
+            SaveClient(fileManager);
+            SaveStat(fileManager);
+
+            base.OnExit(e);
+        }
+
+        private async void SaveStat(IFileManager fileManager)
+        {
+            var allAppStat = string.Empty;
+
+            foreach (var stat in AppStatSingleton.S_ListAppStat)
+            {
+                if (stat.Title == "Verified")
+                {
+                    allAppStat += "Verified: ";
+                }
+
+                allAppStat += $"{stat.ProcessName}, Client: {stat.ClientName}\n";
+            }
+
+            await fileManager.FileWriter("Statistics", allAppStat);
+        }
+
+        private async void SaveClient(IFileManager fileManager)
+        {
             string clientList = string.Empty;
             string key = "1652456";
 
-            foreach (var client in ConnectedClientSingleton.ListConnectedClient)
+            foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
             {
                 clientList += client.Name + key;
                 clientList += client.Ip + key;
@@ -41,8 +66,6 @@ namespace ServerApp
             }
 
             await fileManager.FileWriter("Clients", clientList);
-
-            base.OnExit(e);
         }
     }
 }

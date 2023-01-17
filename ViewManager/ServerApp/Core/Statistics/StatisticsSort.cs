@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Core.Singleton;
 using ServerApp.Model;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,26 @@ namespace ServerApp.Core.Statistics
         {
             _fileManager = new AppStatisticsFileManager();
 
+        }
+
+        public void UpdateStat(Model.Statistics value)
+        {
+            try
+            {
+                foreach (var stat in AppStatSingleton.S_ListAppStat)
+                {
+                    if(stat == value)
+                    {
+                        stat.Title = "Verified";
+                        stat.Image = GetImage("Verified");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IEnumerable<ServerApp.Model.Statistics>> Sort(string allStat)
@@ -72,9 +93,9 @@ namespace ServerApp.Core.Statistics
                     string title = string.Empty;
                     string imageName = string.Empty;
 
-                    if (splitItem[0].Contains("Error: "))
+                    if (splitItem[0].Contains("Verified: "))
                     {
-                        title = "Error";
+                        title = "Verified";
                         imageName = title;
                     }
                     else if (_appList.FirstOrDefault(e => e == splitItem[0]) != null)
@@ -84,7 +105,7 @@ namespace ServerApp.Core.Statistics
                     }
                     else
                     {
-                        title = "Verified";
+                        title = "Warning";
                         imageName = title;
                     }
 
@@ -92,7 +113,7 @@ namespace ServerApp.Core.Statistics
                     {
                         Title = title,
                         ClientName = splitItem[1],
-                        ProcessName = splitItem[0].Replace("Error: ", string.Empty),
+                        ProcessName = splitItem[0].Replace("Verified: ", string.Empty),
                         Count = item.Item2,
                         Image = GetImage(imageName),
                     });
@@ -139,7 +160,7 @@ namespace ServerApp.Core.Statistics
                     case "Verified":
                         countWarning += stat.Count;
                         break;
-                    case "Error":
+                    case "Warning":
                         countError += stat.Count;
                         break;
                     case "Approved":

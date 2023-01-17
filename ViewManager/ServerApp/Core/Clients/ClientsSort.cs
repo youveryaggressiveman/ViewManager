@@ -32,7 +32,7 @@ namespace ServerApp.Core.Clients
                     {
                         var addClient = client.Split("1652456");
 
-                        ConnectedClientSingleton.ListConnectedClient.Add(new ConnectedClient()
+                        ConnectedClientSingleton.S_ListConnectedClient.Add(new ConnectedClient()
                         {
                             Name = addClient[0],
                             Ip = addClient[1],
@@ -44,7 +44,7 @@ namespace ServerApp.Core.Clients
             }
             else
             {
-                foreach (var client in ConnectedClientSingleton.ListConnectedClient)
+                foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
                 {
                     if(client.Name == connectedClient.Name)
                     {
@@ -54,7 +54,7 @@ namespace ServerApp.Core.Clients
                     }
                 }
 
-                ConnectedClientSingleton.ListConnectedClient.Add(connectedClient);
+                ConnectedClientSingleton.S_ListConnectedClient.Add(connectedClient);
             }
         }
     }

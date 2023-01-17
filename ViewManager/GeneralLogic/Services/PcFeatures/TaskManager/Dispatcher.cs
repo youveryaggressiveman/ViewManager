@@ -19,6 +19,22 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
             _answerList = new List<string>();
         }
 
+        public bool TryKillProcess(string name)
+        {
+            System.Diagnostics.Process[] processList = System.Diagnostics.Process.GetProcesses();
+
+            foreach (System.Diagnostics.Process process in processList)
+            {
+                if(process.MainWindowTitle == name)
+                {
+                    process.Kill();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public Task<List<string>> GetIncludeApps()
         {
             _processList = new ObservableCollection<string>();

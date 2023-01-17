@@ -49,6 +49,11 @@ namespace ServerApp.Assets.Custom.StatBox
 
         private BitmapImage GetImage(string value)
         {
+            if (value == "Approved")
+            {
+                value = "Confirm";
+            }
+
             DirectoryInfo directoryInfo = new(@"../../../Assets/Custom/MessageBox/Icons/");
 
             foreach (var image in directoryInfo.GetFiles())
@@ -76,6 +81,7 @@ namespace ServerApp.Assets.Custom.StatBox
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
+            s_result = true;
             Close();
         }
 

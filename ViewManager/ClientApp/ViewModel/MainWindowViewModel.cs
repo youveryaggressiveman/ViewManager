@@ -196,15 +196,19 @@ namespace ClientApp.ViewModel
             {
                 var appList = await _dispatcher.GetIncludeApps();
 
-                if(appList == null)
+                if (appList == null)
                 {
                     return;
                 }
 
+                string allStringApp = string.Empty;
+
                 foreach (var app in appList)
                 {
-                    await _controller.SendMessage($"{app}, Client: {Environment.MachineName}");
+                    allStringApp += $"{app}, Client: {Environment.MachineName}\n";
                 }
+
+                await _controller.SendMessage(allStringApp);
 
             }
             catch (Exception ex)
@@ -215,7 +219,7 @@ namespace ClientApp.ViewModel
 
         private async void ExecuteCommand(object? obj)
         {
-            if(_controller == null)
+            if (_controller == null)
             {
                 return;
             }
@@ -227,7 +231,9 @@ namespace ClientApp.ViewModel
 
                     var command = await _controller.StartListenerTcp();
 
-                    switch (command)
+                    var numberOfCommand = command.Split(", App: ");
+
+                    switch (int.Parse(numberOfCommand[0]))
                     {
                         case 1:
 
@@ -237,7 +243,7 @@ namespace ClientApp.ViewModel
 
                             break;
                         case 2:
-                             _controller.Start();
+                            _controller.Start();
                             break;
                         case 3:
                             await _controller.SendMessage($"{Environment.MachineName}: Shutdown command completed successfully");
@@ -248,7 +254,11 @@ namespace ClientApp.ViewModel
                             _controller.StopUdp();
                             break;
                         case 5:
-                           
+                            if (_dispatcher.TryKillProcess(numberOfCommand[1]))
+                            {
+                                CustomMessageBox.Show($"The app {numberOfCommand[1]} has been banned for use at the moment.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -368,7 +378,7 @@ namespace ClientApp.ViewModel
             {
                 LoadBorder(true);
 
-                if(_controller == null)
+                if (_controller == null)
                 {
                     throw new Exception("The IP of the server you specified does not exist!");
                 }

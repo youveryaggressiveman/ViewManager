@@ -94,5 +94,17 @@ namespace ServerApp.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2003-08-01")]
+        public global::System.DateTime Date {
+            get {
+                return ((global::System.DateTime)(this["Date"]));
+            }
+            set {
+                this["Date"] = value;
+            }
+        }
     }
 }

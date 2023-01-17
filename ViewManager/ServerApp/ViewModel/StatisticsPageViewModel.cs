@@ -112,19 +112,29 @@ namespace ServerApp.ViewModel
 
         private async void SelectStat()
         {
-            var client = ConnectedClientSingleton.ListConnectedClient.FirstOrDefault(user => user.Name == SelectedStat.ClientName);
+            var client = ConnectedClientSingleton.S_ListConnectedClient.FirstOrDefault(user => user.Name == SelectedStat.ClientName);
 
-            if (client != null)
+            if (client == null || SelectedStat == null)
             {
                 return;
             }
 
             if (!CustomStatBox.Show(SelectedStat.ProcessName, SelectedStat.ClientName, SelectedStat.Title))
-            { 
-                await TcpController.SendMessage(client, "5");
+            {
+                try
+                {
+                    await TcpController.SendMessage(client, $"5, App: {SelectedStat.ProcessName}");
+                }
+                catch
+                {
+                    CustomMessageBox.Show("An error occurred when trying to close the program on the client side.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+                
             }
 
-            SelectedStat.Title = "Verified";
+            _statisticsSort.UpdateStat(SelectedStat);
+
+            LoadStat();
         }
 
         private void SetBorderInfo()
@@ -155,15 +165,12 @@ namespace ServerApp.ViewModel
 
             try
             {
-                var allStat = await _fileManager.FileReader("Statistics");
-                var statList = await _statisticsSort.Sort(allStat);
-
-                if(statList == null)
+                if(AppStatSingleton.S_ListAppStat == null)
                 {
                     return;
                 }
 
-                statList.ToList().ForEach(StatList.Add);
+                AppStatSingleton.S_ListAppStat.ToList().ForEach(StatList.Add);
 
                 CountStat.Clear();
 
@@ -185,9 +192,9 @@ namespace ServerApp.ViewModel
         {
             Series = new ISeries[]
             {
-                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Verified" },
-                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Error" },
-                 new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = "Approved" }
+                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Verified", Fill= new SolidColorPaint(new SKColor(100, 149, 237))},
+                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Warning", Fill = new SolidColorPaint(new SKColor(238, 32, 77))},
+                 new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = "Approved", Fill = new SolidColorPaint(new SKColor(168, 228, 160))}
             };
         }
     }

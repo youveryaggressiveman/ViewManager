@@ -10,6 +10,6 @@ namespace ServerApp.Core.Singleton
 {
     public static class ConnectedClientSingleton
     {
-        public static ObservableCollection<ConnectedClient> ListConnectedClient { get; set; } = new ObservableCollection<ConnectedClient>();
+        public static ObservableCollection<ConnectedClient> S_ListConnectedClient { get; set; } = new ObservableCollection<ConnectedClient>();
     }
 }

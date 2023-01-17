@@ -21,6 +21,7 @@ namespace ServerApp.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly IFileManager _fileManager;
+        private readonly IFileManager _fileStatManager;
 
         private readonly AuthController _authController;
 
@@ -43,6 +44,7 @@ namespace ServerApp.ViewModel
             LogManager.CreateMainFolder();
 
             _fileManager= new PcFeaturesFileManager();
+            _fileStatManager = new AppStatisticsFileManager();
 
             _authController = new(ApiServerSingleton.GetConnectionApiString());
 
@@ -128,6 +130,14 @@ namespace ServerApp.ViewModel
 
         private async Task CheckAllConnection()
         {
+            if (Settings.Default.Date != DateTime.Today)
+            {
+                await _fileStatManager.FileWriter("Statistics", string.Empty);
+
+                Settings.Default.Date = DateTime.Today;
+                Settings.Default.Save();
+            }
+
             if (await ApiServerSingleton.CheckConnection())
             {
                 LoadBorder(false);

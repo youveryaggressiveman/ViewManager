@@ -5,6 +5,7 @@ using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Clients;
 using ServerApp.Core.Singleton;
+using ServerApp.Core.Statistics;
 using ServerApp.Model;
 using ServerApp.View.Pages;
 using System;
@@ -23,6 +24,7 @@ namespace ServerApp.ViewModel
     {
         private readonly IFileManager _fileManager;
 
+        private readonly StatisticsSort _statisticsSort;
         private readonly ClientsSort _clientsSort;
 
         private readonly UniversalController<User> _userController;
@@ -91,6 +93,8 @@ namespace ServerApp.ViewModel
             _fileManager.FileWriter("Clients", null);
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
+
+            _statisticsSort = new();
 
             User = new User();
 
@@ -190,6 +194,11 @@ namespace ServerApp.ViewModel
 
                 TcpServerSingleton.SetIp(string.Empty);
                 await _clientsSort.Sort();
+
+                var allStat = await _fileManager.FileReader("Statistics");
+                var statList = await _statisticsSort.Sort(allStat);
+
+                statList.ToList().ForEach(AppStatSingleton.S_ListAppStat.Add);
 
                 _start.Start();
             }

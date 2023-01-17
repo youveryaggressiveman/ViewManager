@@ -141,7 +141,7 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Title}"
                                          
-                                             Value="Error">
+                                             Value="Warning">
                                             <Setter Property="Background"
                                         TargetName="border"
                                             Value="{DynamicResource Red}"/>

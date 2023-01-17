@@ -15,6 +15,7 @@ using System.Net.Mail;
 using System.Security.Policy;
 using ServerApp.Assets.Custom.ComputerInfoBox;
 using ServerApp.ViewModel;
+using ServerApp.Core.Statistics;
 
 namespace ServerApp.Controllers
 {
@@ -23,7 +24,8 @@ namespace ServerApp.Controllers
         private static readonly int s_port = TcpServerSingleton.GetPort();
         private static readonly string s_server = TcpServerSingleton.GetIp();
 
-        private static readonly ClientsSort s_clientsSort = new ClientsSort();
+        private static readonly ClientsSort s_clientsSort = new();
+        private static readonly StatisticsSort s_statSort = new();
 
         private static Socket s_socketServer = null;
         private static Socket s_socketClient = null;
@@ -89,7 +91,7 @@ namespace ServerApp.Controllers
                         {
                             Ip = ipep.Address.ToString(),
                             Port = ipep.Port,
-                            Name = message.Remove(0, 5),
+                            Name = message.Remove(0, 6),
                             Status = "Connected"
                         };
 
@@ -101,7 +103,7 @@ namespace ServerApp.Controllers
 
                         if (message.Contains($"Shutdown command completed successfully"))
                         {
-                            foreach (var joinClient in ConnectedClientSingleton.ListConnectedClient)
+                            foreach (var joinClient in ConnectedClientSingleton.S_ListConnectedClient)
                             {
                                 if (message.Contains(joinClient.Name))
                                 {
@@ -111,7 +113,10 @@ namespace ServerApp.Controllers
                         }
                         else if (message.Contains(", Client: "))
                         {
+                            var allStringApp = message.Remove(0, 8);
+                            var statList = await s_statSort.Sort(allStringApp);
 
+                            statList.ToList().ForEach(AppStatSingleton.S_ListAppStat.Add);
                         }
                         else
                         {

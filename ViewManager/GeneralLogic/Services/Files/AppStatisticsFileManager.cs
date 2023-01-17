@@ -44,41 +44,28 @@ namespace GeneralLogic.Services.Files
                 File.Create(filePath).Close();
             }
 
-            if(text == null)
+            if (text == null)
             {
                 return;
             }
-
-            switch (name)
+            using (StreamWriter streamWriter = new StreamWriter(filePath, false))
             {
-                case "AllowedApplications":
-
-                    using (StreamWriter streamWriter = new StreamWriter(filePath, false))
-                    {
+                switch (name)
+                {
+                    case "AllowedApplications":
                         await streamWriter.WriteAsync(text);
-                    }
-
-                    break;
-                case "Statistics":
-
-                    using (StreamWriter streamWriter = new StreamWriter(filePath, true))
-                    {
-                        await streamWriter.WriteLineAsync(text);
-                    }
-
-                    break;
-                case "Clients":
-
-                    using (StreamWriter streamWriter = new StreamWriter(filePath, false))
-                    {
+                        break;
+                    case "Statistics":
                         await streamWriter.WriteAsync(text);
-                    }
-
-                    break;
-                default:
-                    break;
+                        break;
+                    case "Clients":
+                        await streamWriter.WriteAsync(text);
+                        break;
+                    default:
+                        break;
+                }
             }
-            
+
         }
     }
 }

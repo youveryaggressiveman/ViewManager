@@ -94,7 +94,7 @@ namespace ClientApp.Controllers
            
         }
 
-        public async Task<int> StartListenerTcp()
+        public async Task<string> StartListenerTcp()
         {
             NetworkStream stream = null;
 
@@ -119,7 +119,7 @@ namespace ClientApp.Controllers
                     stream.Close();
                     client.Close();
 
-                    var command = int.Parse(result.Remove(0, 9).ToString());
+                    var command = result.Remove(0, 9).ToString();
 
                     LogManager.SaveLog("Client", DateTime.Today, "TcpClient: " + $"Command to execute: {command}.");
 
@@ -130,7 +130,7 @@ namespace ClientApp.Controllers
             {
                 LogManager.SaveLog("Client", DateTime.Today, $"TcpClient: {ex.Message};");
 
-                return 0;
+                return string.Empty;
             }
         }
 

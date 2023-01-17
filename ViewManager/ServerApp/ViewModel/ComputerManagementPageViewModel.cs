@@ -53,12 +53,12 @@ namespace ServerApp.ViewModel
         {
             _fileManager = new PcFeaturesFileManager();
 
-            ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
+            ConnectedClientList = ConnectedClientSingleton.S_ListConnectedClient;
 
             Timer timer = new Timer(3000);
             timer.Elapsed += (sender, e) => 
             {
-                ConnectedClientList = ConnectedClientSingleton.ListConnectedClient;
+                ConnectedClientList = ConnectedClientSingleton.S_ListConnectedClient;
             };
             timer.Start();
 

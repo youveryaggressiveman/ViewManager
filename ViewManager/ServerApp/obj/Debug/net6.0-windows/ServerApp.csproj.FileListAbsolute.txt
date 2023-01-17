@@ -390,3 +390,5 @@ E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.pdb
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.genruntimeconfig.cache
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ref\ServerApp.dll
+E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\StatBox\CustomStatBox.g.cs
+E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\StatBox\CustomStatBox.baml
