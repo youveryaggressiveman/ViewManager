@@ -101,7 +101,7 @@ namespace ServerApp.Controllers
                         break;
                     case 'A':
 
-                        if (message.Contains($"Shutdown command completed successfully"))
+                        if (message.Contains($"Shutdown command completed successfully") || message.Contains("The app was turned off"))
                         {
                             foreach (var joinClient in ConnectedClientSingleton.S_ListConnectedClient)
                             {

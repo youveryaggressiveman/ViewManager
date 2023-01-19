@@ -38,99 +38,108 @@ namespace ServerApp.Core.Statistics
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-
-                throw;
             }
         }
 
         public async Task<IEnumerable<ServerApp.Model.Statistics>> Sort(string allStat)
         {
-            ServerApp.Model.Statistics oneStat;
-
-            _statList = new ObservableCollection<Model.Statistics>();
-            _appList = new ObservableCollection<string>();
-
-            var nameCountList = new List<(string, int)>();
-            var lastList = new List<Model.Statistics>();
-
-            var statList = allStat.Replace("\r", string.Empty).Split("\n");
-
-            var allApp = await _fileManager.FileReader("AllowedApplications");
-            var appList = allApp.Replace("\r", string.Empty).Split("\n");
-
-            foreach (var app in appList)
+            try
             {
-                if (app != string.Empty)
+                ServerApp.Model.Statistics oneStat;
+
+                _statList = new ObservableCollection<Model.Statistics>();
+                _appList = new ObservableCollection<string>();
+
+                var nameCountList = new List<(string, int)>();
+                var lastList = new List<Model.Statistics>();
+
+                var statList = allStat.Replace("\r", string.Empty).Split("\n");
+
+                var allApp = await _fileManager.FileReader("AllowedApplications");
+                var appList = allApp.Replace("\r", string.Empty).Split("\n");
+
+                foreach (var app in appList)
                 {
-                    _appList.Add(app);
-                }
-            }
-
-            var uniqueList = statList.Distinct();
-
-            foreach (var app in uniqueList)
-            {
-                nameCountList.Add((app, 0));
-            }
-
-            foreach (var nameCount in uniqueList)
-            {
-                var item = (string.Empty, 0);
-                foreach (var stat in statList)
-                {
-                    if (nameCount == stat)
+                    if (app != string.Empty)
                     {
-                        var ge = nameCountList.FirstOrDefault(re => re.Item1 == nameCount);
-                        item = (ge.Item1, item.Item2 + 1);
+                        _appList.Add(app);
                     }
                 }
 
-                var splitItem = item.Item1.Split(", Client: ");
-                if (lastList.Count(e => splitItem[0] == e.Title && splitItem[1] == e.ClientName) < 1)
+                var uniqueList = statList.Distinct();
+
+                foreach (var app in uniqueList)
                 {
-                    string title = string.Empty;
-                    string imageName = string.Empty;
-
-                    if (splitItem[0].Contains("Verified: "))
-                    {
-                        title = "Verified";
-                        imageName = title;
-                    }
-                    else if (_appList.FirstOrDefault(e => e == splitItem[0]) != null)
-                    {
-                        title = "Approved";
-                        imageName = "Confirm";
-                    }
-                    else
-                    {
-                        title = "Warning";
-                        imageName = title;
-                    }
-
-                    lastList.Add(new Model.Statistics
-                    {
-                        Title = title,
-                        ClientName = splitItem[1],
-                        ProcessName = splitItem[0].Replace("Verified: ", string.Empty),
-                        Count = item.Item2,
-                        Image = GetImage(imageName),
-                    });
-
-                    item = (string.Empty, 0);
+                    nameCountList.Add((app, 0));
                 }
-            }
 
-            foreach (var item in lastList)
+                foreach (var nameCount in uniqueList)
+                {
+                    if (string.IsNullOrEmpty(nameCount))
+                    {
+                        continue;
+                    }
+
+                    var item = (string.Empty, 0);
+                    foreach (var stat in statList)
+                    {
+                        if (nameCount == stat)
+                        {
+                            var ge = nameCountList.FirstOrDefault(re => re.Item1 == nameCount);
+                            item = (ge.Item1, item.Item2 + 1);
+                        }
+                    }
+
+                    var splitItem = item.Item1.Split(", Client: ");
+                    if (lastList.Count(e => splitItem[0] == e.Title && splitItem[1] == e.ClientName) < 1)
+                    {
+                        string title = string.Empty;
+                        string imageName = string.Empty;
+
+                        if (splitItem[0].Contains("Verified: "))
+                        {
+                            title = "Verified";
+                            imageName = title;
+                        }
+                        else if (_appList.FirstOrDefault(e => e == splitItem[0]) != null)
+                        {
+                            title = "Approved";
+                            imageName = "Confirm";
+                        }
+                        else
+                        {
+                            title = "Warning";
+                            imageName = title;
+                        }
+
+                        lastList.Add(new Model.Statistics
+                        {
+                            Title = title,
+                            ClientName = splitItem[1],
+                            ProcessName = splitItem[0].Replace("Verified: ", string.Empty),
+                            Count = item.Item2,
+                        });
+
+                        item = (string.Empty, 0);
+                    }
+                }
+
+                foreach (var item in lastList)
+                {
+                    _statList.Add(item);
+                }
+
+                return _statList;
+            }
+            catch 
             {
-                _statList.Add(item);
-            }
-
-            return _statList;
+                return _statList;
+            }       
         }
 
-        private BitmapImage GetImage(string value)
+        public BitmapImage GetImage(string value)
         {
             DirectoryInfo directoryInfo = new(@"../../../Assets/Custom/MessageBox/Icons/");
 

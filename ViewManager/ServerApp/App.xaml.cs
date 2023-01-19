@@ -25,7 +25,7 @@ namespace ServerApp
 
             base.OnStartup(e);
         }
-        protected override async void OnExit(ExitEventArgs e)
+        protected override void OnExit(ExitEventArgs e)
         {
             IFileManager fileManager = new AppStatisticsFileManager();
 

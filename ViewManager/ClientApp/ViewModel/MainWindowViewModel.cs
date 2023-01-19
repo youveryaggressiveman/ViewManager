@@ -207,7 +207,7 @@ namespace ClientApp.ViewModel
                 {
                     allStringApp += $"{app}, Client: {Environment.MachineName}\n";
                 }
-
+                
                 await _controller.SendMessage(allStringApp);
 
             }
@@ -254,10 +254,7 @@ namespace ClientApp.ViewModel
                             _controller.StopUdp();
                             break;
                         case 5:
-                            if (_dispatcher.TryKillProcess(numberOfCommand[1]))
-                            {
-                                CustomMessageBox.Show($"The app {numberOfCommand[1]} has been banned for use at the moment.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                            }
+                            _dispatcher.TryKillProcess(numberOfCommand[1]);
                             break;
                         default:
                             break;

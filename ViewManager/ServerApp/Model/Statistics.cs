@@ -12,7 +12,7 @@ namespace ServerApp.Model
         public string Title { get; set; } = null!;
         public string ProcessName { get; set; } = null!;
         public string ClientName { get; set; } = null!;
-        public int Count { get; set; } 
+        public int Count { get; set; }
         public BitmapImage Image { get; set; } = null!;
     }
 }

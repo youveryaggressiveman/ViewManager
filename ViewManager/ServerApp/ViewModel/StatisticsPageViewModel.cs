@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using GeneralLogic.Services.PcFeatures.TaskManager;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -17,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace ServerApp.ViewModel
 {
@@ -106,15 +108,24 @@ namespace ServerApp.ViewModel
 
             _fileManager = new AppStatisticsFileManager();
 
+            LoadStat(null, null);
 
-            LoadStat();
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(10);
+            dispatcherTimer.Tick += LoadStat;
+            dispatcherTimer.Start();
         }
 
         private async void SelectStat()
         {
-            var client = ConnectedClientSingleton.S_ListConnectedClient.FirstOrDefault(user => user.Name == SelectedStat.ClientName);
+            if (SelectedStat == null)
+            {
+                return;
+            }
 
-            if (client == null || SelectedStat == null)
+            var client = ConnectedClientSingleton.S_ListConnectedClient.FirstOrDefault(user => user.Name.Contains(SelectedStat.ClientName));
+
+            if (client == null)
             {
                 return;
             }
@@ -134,7 +145,7 @@ namespace ServerApp.ViewModel
 
             _statisticsSort.UpdateStat(SelectedStat);
 
-            LoadStat();
+            LoadStat(null, null);
         }
 
         private void SetBorderInfo()
@@ -158,7 +169,7 @@ namespace ServerApp.ViewModel
             }
         }
 
-        private async void LoadStat()
+        private void LoadStat(object? sender, EventArgs? e)
         {
             StatList = new ObservableCollection<Statistics>();
             CountStat = new ObservableCollection<double>() { 0 ,0 ,0 };
@@ -170,7 +181,22 @@ namespace ServerApp.ViewModel
                     return;
                 }
 
-                AppStatSingleton.S_ListAppStat.ToList().ForEach(StatList.Add);
+                var stats = AppStatSingleton.S_ListAppStat.OrderBy(x => x.Title).ToList();
+
+                foreach (var stat in stats)
+                {
+                    if(stat.Title == "Approved")
+                    {
+                        stat.Image = _statisticsSort.GetImage("Confirm");
+                    }
+                    else
+                    {
+                        stat.Image = _statisticsSort.GetImage(stat.Title);
+                    }
+                    
+                }
+
+                stats.ForEach(StatList.Add);
 
                 CountStat.Clear();
 

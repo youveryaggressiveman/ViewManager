@@ -11,45 +11,55 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
     public class Dispatcher
     {
         private List<string> _answerList;
-        private ObservableCollection<string> _processList;
+        private List<string> _processList;
 
         public Dispatcher()
         {
-            _processList = new ObservableCollection<string>();
+            _processList = new List<string>();
             _answerList = new List<string>();
         }
 
         public bool TryKillProcess(string name)
         {
-            System.Diagnostics.Process[] processList = System.Diagnostics.Process.GetProcesses();
+            var processList = System.Diagnostics.Process.GetProcesses().Where(proc => proc.ProcessName == name);
+
+            int count = 0;
+
+            if (processList == null)
+            {
+                return false;
+            }
 
             foreach (System.Diagnostics.Process process in processList)
             {
-                if(process.MainWindowTitle == name)
-                {
-                    process.Kill();
-                    return true;
-                }
+                process.Kill();
             }
 
-            return false;
+            return true;
         }
 
         public Task<List<string>> GetIncludeApps()
         {
-            _processList = new ObservableCollection<string>();
+            _processList = new List<string>();
 
             System.Diagnostics.Process[] processList = System.Diagnostics.Process.GetProcesses();
 
             foreach (System.Diagnostics.Process process in processList)
             {
-                if (process.MainWindowTitle != string.Empty)
+                try
                 {
-                    _processList.Add(process.MainWindowTitle);
+                    if (!process.MainModule.FileName.Contains("Windows"))
+                    {
+                        _processList.Add(process.ProcessName);
+                    }
+                }
+                catch
+                {
+
                 }
             }
 
-            if(_processList.SequenceEqual(_answerList))
+            if (_processList.SequenceEqual(_answerList))
             {
                 return null;
             }
