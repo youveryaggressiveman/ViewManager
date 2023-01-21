@@ -14,5 +14,6 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\повелитель\.nuget\packages\materialdesignthemes\4.6.1</PkgMaterialDesignThemes>
+    <PkgH_NotifyIcon_Wpf Condition=" '$(PkgH_NotifyIcon_Wpf)' == '' ">C:\Users\повелитель\.nuget\packages\h.notifyicon.wpf\2.0.77</PkgH_NotifyIcon_Wpf>
   </PropertyGroup>
 </Project>

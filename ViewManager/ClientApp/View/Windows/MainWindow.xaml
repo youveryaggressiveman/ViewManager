@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp"
+        xmlns:tb="clr-namespace:H.NotifyIcon;assembly=H.NotifyIcon.Wpf"
         xmlns:lang="clr-namespace:ClientApp.Properties.Lang"
         mc:Ignorable="d"
         Background="{DynamicResource MainColor}"
@@ -111,6 +112,10 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        <tb:TaskbarIcon Visibility="Visible"
+                        ToolTipText="ViewManager"
+                        TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"
+                        IconSource="/Assets/Images/Icon.ico" />
         <Grid Background="{StaticResource ColorHighlight}">
             <Grid.RowDefinitions>
                 <RowDefinition/>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApp"
         xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
+        xmlns:tb="clr-namespace:H.NotifyIcon;assembly=H.NotifyIcon.Wpf"
         xmlns:ViewModel="clr-namespace:ServerApp.ViewModel" x:Class="ServerApp.MainWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -112,6 +113,10 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+        <tb:TaskbarIcon Visibility="Visible"
+                        ToolTipText="ViewManager"
+                        TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"
+                        IconSource="/Assets/Images/Icon.ico" />
         <Grid Background="{DynamicResource ColorHighlight}">
             <Grid.RowDefinitions>
                 <RowDefinition/>

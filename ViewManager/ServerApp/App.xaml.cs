@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using Microsoft.Win32;
 using ServerApp.Core.Singleton;
 using ServerApp.Properties;
 using ServerApp.ViewModel;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,8 +25,11 @@ namespace ServerApp
             var lang = Settings.Default.LanguageName;
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
 
+            GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location);
+
             base.OnStartup(e);
         }
+
         protected override void OnExit(ExitEventArgs e)
         {
             IFileManager fileManager = new AppStatisticsFileManager();

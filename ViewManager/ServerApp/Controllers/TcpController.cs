@@ -116,7 +116,12 @@ namespace ServerApp.Controllers
                             var allStringApp = message.Remove(0, 8);
                             var statList = await s_statSort.Sort(allStringApp);
 
-                            statList.ToList().ForEach(AppStatSingleton.S_ListAppStat.Add);
+                            var thisList = AppStatSingleton.S_ListAppStat;
+
+                            statList.ToList().ForEach(thisList.Add);
+                            var correctList = thisList.Distinct().ToList();
+
+                            correctList.ForEach(AppStatSingleton.S_ListAppStat.Add);
                         }
                         else
                         {

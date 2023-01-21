@@ -1,11 +1,13 @@
 ﻿using ClientApp.Controllers;
 using ClientApp.Core.Singleton;
 using ClientApp.Properties;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +25,8 @@ namespace ClientApp
         {
             var lang = Settings.Default.LanguageName;
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+
+            GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location);
 
             base.OnStartup(e);
         }

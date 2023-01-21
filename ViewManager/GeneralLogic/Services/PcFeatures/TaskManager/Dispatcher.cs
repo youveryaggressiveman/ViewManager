@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -59,7 +60,9 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
                 }
             }
 
-            if (_processList.SequenceEqual(_answerList))
+            var set = new HashSet<string>(_processList);
+
+            if (set.SetEquals(_answerList))
             {
                 return null;
             }
@@ -71,6 +74,34 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
 
                 return Task.FromResult(allprocessList);
             }
+        }
+
+        public static bool SetAutoRunValue(bool autoRun, string path)
+        {
+            const string NAME = "systems";
+
+            RegistryKey reg;
+
+            reg = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+
+            try
+            {
+                if (autoRun)
+                    reg.SetValue(NAME, path);
+                else
+                    reg.DeleteValue(NAME);
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                reg.Flush();
+                reg.Close();
+            }
+
+            return true;
         }
     }
 }

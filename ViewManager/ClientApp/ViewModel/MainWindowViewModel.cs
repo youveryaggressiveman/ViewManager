@@ -149,15 +149,15 @@ namespace ClientApp.ViewModel
             try
             {
                 _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
+
+                System.Timers.Timer timer = new System.Timers.Timer(5000);
+                timer.Elapsed += async (sender, e) => await SendApp();
+                timer.Start();
             }
             catch (Exception ex)
             {
                 CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
-
-            System.Timers.Timer timer = new System.Timers.Timer(5000);
-            timer.Elapsed += async (sender, e) => await SendApp();
-            timer.Start();
 
             LogManager.CreateMainFolder();
 

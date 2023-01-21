@@ -9,7 +9,8 @@
       "ClientApp/1.0.0": {
         "dependencies": {
           "GeneralLogic": "1.0.0",
-          "System.Drawing.Common": "4.7.0"
+          "H.NotifyIcon.Wpf": "2.0.77",
+          "System.Drawing.Common": "6.0.0"
         },
         "runtime": {
           "ClientApp.dll": {}
@@ -17,6 +18,28 @@
         "resources": {
           "ru/ClientApp.resources.dll": {
             "locale": "ru"
+          }
+        }
+      },
+      "H.NotifyIcon/2.0.77": {
+        "dependencies": {
+          "System.Drawing.Common": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/H.NotifyIcon.dll": {
+            "assemblyVersion": "2.0.77.0",
+            "fileVersion": "2.0.77.0"
+          }
+        }
+      },
+      "H.NotifyIcon.Wpf/2.0.77": {
+        "dependencies": {
+          "H.NotifyIcon": "2.0.77"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/H.NotifyIcon.Wpf.dll": {
+            "assemblyVersion": "2.0.77.0",
+            "fileVersion": "2.0.77.0"
           }
         }
       },
@@ -51,11 +74,7 @@
           "System.Security.Principal.Windows": "5.0.0"
         }
       },
-      "Microsoft.Win32.SystemEvents/4.7.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.0"
-        }
-      },
+      "Microsoft.Win32.SystemEvents/6.0.0": {},
       "Mono.Posix.NETStandard/1.0.0": {
         "runtimeTargets": {
           "runtimes/linux-arm/lib/netstandard2.0/Mono.Posix.NETStandard.dll": {
@@ -213,10 +232,9 @@
         }
       },
       "System.CodeDom/5.0.0": {},
-      "System.Drawing.Common/4.7.0": {
+      "System.Drawing.Common/6.0.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.0",
-          "Microsoft.Win32.SystemEvents": "4.7.0"
+          "Microsoft.Win32.SystemEvents": "6.0.0"
         }
       },
       "System.IO.FileSystem.AccessControl/5.0.0": {
@@ -294,6 +312,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "H.NotifyIcon/2.0.77": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HxPWECPzVU++iR6V3TPyol4qVeKx4qwXZRtJf7y2akKwGnFBiUySD71pREeGscxkS+bsYmKYoBO6fZJCNlLtFg==",
+      "path": "h.notifyicon/2.0.77",
+      "hashPath": "h.notifyicon.2.0.77.nupkg.sha512"
+    },
+    "H.NotifyIcon.Wpf/2.0.77": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V5jTFMj6klHDTmzTz9FSQFAaGL6FgKZ+fNZ67xFt02zjHo46WCm4fCE20ADqrVcbIflI2cHXSPsiLScuN1rqqQ==",
+      "path": "h.notifyicon.wpf/2.0.77",
+      "hashPath": "h.notifyicon.wpf.2.0.77.nupkg.sha512"
+    },
     "HidSharp/2.1.0": {
       "type": "package",
       "serviceable": true,
@@ -322,12 +354,12 @@
       "path": "microsoft.win32.registry/5.0.0",
       "hashPath": "microsoft.win32.registry.5.0.0.nupkg.sha512"
     },
-    "Microsoft.Win32.SystemEvents/4.7.0": {
+    "Microsoft.Win32.SystemEvents/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
-      "path": "microsoft.win32.systemevents/4.7.0",
-      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+      "sha512": "sha512-hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
+      "path": "microsoft.win32.systemevents/6.0.0",
+      "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
     },
     "Mono.Posix.NETStandard/1.0.0": {
       "type": "package",
@@ -385,12 +417,12 @@
       "path": "system.codedom/5.0.0",
       "hashPath": "system.codedom.5.0.0.nupkg.sha512"
     },
-    "System.Drawing.Common/4.7.0": {
+    "System.Drawing.Common/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
-      "path": "system.drawing.common/4.7.0",
-      "hashPath": "system.drawing.common.4.7.0.nupkg.sha512"
+      "sha512": "sha512-NfuoKUiP2nUWwKZN6twGqXioIe1zVD0RIj2t976A+czLHr2nY454RwwXs6JU9Htc6mwqL6Dn/nEL3dpVf2jOhg==",
+      "path": "system.drawing.common/6.0.0",
+      "hashPath": "system.drawing.common.6.0.0.nupkg.sha512"
     },
     "System.IO.FileSystem.AccessControl/5.0.0": {
       "type": "package",

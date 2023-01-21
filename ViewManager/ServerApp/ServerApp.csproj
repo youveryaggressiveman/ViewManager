@@ -22,6 +22,7 @@
     <None Remove="Assets\Fonts\DMSans-Medium.ttf" />
     <None Remove="Assets\Fonts\DMSans-MediumItalic.ttf" />
     <None Remove="Assets\Fonts\DMSans-Regular.ttf" />
+    <None Remove="Assets\Images\Icon.ico" />
     <None Remove="Assets\Images\Logo.png" />
   </ItemGroup>
 
@@ -34,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.77" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.603" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -50,6 +52,7 @@
     <Resource Include="Assets\Fonts\DMSans-Medium.ttf" />
     <Resource Include="Assets\Fonts\DMSans-MediumItalic.ttf" />
     <Resource Include="Assets\Fonts\DMSans-Regular.ttf" />
+    <Resource Include="Assets\Images\Icon.ico" />
     <Resource Include="Assets\Images\Logo.png" />
   </ItemGroup>
 

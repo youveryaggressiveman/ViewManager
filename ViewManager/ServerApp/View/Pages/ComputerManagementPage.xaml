@@ -54,6 +54,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Height="50"
                                        Width="90"
+                                       Source="{Binding Image}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
                                 <Grid Grid.Column="1"

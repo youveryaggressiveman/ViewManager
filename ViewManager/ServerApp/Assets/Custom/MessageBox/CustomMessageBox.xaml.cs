@@ -27,8 +27,6 @@ namespace ServerApp.Assets.Custom.MessageBox
         {
             InitializeComponent();
 
-            Owner = Application.Current.MainWindow;
-
             SystemSounds.Asterisk.Play();
         }
 
