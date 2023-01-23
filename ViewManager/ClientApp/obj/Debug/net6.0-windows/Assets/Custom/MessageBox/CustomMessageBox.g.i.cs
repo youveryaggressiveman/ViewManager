@@ -101,7 +101,7 @@ namespace ClientApp.Assets.Custom.MessageBox {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ClientApp;V1.0.0.0;component/assets/custom/messagebox/custommessagebox.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ClientApp;component/assets/custom/messagebox/custommessagebox.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Assets\Custom\MessageBox\CustomMessageBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -68,7 +68,7 @@ namespace API.Controllers
 
             if (!await CheckLogin(user.Login, user.Id))
             {
-                return BadRequest("This password is already taken:" + user.Login);
+                return BadRequest("This login is already taken:" + user.Login);
             }
 
             user.Office = null;
@@ -134,12 +134,12 @@ namespace API.Controllers
         {
             var existingUser = await _db.Users.FirstOrDefaultAsync(user => user.Login == value);
 
-            if (Id == null && existingUser == null)
+            if (existingUser == null)
             {
                 return true;
             }
 
-            if (existingUser.Id == Id)
+            if (existingUser?.Id == Id)
             {
                 return true;
             }

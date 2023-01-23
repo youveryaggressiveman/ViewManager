@@ -24,8 +24,6 @@ namespace ServerApp.Core.Singleton
                 {
                     await client.GetAsync(s_connectionApiString);
 
-                    LogManager.SaveLog("Server", DateTime.Today, "Api: Check connection: the server is successfully connected.");
-
                     return true;
                 }
 

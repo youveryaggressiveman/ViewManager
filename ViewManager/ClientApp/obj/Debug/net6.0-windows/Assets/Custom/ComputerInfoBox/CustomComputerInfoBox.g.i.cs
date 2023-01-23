@@ -94,8 +94,7 @@ namespace ClientApp.Assets.Custom.ComputerInfoBox {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ClientApp;V1.0.0.0;component/assets/custom/computerinfobox/customcomputerinfobox" +
-                    ".xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ClientApp;component/assets/custom/computerinfobox/customcomputerinfobox.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Assets\Custom\ComputerInfoBox\CustomComputerInfoBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -102,7 +102,7 @@ namespace ServerApp.Assets.Custom.StatBox {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ServerApp;V1.0.0.0;component/assets/custom/statbox/customstatbox.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ServerApp;component/assets/custom/statbox/customstatbox.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Assets\Custom\StatBox\CustomStatBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

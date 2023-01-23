@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Timers;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GeneralLogic.Services.PcFeatures.TaskManager
 {
@@ -76,20 +77,18 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
             }
         }
 
-        public static bool SetAutoRunValue(bool autoRun, string path)
+        public static bool SetAutoRunValue(bool autoRun, string path, string name)
         {
-            const string NAME = "systems";
-
             RegistryKey reg;
 
-            reg = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
+            reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
             try
             {
                 if (autoRun)
-                    reg.SetValue(NAME, path);
+                    reg.SetValue(name, path);
                 else
-                    reg.DeleteValue(NAME);
+                    reg.DeleteValue(name);
             }
             catch
             {

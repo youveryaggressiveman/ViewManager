@@ -25,7 +25,7 @@ namespace ServerApp
             var lang = Settings.Default.LanguageName;
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
 
-            GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location);
+            GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location.Replace("dll", "exe"), "ServerApp");
 
             base.OnStartup(e);
         }
