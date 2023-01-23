@@ -13,8 +13,8 @@ namespace ServerApp.Core
     {
         private readonly static ISettingsManager _settingsManager = new SettingsManager();
 
-        public static Frame MainFrame { get; set; } = null;
-        public static Frame MainPageFrame { get; set; } = null;
+        public static Frame MainFrame { get; set; } = null!;
+        public static Frame MainPageFrame { get; set; } = null!;
 
         public static void SetPage<T>(T target, string frameName) where T: Page
         {

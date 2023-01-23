@@ -99,6 +99,44 @@
                 Value="{DynamicResource AdditionalColor}" />
     </Style>
 
+    <!--Style for ComboBoxItem-->
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Foreground"
+                Value="{DynamicResource AdditionalColor}"/>
+        <Setter Property="FontSize"
+                Value="18"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border Background="{DynamicResource MainColor}"
+                            x:Name="border"
+                            Margin="2"
+                            Padding="2"
+                            CornerRadius="1"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{DynamicResource MainColor}">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ColorBotton.Click}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ColorBotton.OnHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ColorBotton.Click}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ColorBotton.OnHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ColorHighlight}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ColorBotton.OnHover}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <!--Style for Combobox-->
     <ControlTemplate TargetType="ToggleButton"
                      x:Key="ComboBoxToggleButtonTemplate">

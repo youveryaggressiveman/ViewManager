@@ -49,6 +49,7 @@ namespace ServerApp.Core.Clients
                     if(client.Name == connectedClient.Name)
                     {
                         client.Status = "Connected";
+                        client.Port = connectedClient.Port;
 
                         return;
                     }

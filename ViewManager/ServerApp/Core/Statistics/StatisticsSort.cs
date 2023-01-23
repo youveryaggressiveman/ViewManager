@@ -87,8 +87,8 @@ namespace ServerApp.Core.Statistics
                     {
                         if (nameCount == stat)
                         {
-                            var ge = nameCountList.FirstOrDefault(re => re.Item1 == nameCount);
-                            item = (ge.Item1, item.Item2 + 1);
+                            var name = nameCountList.FirstOrDefault(re => re.Item1 == nameCount);
+                            item = (name.Item1, item.Item2 + 1);
                         }
                     }
 

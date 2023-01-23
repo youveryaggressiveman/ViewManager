@@ -11,6 +11,7 @@
         FontFamily="DM Sans"
         WindowStartupLocation="CenterScreen"
         Title="ViewManager: Client"
+        WindowStyle="ToolWindow"
         Height="650"
         Width="650"
         MinHeight="670"
