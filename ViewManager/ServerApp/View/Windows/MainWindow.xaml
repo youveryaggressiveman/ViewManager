@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FontFamily="DM Sans"
-    WindowStyle="ToolWindow"
         Background="{DynamicResource MainColor}"
         Title="ViewManager: Server" Height="750" Width="800"
         MinHeight="800" MinWidth="800">
