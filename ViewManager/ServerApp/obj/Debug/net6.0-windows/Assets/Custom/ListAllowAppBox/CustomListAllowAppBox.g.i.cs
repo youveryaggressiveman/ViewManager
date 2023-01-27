@@ -102,7 +102,8 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ServerApp;component/assets/custom/listallowappbox/customlistallowappbox.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ServerApp;V1.0.0.0;component/assets/custom/listallowappbox/customlistallowappbox" +
+                    ".xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Assets\Custom\ListAllowAppBox\CustomListAllowAppBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
