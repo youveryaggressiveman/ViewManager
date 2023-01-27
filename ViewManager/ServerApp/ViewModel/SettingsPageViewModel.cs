@@ -157,13 +157,13 @@ namespace ServerApp.ViewModel
             LoadInfo();
         }
 
-        private async void OpenListApp(object obj)
+        private void OpenListApp(object obj)
         {
             string message = string.Empty;
 
             try
             {
-                await CustomListAllowAppBox.Show();
+                CustomListAllowAppBox.Show();
 
                 message = "Approved applications have been successfully added.";
             }

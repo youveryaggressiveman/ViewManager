@@ -394,3 +394,7 @@ E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\StatBox\CustomStatBox.baml
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.dll
 E:\GG PROGRAMIST\ViewMangerNewUpdate\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.Wpf.dll
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\StatBox\CustomStatBox.g.cs
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.dll
+D:\my\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.Wpf.dll
+D:\my\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\Assets\Custom\StatBox\CustomStatBox.baml

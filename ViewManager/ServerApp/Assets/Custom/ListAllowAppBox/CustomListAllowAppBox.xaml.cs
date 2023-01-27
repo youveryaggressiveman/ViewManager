@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using ServerApp.Core.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,22 +34,13 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
             Owner = Application.Current.MainWindow;
         }
 
-        public async static Task<bool> Show()
+        public static bool Show()
         {
             s_castomListAllowAppBox = new();
 
             try
             {
-                var allApp = await s_fileManager.FileReader("AllowedApplications");
-                var appList = allApp.Split('\n');
-
-                foreach (var app in appList)
-                {
-                    if (app != string.Empty)
-                    {
-                        s_castomListAllowAppBox.appListView.Items.Add(app);
-                    }                 
-                }
+                s_castomListAllowAppBox.appListView.ItemsSource = ListAllowAppSingleton.S_AllowAppList;
             }
             finally
             {
@@ -79,8 +71,10 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
         {
             string allApp = string.Empty;
 
-            foreach (var app in s_castomListAllowAppBox.appListView.Items)
+            foreach (string app in s_castomListAllowAppBox.appListView.Items)
             {
+                ListAllowAppSingleton.S_AllowAppList.Add(app);
+
                 allApp += app + "\n";
             }
 

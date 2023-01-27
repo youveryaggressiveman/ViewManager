@@ -184,6 +184,20 @@ namespace ServerApp.ViewModel
             
         }
 
+        private async Task GetAllowApp()
+        {
+            var allApp = await _fileManager.FileReader("AllowedApplications");
+            var appList = allApp.Split('\n');
+
+            foreach (var app in appList)
+            {
+                if (app != string.Empty)
+                {
+                    ListAllowAppSingleton.S_AllowAppList.Add(app);
+                }
+            }
+        }
+
         private async void CheckRole()
         {
             if(User.RoleId == 1)
@@ -194,6 +208,8 @@ namespace ServerApp.ViewModel
 
                 TcpServerSingleton.SetIp(string.Empty);
                 await _clientsSort.Sort();
+
+                await GetAllowApp();
 
                 var allStat = await _fileManager.FileReader("Statistics");
                 var statList = await _statisticsSort.Sort(allStat);

@@ -4,9 +4,11 @@ using ServerApp.Model;
 using ServerApp.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace ServerApp.Core.Clients
 {
@@ -17,6 +19,21 @@ namespace ServerApp.Core.Clients
         public ClientsSort()
         {
             _fileManager = new AppStatisticsFileManager();
+        }
+
+        public BitmapImage GetImage(string value)
+        {
+            DirectoryInfo directoryInfo = new(@"../../../Assets/Images/");
+
+            foreach (var image in directoryInfo.GetFiles())
+            {
+                if (image.Name == value + ".png")
+                {
+                    return new BitmapImage(new Uri(image.FullName));
+                }
+            }
+
+            return null;
         }
 
         public async Task Sort(ConnectedClient connectedClient = null)
