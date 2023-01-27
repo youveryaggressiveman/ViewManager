@@ -10,11 +10,11 @@
         "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
         "projectName": "GeneralLogic",
         "projectPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
-        "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
         "outputPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,11 +71,11 @@
         "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
         "projectName": "ServerApp",
         "projectPath": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
-        "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
         "outputPath": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

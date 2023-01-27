@@ -5,14 +5,14 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Админ\.nuget\packages\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Student\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.4.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\Админ\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\Student\.nuget\packages\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgH_NotifyIcon_Wpf Condition=" '$(PkgH_NotifyIcon_Wpf)' == '' ">C:\Users\Админ\.nuget\packages\h.notifyicon.wpf\2.0.77</PkgH_NotifyIcon_Wpf>
+    <PkgH_NotifyIcon_Wpf Condition=" '$(PkgH_NotifyIcon_Wpf)' == '' ">C:\Users\Student\.nuget\packages\h.notifyicon.wpf\2.0.77</PkgH_NotifyIcon_Wpf>
   </PropertyGroup>
 </Project>
