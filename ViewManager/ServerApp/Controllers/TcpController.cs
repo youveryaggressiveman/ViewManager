@@ -57,7 +57,8 @@ namespace ServerApp.Controllers
             }
             finally
             {
-                s_socketServer.Close();
+                if (s_socketServer != null)
+                    s_socketServer.Close();
             }
         }
 

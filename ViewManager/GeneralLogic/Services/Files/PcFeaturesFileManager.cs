@@ -47,7 +47,7 @@ namespace GeneralLogic.Services.Files
 
             using (StreamWriter streamWriter = new StreamWriter(filePath, false))
             {
-                await streamWriter.WriteLineAsync(text);
+                await streamWriter.WriteAsync(text);
             }
         }
     }

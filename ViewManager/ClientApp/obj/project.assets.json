@@ -1017,7 +1017,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Student\\.nuget\\packages\\": {}
+    "C:\\Users\\Админ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1025,11 +1025,11 @@
       "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
       "projectName": "ClientApp",
       "projectPath": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
-      "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
       "outputPath": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

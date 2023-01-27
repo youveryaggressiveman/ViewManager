@@ -181,9 +181,9 @@ namespace ServerApp.ViewModel
         {
             try
             {
-                var pcInfo = await _fileManager.FileReader(Environment.MachineName);
+                var pcInfo = await _fileManager.FileReader("Server");
 
-                CustomComputerInfoBox.Show(pcInfo, Environment.MachineName);
+                CustomComputerInfoBox.Show(pcInfo, "Server");
             }
             catch
             {

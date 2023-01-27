@@ -36,11 +36,12 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
         public static bool Show(string description, string pcName)
         {
             s_customComputerInfoBox = new();
+            s_customComputerInfoBox.pcNameRun.Text = pcName;
 
             if (!string.IsNullOrEmpty(description))
             {
                 s_customComputerInfoBox.descriptionTextBlock.Text = description;
-
+                
             }
             else
             {
