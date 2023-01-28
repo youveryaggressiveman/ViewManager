@@ -138,6 +138,9 @@
   <data name="CheckBoxAuth" xml:space="preserve">
     <value>Показать пароль</value>
   </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Закрыть программу</value>
+  </data>
   <data name="ComputerManagement" xml:space="preserve">
     <value>Компьютеры</value>
   </data>

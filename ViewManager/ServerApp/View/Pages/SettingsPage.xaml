@@ -33,8 +33,14 @@
             <Button Content="✔"
                     Visibility="{Binding Visibility}"
                         Command="{Binding OpenListAppCommand}"
-                        Margin="10 20 20 20"
+                        Margin="10 20 10 20"
                         ToolTip="{x:Static lang:Lang.ToolTipListAppButton}"
+                        Padding="5"/>
+            <Button Content="✖"
+                        Command="{Binding CloseAppCommand}"
+                    Margin="10 20 20 20"
+                        
+                        ToolTip="{x:Static lang:Lang.CloseButton}"
                         Padding="5"/>
         </StackPanel>
         

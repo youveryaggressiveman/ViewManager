@@ -128,12 +128,14 @@ namespace ServerApp.ViewModel
         public ICommand OpenListAppCommand { get; }
         public ICommand CheckPcFeaturesCommand { get; }
         public ICommand SaveChangesCommand { get; }
+        public ICommand CloseAppCommand { get; }
 
         public SettingsPageViewModel()
         {
             OpenListAppCommand = new DelegateCommand(OpenListApp);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
+            CloseAppCommand = new DelegateCommand(CloseApp);
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
             _settingsManager = new SettingsManager();
@@ -155,6 +157,14 @@ namespace ServerApp.ViewModel
 
             CheckUserRole();
             LoadInfo();
+        }
+
+        private void CloseApp(object obj)
+        {
+            if (CustomMessageBox.Show("Are you sure you want to close the program?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            {
+                Application.Current.Shutdown();
+            } 
         }
 
         private void OpenListApp(object obj)

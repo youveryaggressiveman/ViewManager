@@ -43,6 +43,27 @@ namespace ServerApp.Core.Statistics
             }
         }
 
+        public static IEnumerable<ServerApp.Model.Statistics> Distinct(IEnumerable<ServerApp.Model.Statistics> newStatList, IEnumerable<ServerApp.Model.Statistics> oldStatList)
+        {
+            List<ServerApp.Model.Statistics> statList = newStatList.ToList();
+
+            foreach (var oldStat in oldStatList)
+            {
+                foreach (var newStat in newStatList)
+                {
+                    if (oldStat.ProcessName == newStat.ProcessName && oldStat.ClientName == newStat.ClientName
+                            && oldStat.Title == newStat.Title)
+                    {
+                        statList.Remove(newStat);
+                    }
+                }
+            }
+
+            statList.AddRange(oldStatList);
+
+            return statList;
+        }
+
         public async Task<IEnumerable<ServerApp.Model.Statistics>> Sort(string allStat)
         {
             try

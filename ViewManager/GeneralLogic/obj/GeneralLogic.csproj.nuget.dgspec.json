@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {}
+    "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {}
   },
   "projects": {
-    "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
+    "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+        "projectUniqueName": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
         "projectName": "GeneralLogic",
-        "projectPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
-        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
-        "outputPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
+        "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+        "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
+        "outputPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

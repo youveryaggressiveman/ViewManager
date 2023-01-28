@@ -32,6 +32,18 @@ namespace ServerApp.ViewModel
 
         private ObservableCollection<ConnectedClient> _connectedClientList;
 
+        private bool _isEnabled = false;
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled= value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
         public ObservableCollection<ConnectedClient> ConnectedClientList
         {
             get => _connectedClientList;
@@ -68,12 +80,27 @@ namespace ServerApp.ViewModel
             dispatcherTimer.Tick += (object? sender, EventArgs e) =>
             {
                 ConnectedClientList = LoadImage(ConnectedClientSingleton.S_ListConnectedClient);
+                CheckConnectedPc();
             };
             dispatcherTimer.Start();
 
             InfoCommand = new DelegateCommand(Info);
             BroadcastCommand = new DelegateCommand(Broadcast);
             TurnOffCommand = new DelegateCommand(TurnOff);
+
+            CheckConnectedPc();
+        }
+
+        private void CheckConnectedPc()
+        {
+            if (ConnectedClientList.Count == 0)
+            {
+                IsEnabled= false;
+            }
+            else
+            {
+                IsEnabled= true;
+            }
         }
 
         private ObservableCollection<ConnectedClient> LoadImage(ObservableCollection<ConnectedClient> connectedClients)

@@ -1745,19 +1745,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Student\\.nuget\\packages\\": {}
+    "C:\\Users\\повелитель\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
+      "projectUniqueName": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
       "projectName": "ServerApp",
-      "projectPath": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
-      "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
-      "outputPath": "D:\\my\\ViewManager\\ViewManager\\ServerApp\\obj\\",
+      "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ServerApp\\ServerApp.csproj",
+      "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
+      "outputPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\ServerApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1771,8 +1771,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
-              "projectPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
+            "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
+              "projectPath": "E:\\GG PROGRAMIST\\ViewMangerNewUpdate\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
             }
           }
         }
@@ -1823,7 +1823,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -40,7 +40,10 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
 
             try
             {
-                s_castomListAllowAppBox.appListView.ItemsSource = ListAllowAppSingleton.S_AllowAppList;
+                foreach (var app in ListAllowAppSingleton.S_AllowAppList)
+                {
+                    s_castomListAllowAppBox.appListView.Items.Add(app);
+                } 
             }
             finally
             {
@@ -71,10 +74,11 @@ namespace ServerApp.Assets.Custom.ListAllowAppBox
         {
             string allApp = string.Empty;
 
+            ListAllowAppSingleton.S_AllowAppList = new ObservableCollection<string>();
+
             foreach (string app in s_castomListAllowAppBox.appListView.Items)
             {
                 ListAllowAppSingleton.S_AllowAppList.Add(app);
-
                 allApp += app + "\n";
             }
 

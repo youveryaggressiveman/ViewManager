@@ -117,12 +117,14 @@ namespace ServerApp.Controllers
                             var allStringApp = message.Remove(0, 8);
                             var statList = await s_statSort.Sort(allStringApp);
 
-                            var thisList = AppStatSingleton.S_ListAppStat;
+                            var correctList =  StatisticsSort.Distinct(statList, AppStatSingleton.S_ListAppStat);
 
-                            statList.ToList().ForEach(thisList.Add);
-                            var correctList = thisList.Distinct().ToList();
+                            AppStatSingleton.S_ListAppStat = new ObservableCollection<Statistics>();
 
-                            correctList.ForEach(AppStatSingleton.S_ListAppStat.Add);
+                            foreach (var app in correctList)
+                            {
+                                AppStatSingleton.S_ListAppStat.Add(app);
+                            }
                         }
                         else
                         {

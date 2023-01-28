@@ -33,12 +33,15 @@
                         VerticalAlignment="Center">
                     <Button Content="{x:Static lang:Lang.InfoButton}"                       
                         Command="{Binding InfoCommand}"
+                            IsEnabled="{Binding IsEnabled}"
                         Padding="10"/>
                     <Button Content="{x:Static lang:Lang.BroadcastButton}"
                         Command="{Binding BroadcastCommand}"
+                            IsEnabled="{Binding IsEnabled}"
                         Padding="10"/>
                     <Button Content="{x:Static lang:Lang.TurnOffButton}"
                         Command="{Binding TurnOffCommand}"
+                            IsEnabled="{Binding IsEnabled}"
                         Padding="10"/>
                 </StackPanel>
                 <ListView ItemsSource="{Binding ConnectedClientList}"
