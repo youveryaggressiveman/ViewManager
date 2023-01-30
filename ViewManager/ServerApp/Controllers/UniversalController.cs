@@ -122,7 +122,7 @@ namespace ServerApp.Controllers
             }
         }
 
-        public async Task<bool> Create(T obj)
+        public async Task<T?> Create(T obj)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace ServerApp.Controllers
 
                     if (result.IsSuccessStatusCode)
                     {
-                        var endResult = JsonConvert.DeserializeObject<bool>(await result.Content.ReadAsStringAsync());
+                        var endResult = JsonConvert.DeserializeObject<T>(await result.Content.ReadAsStringAsync());
 
                         LogManager.SaveLog("Server", DateTime.Today, "Api: The response was received successfully.");
 
@@ -154,7 +154,7 @@ namespace ServerApp.Controllers
                     {
                         LogManager.SaveLog("Server", DateTime.Today, "Api: There is no user with such data.");
 
-                        return false;
+                        return default;
                     }
                     else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
@@ -163,7 +163,7 @@ namespace ServerApp.Controllers
                         throw new Exception("The user is not logged in");
                     }
 
-                    return false;
+                    return default;
                 }
             }
             catch (Exception ex)

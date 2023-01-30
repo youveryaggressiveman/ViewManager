@@ -177,9 +177,13 @@ namespace ServerApp.ViewModel
                 try
                 {
 
-                    if (await _userController.Create(NewUser))
+                    var newUser = await _userController.Create(NewUser);
+
+                    if (newUser != default)
                     {
-                        CustomMessageBox.Show("New user successfully added to the system!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show("New user successfully added to the system!\n" +
+                            $"Login: {newUser.Login}\n" +
+                            $"Password: {newUser.Password}", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LoadInfo();
 

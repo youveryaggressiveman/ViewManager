@@ -122,11 +122,13 @@ namespace API.Controllers
                 _db.Users.Add(newUser);
                 await _db.SaveChangesAsync();
 
-                return Ok(true);
+                newUser.Password = credential[1];
+
+                return Ok(newUser);
             }
             catch (Exception)
             {
-                return BadRequest(false);
+                return BadRequest();
             }
         }
 

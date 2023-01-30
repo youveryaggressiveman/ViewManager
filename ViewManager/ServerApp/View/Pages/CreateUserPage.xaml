@@ -54,9 +54,12 @@
                              FontSize="18"
                              PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Width="200"/>
+                             VerticalContentAlignment="Center"
+                             MinHeight="20"
+                             MaxHeight="40"
+                             Margin="20 15"
+                             MinWidth="200"
+                              MaxWidth="500"/>
                     <TextBlock Grid.Row="1"
                                FontSize="18"
                                HorizontalAlignment="Left"
@@ -66,12 +69,15 @@
                     </TextBlock>
                     <TextBox Text="{Binding NewUser.LastName}"
                              FontSize="18"
+                             MinHeight="20"
+                             MaxHeight="40"
                              Grid.Row="1"
                              PreviewTextInput="Text_PreviewTextInput"
                              Grid.Column="1"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Width="200"/>
+                             VerticalContentAlignment="Center"
+                             Margin="20 15"
+                             MinWidth="200"
+                              MaxWidth="500"/>
                     <TextBlock Text="{x:Static lang:Lang.TextBlockSecondName}"
                                Grid.Row="2"
                                FontSize="18"
@@ -82,9 +88,12 @@
                              Grid.Row="2"
                              Grid.Column="1"
                              PreviewTextInput="Text_PreviewTextInput"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Width="200"/>
+                             VerticalContentAlignment="Center"
+                             Margin="20 15"
+                             MinHeight="20"
+                             MaxHeight="40"
+                             MinWidth="200"
+                              MaxWidth="500"/>
                     <TextBlock Grid.Row="3"
                                FontSize="18"
                                HorizontalAlignment="Left"
@@ -92,7 +101,9 @@
                         <Run Text="{x:Static lang:Lang.TextBlockOffice}"/>
                         <Run Text="*" Foreground="{DynamicResource ColorHighlight}"/>
                     </TextBlock>
-                    <ComboBox Width="200"
+                    <ComboBox Margin="20 10"
+                              MinWidth="200"
+                              MaxWidth="500"
                               SelectedItem="{Binding SelectedOffice}"
                               ItemsSource="{Binding OfficeList}"
                               DisplayMemberPath="Value"
@@ -122,6 +133,9 @@
                                VerticalAlignment="Center" />
                     <ComboBox ItemsSource="{Binding SpecializationList}"
                               Grid.Column="1"
+                              Margin="20 10"
+                              MinWidth="200"
+                              MaxWidth="500"
                               SelectedItem="{Binding SelectedSpecialization}"
                               DisplayMemberPath="Value" />
                     <Grid Grid.Row="1"
@@ -132,10 +146,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button Content="🠕" 
-                                Width="40"
+                                Height="50"
+                                Width="50"
                                 Command="{Binding RemoveSpecCommand}"
                                 HorizontalAlignment="Right"
-                                Height="40"
                                 FontSize="25"/>
                         <Border Width="1"
                                 BorderBrush="{DynamicResource NeutralColor}"
@@ -146,9 +160,9 @@
                         <Button Content="🠗"
                                 Grid.Column="2"
                                 Command="{Binding AddSpecCommand}"
-                                Width="40"
-                                HorizontalAlignment="Right"
-                                Height="40"
+                                Height="50"
+                                Width="50"
+                                HorizontalAlignment="Left"
                                 FontSize="25" />
                     </Grid>
 
@@ -161,11 +175,16 @@
                               Grid.Row="2"
                               SelectedItem="{Binding SelectedSpecializationOfSelectedList}"
                               DisplayMemberPath="Value"
+                              Margin="20 10"
+                              MinWidth="200"
+                              MaxWidth="500"
                               Grid.Column="1"/>
                     <Button Grid.Row="3"
                             Foreground="{DynamicResource ForegroundColor}"
                             Command="{Binding CreateUserCommand}"
                             Grid.ColumnSpan="2"
+                            MaxHeight="70"
+                            Margin="20 10 20 10"
                             Content="{x:Static lang:Lang.ButtonCreate}" />
                 </Grid>
             </Grid>
