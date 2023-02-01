@@ -130,6 +130,13 @@ namespace ServerApp.ViewModel
                 return;
             }
 
+            if(client.Status == "Disconnected")
+            {
+                CustomMessageBox.Show("This user is currently not logged into the system.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+
+                return;
+            }
+
             if (!CustomStatBox.Show(SelectedStat.ProcessName, SelectedStat.ClientName, SelectedStat.Title))
             {
                 try

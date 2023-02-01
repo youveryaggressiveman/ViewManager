@@ -129,10 +129,9 @@ namespace ServerApp.Controllers
                         else
                         {
                             S_Answer = (message.Remove(0, 7));
+
+                            LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
                         }
-
-                        LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
-
                         break;
                     default:
                         break;
