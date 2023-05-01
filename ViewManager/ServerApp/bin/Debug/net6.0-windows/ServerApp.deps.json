@@ -476,7 +476,8 @@
       "System.Security.Principal.Windows/5.0.0": {},
       "GeneralLogic/1.0.0": {
         "dependencies": {
-          "LibreHardwareMonitorLib": "0.9.1"
+          "LibreHardwareMonitorLib": "0.9.1",
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "GeneralLogic.dll": {}

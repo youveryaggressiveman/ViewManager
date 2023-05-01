@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -31,7 +32,6 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
     {
         private static UdpController s_udpController;
         private static CustomClientScreenBox s_customClientScreenBox;
-        private static DispatcherTimer s_dispatcherTimer;
         private static ConnectedClient s_client;
 
         public CustomClientScreenBox()
@@ -52,16 +52,17 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             s_udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort(), client.Ip, client.Port);
             s_udpController.Start();
 
-            s_dispatcherTimer = new DispatcherTimer();
-            s_dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 200);
-            s_dispatcherTimer.Tick += (object? sender, EventArgs e) =>
+            System.Timers.Timer timer = new System.Timers.Timer(5000);
+            timer.Elapsed += (sender, e) =>
             {
-                s_customClientScreenBox.image.Dispatcher.Invoke(() =>
+                App.Current.Dispatcher.Invoke(() =>
                 {
-                   
-                }, DispatcherPriority.Normal); 
+                    s_customClientScreenBox.image.Source = Imaging.CreateBitmapSourceFromHBitmap(ToScreenConverter.S_Image[0]!.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    ToScreenConverter.S_Image.Remove(ToScreenConverter.S_Image[0]);
+                });
+
             };
-            s_dispatcherTimer.Start();
+            timer.Start();
 
             s_customClientScreenBox.ShowDialog();
         }

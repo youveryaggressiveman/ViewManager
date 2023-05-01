@@ -7341,19 +7341,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Админ\\.nuget\\packages\\": {}
+    "C:\\Users\\повелитель\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\API\\API.csproj",
+      "projectUniqueName": "E:\\viewManager\\ViewManager\\ViewManager\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\my\\ViewManager\\ViewManager\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
-      "outputPath": "D:\\my\\ViewManager\\ViewManager\\API\\obj\\",
+      "projectPath": "E:\\viewManager\\ViewManager\\ViewManager\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
+      "outputPath": "E:\\viewManager\\ViewManager\\ViewManager\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7431,7 +7431,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

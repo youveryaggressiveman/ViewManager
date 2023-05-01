@@ -6,6 +6,7 @@ using ClientApp.Core.Settings;
 using ClientApp.Core.Singleton;
 using ClientApp.Properties;
 using GeneralLogic.Services.Files;
+using GeneralLogic.Services.PcFeatures.ArrangeData;
 using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
 using GeneralLogic.Services.PcFeatures.Management;
 using GeneralLogic.Services.PcFeatures.TaskManager;
@@ -35,6 +36,7 @@ namespace ClientApp.ViewModel
         private readonly CheckSettings _checkSettings;
         private readonly PcManager _pcManager;
         private readonly Dispatcher _dispatcher;
+        private readonly ArrangeHelper _arrangeHelper;
 
         private MainWindowViewModelController _controller;
 
@@ -176,6 +178,7 @@ namespace ClientApp.ViewModel
             _visitor = new();
             _checkSettings = new();
             _pcManager = new();
+            _arrangeHelper = new();
 
             _settingsManager = new SettingsManager();
             _fileManager = new PcFeaturesFileManager();
@@ -272,9 +275,7 @@ namespace ClientApp.ViewModel
         {
             try
             {
-                var pcInfo = await _fileManager.FileReader(Environment.MachineName);
-
-                CustomComputerInfoBox.Show(Environment.MachineName, pcInfo.Replace("Hardware: {0}, ", "").Replace("Sensor: {0}, value: {1}, ", ""));
+               await CustomComputerInfoBox.Show(Environment.MachineName);
             }
             catch
             {
@@ -354,7 +355,16 @@ namespace ClientApp.ViewModel
 
             try
             {
-                await _fileManager.FileWriter(_visitor.Monitor(), Environment.MachineName);
+                var result = _arrangeHelper.GetArrangeData();
+
+                string endResult = string.Empty;
+
+                foreach (var hardware in result.NameHardware)
+                {
+                    endResult += hardware + "\n";
+                }
+
+                await _fileManager.FileWriter(endResult, Environment.MachineName);
 
                 message = "The file with the characteristics has been filled in successfully";
             }

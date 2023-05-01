@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientApp.Assets.Custom.ComputerInfoBox"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
         xmlns:lang="clr-namespace:ClientApp.Properties.Lang"
          WindowStyle="None"
@@ -116,16 +117,26 @@
                 </Border>
             </Grid>
         </Border>
-        <ScrollViewer Grid.Row="1"
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0"
                       Margin="10"
+                          x:Name="scrollPcInfo"
                       VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled">
+                      HorizontalScrollBarVisibility="Auto">
 
-            <TextBlock Name="descriptionTextBlock"
+                <TextBlock x:Name="descriptionTextBlock"
                    FontSize="15"
                    />
-        </ScrollViewer>
-       
+            </ScrollViewer>
+            <lvc:CartesianChart Grid.Column="1"
+                                Margin="10"
+                                x:Name="chart"/>
+        </Grid>
+
         <Button Grid.Row="2"
                 Content="OK"
                 FontSize="18"

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj": {}
+    "E:\\viewManager\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj": {}
   },
   "projects": {
-    "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj": {
+    "E:\\viewManager\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
+        "projectUniqueName": "E:\\viewManager\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
         "projectName": "ClientApp",
-        "projectPath": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
-        "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
-        "outputPath": "D:\\my\\ViewManager\\ViewManager\\ClientApp\\obj\\",
+        "projectPath": "E:\\viewManager\\ViewManager\\ViewManager\\ClientApp\\ClientApp.csproj",
+        "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
+        "outputPath": "E:\\viewManager\\ViewManager\\ViewManager\\ClientApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
-                "projectPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
+              "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
+                "projectPath": "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj"
               }
             }
           }
@@ -47,6 +47,10 @@
             "H.NotifyIcon.Wpf": {
               "target": "Package",
               "version": "[2.0.77, )"
+            },
+            "LiveChartsCore.SkiaSharpView.WPF": {
+              "target": "Package",
+              "version": "[2.0.0-beta.701, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
@@ -72,21 +76,21 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
+    "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+        "projectUniqueName": "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
         "projectName": "GeneralLogic",
-        "projectPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
-        "packagesPath": "C:\\Users\\Админ\\.nuget\\packages\\",
-        "outputPath": "D:\\my\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
+        "projectPath": "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\GeneralLogic.csproj",
+        "packagesPath": "C:\\Users\\повелитель\\.nuget\\packages\\",
+        "outputPath": "E:\\viewManager\\ViewManager\\ViewManager\\GeneralLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Админ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\повелитель\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -115,6 +119,10 @@
             "LibreHardwareMonitorLib": {
               "target": "Package",
               "version": "[0.9.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             }
           },
           "imports": [
@@ -133,7 +141,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

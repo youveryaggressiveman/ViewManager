@@ -24,13 +24,15 @@ namespace ServerApp.Core.Screen
     {
         public static List<Bitmap?> S_Image { get; set; } = new List<Bitmap?>();
 
+        private static List<Bitmap?> s_newBitMap = new List<Bitmap?>();
+
         public static void Convert(byte[] bytes)
         {
             using (MemoryStream memoryStream = new(bytes))
             {
                 System.Drawing.Bitmap bmp =
                 (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(memoryStream);
-                S_Image.Add(bmp);
+                s_newBitMap.Add(bmp);
             }
         }
 
@@ -53,11 +55,13 @@ namespace ServerApp.Core.Screen
 
         public static void Builder()
         {
-            var result = Draw(S_Image[S_Image.Count - 1], S_Image[0].Width, S_Image[0].Height);
+            var result = Draw(s_newBitMap[s_newBitMap.Count - 1], s_newBitMap[0].Width, s_newBitMap[0].Height);
 
-            result.Save($@"C:\Users\повелитель\Desktop\New folder (2)\{new Random().Next()}Aboba.png", ImageFormat.Png);
+            S_Image.Add(result);
 
-            S_Image = new List<Bitmap?>();
+            s_newBitMap = new List<Bitmap?>();
+            //result.Save($@"C:\Users\повелитель\Desktop\New folder (2)\{new Random().Next()}Aboba.png", ImageFormat.Png);
+
         }
 
         private static BitmapImage ConvertToBitmapImage(Bitmap src)

@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.77" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.701" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 

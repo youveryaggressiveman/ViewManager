@@ -1,4 +1,5 @@
 ﻿using GeneralLogic.Services.Files;
+using GeneralLogic.Services.PcFeatures.ArrangeData;
 using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
 using Mono.Unix.Native;
 using ServerApp.Assets.Custom.MessageBox;
@@ -24,8 +25,8 @@ namespace ServerApp.ViewModel
         private readonly IFileManager _fileStatManager;
 
         private readonly AuthController _authController;
-
         private readonly Visitor _visitor;
+        private readonly ArrangeHelper _arrangeHelper;
 
         private Visibility _visibility = Visibility.Collapsed;
 
@@ -48,6 +49,7 @@ namespace ServerApp.ViewModel
 
             _authController = new(ApiServerSingleton.GetConnectionApiString());
 
+            _arrangeHelper = new();
             _visitor = new();
 
             Timer timer = new Timer(5000);
@@ -113,7 +115,16 @@ namespace ServerApp.ViewModel
 
             try
             {
-                await _fileManager.FileWriter(_visitor.Monitor(), "Server");
+                var result = _arrangeHelper.GetArrangeData();
+
+                string endResult = string.Empty;
+
+                foreach (var hardware in result.NameHardware)
+                {
+                    endResult += hardware + "\n";
+                }
+
+                await _fileManager.FileWriter(endResult, "Server");
 
                 message = "The file with the characteristics has been filled in successfully";
             }

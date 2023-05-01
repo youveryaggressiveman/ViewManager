@@ -27,7 +27,6 @@ namespace ServerApp.ViewModel
     public class SettingsPageViewModel : BaseViewModel
     {
         private readonly ISettingsManager _settingsManager;
-        private readonly IFileManager _fileManager;
 
         private readonly UniversalController<User> _userController;
         private readonly CheckSettings _checkSettings;
@@ -139,7 +138,6 @@ namespace ServerApp.ViewModel
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
             _settingsManager = new SettingsManager();
-            _fileManager = new PcFeaturesFileManager();
 
             _checkSettings = new();
 
@@ -191,9 +189,7 @@ namespace ServerApp.ViewModel
         {
             try
             {
-                var pcInfo = await _fileManager.FileReader("Server");
-
-                CustomComputerInfoBox.Show(pcInfo, "Server");
+                await CustomComputerInfoBox.Show(true, "Server");
             }
             catch
             {

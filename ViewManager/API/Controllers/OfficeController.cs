@@ -14,7 +14,6 @@ namespace API.Controllers
         public OfficeController(ViewManagerContext db) =>
             (_db) = (db);
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("GetOfficeList")]
         public async Task<IActionResult> GetOfficeList()
         {

@@ -161,7 +161,7 @@ namespace ServerApp.ViewModel
                 {
                     await TcpController.SendMessage(SelectedConnectedClient, "1");
 
-                    CustomComputerInfoBox.Show(string.Empty, SelectedConnectedClient.Name);
+                    await CustomComputerInfoBox.Show(false, SelectedConnectedClient.Name);
                 }
                 catch
                 {

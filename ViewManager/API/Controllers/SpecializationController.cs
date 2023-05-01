@@ -14,7 +14,6 @@ namespace API.Controllers
         public SpecializationController(ViewManagerContext db) =>
             (_db) = (db);
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("GetSpecializationList")]
         public async Task<IActionResult> GetSpecializationList()
         {

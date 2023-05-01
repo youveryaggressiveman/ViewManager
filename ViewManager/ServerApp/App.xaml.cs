@@ -1,6 +1,9 @@
 ﻿using GeneralLogic.Services.Files;
+using GeneralLogic.Services.Translator;
 using Microsoft.Win32;
+using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
+using ServerApp.Model;
 using ServerApp.Properties;
 using ServerApp.ViewModel;
 using System;
@@ -8,6 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +24,33 @@ namespace ServerApp
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private UniversalController<Role> _roleController;
+        private UniversalController<Office> _officeCintroller;
+        private UniversalController<Specialization> _specializtionController;
+
+        private List<IEnumerable<object>> _listData;
+
+        protected async override void OnStartup(StartupEventArgs e)
         {
+            _listData = new List<IEnumerable<object>>();
+
+            _roleController = new UniversalController<Role>(ApiServerSingleton.GetConnectionApiString());
+            _officeCintroller = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
+            _specializtionController = new UniversalController<Specialization>(ApiServerSingleton.GetConnectionApiString());
+
+            _listData.Add(await _roleController.GetList());
+            _listData.Add(await _officeCintroller.GetList());
+            _listData.Add(await _specializtionController.GetList());
+
+            foreach (var data in _listData)
+            {
+               
+            }
+
             var lang = Settings.Default.LanguageName;
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+
+            //var tet = await TranslatorController.GetTranslation("Hello", "en", "ru");
 
             GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location.Replace("dll", "exe"), "ServerApp");
 

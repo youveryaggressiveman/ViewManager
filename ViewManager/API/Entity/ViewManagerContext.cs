@@ -28,7 +28,7 @@ namespace API.Entity
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=32-11\\SQLEXPRESS;Database=ViewManager;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-1C1RNHU\\GGSERVER;Database=ViewManager;Trusted_Connection=True");
             }
         }
 

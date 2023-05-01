@@ -29,7 +29,7 @@ namespace GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib
 
             foreach (IHardware hardware in computer.Hardware)
             {
-                text += ("Hardware: {0}", hardware.Name) + "\n";
+                text += $"{hardware.HardwareType}: {hardware.Name}\n";
 
                 foreach (IHardware subhardware in hardware.SubHardware)
                 {
@@ -43,7 +43,10 @@ namespace GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib
 
                 foreach (ISensor sensor in hardware.Sensors)
                 {
-                    text += ("\tSensor: {0}, value: {1}", sensor.Name, sensor.Value) + "\n";
+                    if(sensor.Name.Contains("CPU Core") && hardware.HardwareType == HardwareType.Cpu)
+                    {
+                        text += sensor.Value + "\n";
+                    }
                 }
             }
 

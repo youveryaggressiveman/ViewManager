@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ServerApp.Assets.Custom.ComputerInfoBox"
         xmlns:lang="clr-namespace:ServerApp.Properties.Lang"
         xmlns:Controllers="clr-namespace:ServerApp.Controllers" x:Class="ServerApp.Assets.Custom.ComputerInfoBox.CustomComputerInfoBox"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
          WindowStyle="None"
         Title="" Height="400" Width="500"
@@ -112,20 +113,31 @@
                 </Border>
             </Grid>
         </Border>
-        <ScrollViewer Grid.Row="1"
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0"
                       Margin="10"
+                          x:Name="scrollPcInfo"
                       VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled">
+                      HorizontalScrollBarVisibility="Auto">
 
-            <TextBlock x:Name="descriptionTextBlock"
+                <TextBlock x:Name="descriptionTextBlock"
                        Text="{Binding S_Answer}"
                    FontSize="15"
                    >
-                <TextBlock.DataContext>
-                    <Controllers:TcpController/>
-                </TextBlock.DataContext>
-            </TextBlock>
-        </ScrollViewer>
+                    <TextBlock.DataContext>
+                        <Controllers:TcpController/>
+                    </TextBlock.DataContext>
+                </TextBlock>
+            </ScrollViewer>
+            <lvc:CartesianChart Grid.Column="1"
+                                Margin="10"
+                                x:Name="chart"/>
+        </Grid>
+       
 
         <Button Grid.Row="2"
                 Content="OK"
