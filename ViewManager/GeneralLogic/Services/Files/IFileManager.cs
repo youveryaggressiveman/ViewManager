@@ -9,6 +9,6 @@ namespace GeneralLogic.Services.Files
     public interface IFileManager
     {
         public Task<string> FileReader(string name);
-        public Task FileWriter(string text, string name);
+        public Task FileWriter(string name, string text);
     }
 }

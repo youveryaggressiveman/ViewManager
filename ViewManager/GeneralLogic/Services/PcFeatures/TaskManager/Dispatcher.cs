@@ -65,7 +65,7 @@ namespace GeneralLogic.Services.PcFeatures.TaskManager
 
             if (set.SetEquals(_answerList))
             {
-                return null;
+                return Task.FromResult(new List<string>());
             }
             else
             {

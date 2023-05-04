@@ -199,7 +199,7 @@ namespace ClientApp.ViewModel
             {
                 var appList = await _dispatcher.GetIncludeApps();
 
-                if (appList == null)
+                if (appList.Count == 0)
                 {
                     return;
                 }

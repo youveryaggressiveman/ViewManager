@@ -60,8 +60,6 @@ namespace ServerApp.Core.Screen
             S_Image.Add(result);
 
             s_newBitMap = new List<Bitmap?>();
-            //result.Save($@"C:\Users\повелитель\Desktop\New folder (2)\{new Random().Next()}Aboba.png", ImageFormat.Png);
-
         }
 
         private static BitmapImage ConvertToBitmapImage(Bitmap src)

@@ -253,6 +253,9 @@ namespace ClientApp.Controllers
 
                 while (true)
                 {
+                    //Проверить. Если что удалить
+                    Thread.Sleep(200);
+
                     var message = _screenConverter.CutMsg(_screenConverter.Convert());
 
                     for (int i = 0; i < message.Count; i++)

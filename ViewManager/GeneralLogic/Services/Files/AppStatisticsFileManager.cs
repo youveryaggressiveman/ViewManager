@@ -52,6 +52,9 @@ namespace GeneralLogic.Services.Files
             {
                 switch (name)
                 {
+                    case "Translation":
+                        await streamWriter.WriteAsync(text);
+                        break;
                     case "AllowedApplications":
                         await streamWriter.WriteAsync(text);
                         break;

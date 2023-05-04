@@ -52,13 +52,17 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             s_udpController = new(TcpServerSingleton.GetIp(), TcpServerSingleton.GetPort(), client.Ip, client.Port);
             s_udpController.Start();
 
-            System.Timers.Timer timer = new System.Timers.Timer(5000);
+            System.Timers.Timer timer = new System.Timers.Timer(200);
             timer.Elapsed += (sender, e) =>
             {
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    s_customClientScreenBox.image.Source = Imaging.CreateBitmapSourceFromHBitmap(ToScreenConverter.S_Image[0]!.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    ToScreenConverter.S_Image.Remove(ToScreenConverter.S_Image[0]);
+                    if(ToScreenConverter.S_Image.Count != 0)
+                    {
+                        s_customClientScreenBox.image.Source = Imaging.CreateBitmapSourceFromHBitmap(ToScreenConverter.S_Image[0]!.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        ToScreenConverter.S_Image.Remove(ToScreenConverter.S_Image[0]);
+                    }
+
                 });
 
             };
