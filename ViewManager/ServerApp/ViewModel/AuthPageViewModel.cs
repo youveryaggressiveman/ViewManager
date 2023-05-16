@@ -55,6 +55,18 @@ namespace ServerApp.ViewModel
             _controller = new AuthController(ApiServerSingleton.GetConnectionApiString());
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private void SetBorder(bool switchBorder)
         {
             ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
@@ -89,14 +101,14 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("There is no user with such data.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "There is no user with such data.", "Пользователя с такими данными нет."), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, $"Auth: {ex.Message}.");
                 }
@@ -109,7 +121,7 @@ namespace ServerApp.ViewModel
             {
                 foreach (var error in results)
                 {
-                    CustomMessageBox.Show(error.ErrorMessage, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "The input data is incorrect", "Входные данные неверны"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, $"Auth: {error.ErrorMessage}.");
                 }

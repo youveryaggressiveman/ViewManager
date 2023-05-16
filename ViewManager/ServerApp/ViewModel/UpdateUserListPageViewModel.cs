@@ -1,9 +1,11 @@
 ﻿using GeneralLogic.Services.Files;
+using H.NotifyIcon;
 using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -142,6 +144,18 @@ namespace ServerApp.ViewModel
             ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private async void Put(object obj)
         {
             if (SelectedUser == null) 
@@ -152,12 +166,12 @@ namespace ServerApp.ViewModel
             if (string.IsNullOrWhiteSpace(SelectedUser.Login) || string.IsNullOrWhiteSpace(Password) ||
                     SelectedRole == null || SelectedOffice == null)
             {
-                CustomMessageBox.Show("Required fields must be filled in!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);           
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Required fields must be filled in!", "Обязательные поля должны быть заполнены!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);           
 
                 return;
             }
 
-            if (CustomMessageBox.Show("Are you sure you want to change the information about this user?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Are you sure you want to change the information about this user?", "Вы уверены, что хотите изменить информацию об этом пользователе?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
                 SetBorder(true);
 
@@ -171,7 +185,7 @@ namespace ServerApp.ViewModel
                 {
                     if (await _userController.Put(SelectedUser))
                     {
-                        CustomMessageBox.Show("Information has been successfully updated!", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Information has been successfully updated!", "Информация была успешно обновлена!"), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LogManager.SaveLog("Server", DateTime.Today, $"AdminMode: data about {SelectedUser.FIO} successfully updated.");
 
@@ -179,7 +193,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("Failed to update information, try again later.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Failed to update information, try again later.", "Не удалось обновить информацию, повторите попытку позже."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }
                 }
                 catch (Exception ex)
@@ -193,7 +207,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }
                 }
                 finally
@@ -220,7 +234,7 @@ namespace ServerApp.ViewModel
 
                 if (userList == null || roleList == null || officeList == null)
                 {
-                    CustomMessageBox.Show("No data yet!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "No data yet!", "Данных пока нет!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -240,7 +254,7 @@ namespace ServerApp.ViewModel
                 }
                 else
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
 

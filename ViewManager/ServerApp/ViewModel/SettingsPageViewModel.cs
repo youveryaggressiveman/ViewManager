@@ -157,9 +157,21 @@ namespace ServerApp.ViewModel
             LoadInfo();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private void CloseApp(object obj)
         {
-            if (CustomMessageBox.Show("Are you sure you want to close the program?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
                 Application.Current.Shutdown();
             } 
@@ -193,7 +205,7 @@ namespace ServerApp.ViewModel
             }
             catch
             {
-                CustomMessageBox.Show("Could not get data about your computer!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Could not get data about your computer!", "Не удалось получить данные о вашем компьютере!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
         }
 
@@ -205,7 +217,7 @@ namespace ServerApp.ViewModel
 
                 if (user == null)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -231,7 +243,7 @@ namespace ServerApp.ViewModel
                 }
                 else
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
 
@@ -273,7 +285,7 @@ namespace ServerApp.ViewModel
         {
             if (string.IsNullOrEmpty(Port))
             {
-                CustomMessageBox.Show("The field with the input of the port cannot be empty!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The field with the input of the port cannot be empty!", "Поле с вводом порта не может быть пустым!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -282,7 +294,7 @@ namespace ServerApp.ViewModel
 
             if (port <= 1023)
             {
-                CustomMessageBox.Show("This port is reserved by the system.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "This port is reserved by the system.", "Этот порт зарезервирован системой."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -305,7 +317,7 @@ namespace ServerApp.ViewModel
 
             Settings.Default.Save();
 
-            if (CustomMessageBox.Show("In order for the some changes to apply, restart the application?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "In order for the some changes to apply, restart the application?", "Чтобы некоторые изменения вступили в силу, перезапустите приложение?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             { 
                 ProcessStartInfo Info = new ProcessStartInfo();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;

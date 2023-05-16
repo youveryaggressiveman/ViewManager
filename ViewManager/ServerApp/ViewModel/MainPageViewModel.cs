@@ -37,6 +37,18 @@ namespace ServerApp.ViewModel
 
         private User _user;
 
+        private string _roleName;
+
+        public string RoleName
+        {
+            get => _roleName;
+            set
+            {
+                _roleName = value;
+                OnPropertyChanged(nameof(RoleName));
+            }
+        }
+
         public Visibility CommonButtonVisibility
         {
             get => _commonButtonVisibility;
@@ -109,6 +121,18 @@ namespace ServerApp.ViewModel
             LoadInfoAboutUser();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private void Statistics(object obj)
         {
             FrameManager.SetPage(new StatisticsPage(), "mainPageFrame");
@@ -154,12 +178,29 @@ namespace ServerApp.ViewModel
 
                 if(user == null)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
 
                 User = user;
+
+                foreach (var translation in TranslationSingleton.S_TranslationList)
+                {
+                    if(User.Role.Value == translation.Data)
+                    {
+                        if(ServerApp.Properties.Settings.Default.LanguageName == "en-US")
+                        {
+                            RoleName = translation.Data;
+                        }
+                        else
+                        {
+                            RoleName = translation.Translation;
+                        }
+
+                        break;
+                    }
+                }
 
                 CheckRole();
             }
@@ -174,7 +215,7 @@ namespace ServerApp.ViewModel
                 }
                 else
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
             finally

@@ -91,6 +91,18 @@ namespace ServerApp.ViewModel
             CheckConnectedPc();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private void CheckConnectedPc()
         {
             if (ConnectedClientList.Count == 0)
@@ -129,7 +141,7 @@ namespace ServerApp.ViewModel
                 }
                 catch
                 {
-                    CustomMessageBox.Show("The selected PC could not be turned off.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "The selected PC could not be turned off.", "Выбранный компьютер не удалось выключить."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
 
             }
@@ -147,7 +159,7 @@ namespace ServerApp.ViewModel
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Could not enable the broadcast of the selected client.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not enable the broadcast of the selected client.", "Не удалось включить широковещательную передачу выбранного клиента."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
 
             }
@@ -165,7 +177,7 @@ namespace ServerApp.ViewModel
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Could not get information about the selected PC.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not get information about the selected PC.", "Не удалось получить информацию о выбранном компьютере."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
         }

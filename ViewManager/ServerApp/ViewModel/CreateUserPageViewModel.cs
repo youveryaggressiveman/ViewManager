@@ -121,6 +121,18 @@ namespace ServerApp.ViewModel
             LoadInfo();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private void AddSpec(object obj)
         {
             if(SelectedSpecialization == null || SelectedSpecializationList.Contains(SelectedSpecialization))
@@ -151,12 +163,12 @@ namespace ServerApp.ViewModel
             if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName) 
                     || SelectedOffice == null)
             {
-                CustomMessageBox.Show("All fields must be filled in!", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing); 
+                CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "All fields must be filled in!", "Все поля должны быть заполнены!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing); 
 
                 return;
             }
 
-            if (CustomMessageBox.Show("Are you sure you want to add a new user to the system?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
+            if (CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Are you sure you want to add a new user to the system?", "Вы уверены, что хотите добавить нового пользователя в систему?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Cancel))
             {
                 SetBorder(true);
 
@@ -181,9 +193,14 @@ namespace ServerApp.ViewModel
 
                     if (newUser != default)
                     {
-                        CustomMessageBox.Show("New user successfully added to the system!\n" +
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, 
+                            "New user successfully added to the system!\n" +
                             $"Login: {newUser.Login}\n" +
-                            $"Password: {newUser.Password}", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                            $"Password: {newUser.Password}",
+                            "Новый пользователь успешно добавлен в систему!\n" +
+                            $"Логин: {newUser.Login}\n" +
+                            $"Пароль: {newUser.Password}"), 
+                            Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LoadInfo();
 
@@ -191,7 +208,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("Failed to create new user, try again later.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Failed to create new user, try again later.", "Не удалось создать нового пользователя, повторите попытку позже."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }
                 }
                 catch (Exception ex)
@@ -205,7 +222,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                     }                        
                 }
                 finally
@@ -228,7 +245,7 @@ namespace ServerApp.ViewModel
 
                 if (officeList == null || specList == null)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
                 }
@@ -248,7 +265,7 @@ namespace ServerApp.ViewModel
                 }
                 else
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
             }
         }

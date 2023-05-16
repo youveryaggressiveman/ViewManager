@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerApp.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace ServerApp.Assets.Custom.StatBox
     /// </summary>
     public partial class CustomStatBox : Window
     {
+        private static CustomStatBox s_customStatBox;
+        private static bool s_result = false;
+
         public CustomStatBox()
         {
             InitializeComponent();
@@ -30,14 +34,23 @@ namespace ServerApp.Assets.Custom.StatBox
             SystemSounds.Asterisk.Play();
         }
 
-        private static CustomStatBox s_customStatBox;
-        private static bool s_result = false;
+        private static string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
 
         public static bool Show(string message, string title, string status)
         {
             s_customStatBox = new();
 
-            s_customStatBox.description.Text = $"What do you want to do with the app: {message}?";
+            s_customStatBox.description.Text = GetDataByCulture(Settings.Default.LanguageName, $"What do you want to do with the app: {message}?", $"Что вы хотите делать с приложением: {message}?");
             s_customStatBox.title.Text = title;
             s_customStatBox.image.Source = s_customStatBox.GetImage(status);
 

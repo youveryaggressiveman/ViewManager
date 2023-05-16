@@ -71,6 +71,7 @@
                                FontSize="28"
                                TextDecorations="Underline"/>
                     <TextBox Text="{Binding Login}"
+                             x:Name="loginTextBox"
                              Foreground="Black"
                              Margin="10 5"/>
                 </StackPanel>

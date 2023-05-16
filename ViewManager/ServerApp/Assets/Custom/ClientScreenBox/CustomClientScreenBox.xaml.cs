@@ -4,6 +4,7 @@ using ServerApp.Core.Clients;
 using ServerApp.Core.Screen;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,6 +40,18 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             InitializeComponent();
 
             Owner = Application.Current.MainWindow;
+        }
+
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
         }
 
         public static void Show(ConnectedClient client)
@@ -94,7 +107,7 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             }
             catch
             {
-                CustomMessageBox.Show("The broadcast was turned off.", MessageBox.Basic.Titles.Information, MessageBox.Basic.Buttons.Ok, MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The broadcast was turned off.", "Трансляция была выключена."), MessageBox.Basic.Titles.Information, MessageBox.Basic.Buttons.Ok, MessageBox.Basic.Buttons.Nothing);
             }
         }
     }

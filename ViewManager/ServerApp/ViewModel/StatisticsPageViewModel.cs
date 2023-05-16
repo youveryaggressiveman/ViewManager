@@ -9,6 +9,7 @@ using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Core.Statistics;
 using ServerApp.Model;
+using ServerApp.Properties;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,18 @@ namespace ServerApp.ViewModel
             dispatcherTimer.Tick += LoadStat;
             dispatcherTimer.Start();
         }
+        
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
 
         private async void SelectStat()
         {
@@ -132,7 +145,7 @@ namespace ServerApp.ViewModel
 
             if(client.Status == "Disconnected")
             {
-                CustomMessageBox.Show("This user is currently not logged into the system.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "This user is currently not logged into the system.", "Этот пользователь в данный момент не вошел в систему."), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -145,7 +158,7 @@ namespace ServerApp.ViewModel
                 }
                 catch
                 {
-                    CustomMessageBox.Show("An error occurred when trying to close the program on the client side.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "An error occurred when trying to close the program on the client side.", "Произошла ошибка при попытке закрыть программу на стороне клиента."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
                 }
                 
             }
@@ -212,7 +225,7 @@ namespace ServerApp.ViewModel
             }
             catch
             {
-                CustomMessageBox.Show("The data file could not be read.", Assets.Custom.MessageBox.Basic.Titles.Error, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The data file could not be read.", "Файл данных не удалось прочитать."), Assets.Custom.MessageBox.Basic.Titles.Error, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
             finally
             {

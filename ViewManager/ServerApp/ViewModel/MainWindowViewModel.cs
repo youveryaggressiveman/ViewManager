@@ -59,9 +59,21 @@ namespace ServerApp.ViewModel
             FileWork();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         public async Task<bool> CheckToken()
         {
-            if( CustomMessageBox.Show("Your session is outdated. Do you want to reauthorize?", Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            if(CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Your session is outdated. Do you want to reauthorize?", "Ваш сеанс устарел. Вы хотите повторно авторизоваться?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
                 LoadBorder(true);
 
@@ -81,7 +93,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show("There is no user with such data.", Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "There is no user with such data.", "Пользователя с такими данными нет."), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data.");
 
@@ -90,7 +102,7 @@ namespace ServerApp.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show("Error server!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, $"Auth: {ex.Message}.");
 

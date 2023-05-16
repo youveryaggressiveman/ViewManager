@@ -35,6 +35,11 @@ namespace ServerApp
 
         protected async override void OnStartup(StartupEventArgs e)
         {
+            var lang = Settings.Default.LanguageName;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+
+            GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location.Replace("dll", "exe"), "ServerApp");
+
             _fileManager = new AppStatisticsFileManager();
 
             _listData = new List<string>();
@@ -86,11 +91,6 @@ namespace ServerApp
             }
             finally
             {
-                var lang = Settings.Default.LanguageName;
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
-                
-                GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location.Replace("dll", "exe"), "ServerApp");
-
                 var arrayTranslation = fileTranslation.Split("\n");
 
                 foreach (var translation in arrayTranslation) 
