@@ -404,7 +404,6 @@ E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\Server
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ServerApp.runtimeconfig.json
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ServerApp.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ServerApp.pdb
-E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ru\ServerApp.resources.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\H.NotifyIcon.Wpf.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\HarfBuzzSharp.dll
@@ -496,16 +495,17 @@ E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\P
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\View\Windows\MainWindow.baml
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.g.resources
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.Properties.Lang.Lang.resources
-E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.Properties.Lang.Lang.ru.resources
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.GenerateResource.cache
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.GeneratedMSBuildEditorConfig.editorconfig
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.AssemblyInfoInputs.cache
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.AssemblyInfo.cs
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.CoreCompileInputs.cache
-E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ru\ServerApp.resources.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.csproj.CopyComplete
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\refint\ServerApp.dll
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.pdb
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.genruntimeconfig.cache
 E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ref\ServerApp.dll
+E:\viewManager\ViewManager\ViewManager\ServerApp\bin\Debug\net6.0-windows\ru\ServerApp.resources.dll
+E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ServerApp.Properties.Lang.Lang.ru.resources
+E:\viewManager\ViewManager\ViewManager\ServerApp\obj\Debug\net6.0-windows\ru\ServerApp.resources.dll

@@ -18,12 +18,12 @@ namespace GeneralLogic.Services.PcFeatures.Management
         public override string ToString()
         {
             StringBuilder output = new StringBuilder();
-            output.AppendFormat("Версия Windows: {0}\n", OsVersion);
-            output.AppendFormat("64 Bit операционная система? : {0}\n", Os64 ? "Yes" : "No");
-            output.AppendFormat("Имя компьютера: {0}\n", PcName);
-            output.AppendFormat("Число процессоров: {0}\n", NumberOfCpus);
-            output.AppendFormat("Системная папка : {0}\n", WindowsFolder);
-            output.AppendFormat("Логические диски : {0}\n",
+            output.AppendFormat("Version of Windows: {0}\n", OsVersion);
+            output.AppendFormat("Which is bit operation system?: {0}\n", Os64 ? "64 bit" : "32 bit");
+            output.AppendFormat("Computer name: {0}\n", PcName);
+            output.AppendFormat("CPUs number: {0}\n", NumberOfCpus);
+            output.AppendFormat("System folder: {0}\n", WindowsFolder);
+            output.AppendFormat("Logical drivers: {0}\n",
                   String.Join(", ", LogicalDrives)
                .Replace("\\", String.Empty));
             return output.ToString();

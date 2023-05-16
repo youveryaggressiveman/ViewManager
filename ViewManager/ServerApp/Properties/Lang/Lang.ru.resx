@@ -169,10 +169,10 @@
     <value>Логин:</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>Главное окно:</value>
+    <value>Главное окно.</value>
   </data>
   <data name="ModeTitle" xml:space="preserve">
-    <value>режим</value>
+    <value>Режим:</value>
   </data>
   <data name="NamePc" xml:space="preserve">
     <value>Название:</value>

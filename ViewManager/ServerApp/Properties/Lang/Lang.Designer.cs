@@ -214,7 +214,7 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на MainWindow:.
+        ///   Ищет локализованную строку, похожую на MainWindow..
         /// </summary>
         public static string MainWindowTitle {
             get {
@@ -223,7 +223,7 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на mode.
+        ///   Ищет локализованную строку, похожую на Mode:.
         /// </summary>
         public static string ModeTitle {
             get {

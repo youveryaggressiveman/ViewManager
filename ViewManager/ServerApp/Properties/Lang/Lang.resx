@@ -169,10 +169,10 @@
     <value>Login:</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>MainWindow:</value>
+    <value>MainWindow.</value>
   </data>
   <data name="ModeTitle" xml:space="preserve">
-    <value>mode</value>
+    <value>Mode:</value>
   </data>
   <data name="NamePc" xml:space="preserve">
     <value>Name:</value>

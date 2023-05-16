@@ -33,13 +33,31 @@ namespace ServerApp
 
         private List<string> _listData;
 
-        protected async override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             var lang = Settings.Default.LanguageName;
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
 
             GeneralLogic.Services.PcFeatures.TaskManager.Dispatcher.SetAutoRunValue(true, Assembly.GetExecutingAssembly().Location.Replace("dll", "exe"), "ServerApp");
 
+            GetTrans();    
+
+            base.OnStartup(e);
+        
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _fileManager = new AppStatisticsFileManager();
+
+            SaveClient(_fileManager);
+            SaveStat(_fileManager);
+
+            base.OnExit(e);
+        }
+
+        private async void GetTrans()
+        {
             _fileManager = new AppStatisticsFileManager();
 
             _listData = new List<string>();
@@ -66,7 +84,7 @@ namespace ServerApp
 
             try
             {
-               await _fileManager.FileWriter("Translation", null);
+                await _fileManager.FileWriter("Translation", null);
 
                 fileTranslation = await _fileManager.FileReader("Translation");
 
@@ -93,7 +111,7 @@ namespace ServerApp
             {
                 var arrayTranslation = fileTranslation.Split("\n");
 
-                foreach (var translation in arrayTranslation) 
+                foreach (var translation in arrayTranslation)
                 {
                     TrsanslationModel translationModel = new();
 
@@ -113,19 +131,7 @@ namespace ServerApp
 
                     TranslationSingleton.S_TranslationList.Add(translationModel);
                 }
-
-                base.OnStartup(e);
             }
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            _fileManager = new AppStatisticsFileManager();
-
-            SaveClient(_fileManager);
-            SaveStat(_fileManager);
-
-            base.OnExit(e);
         }
 
         private async void SaveStat(IFileManager fileManager)

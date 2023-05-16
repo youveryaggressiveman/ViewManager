@@ -36,8 +36,8 @@
                        FontSize="30"
                        Foreground="{DynamicResource AdditionalColor}">
                 <Run Text="{x:Static lang:Lang.MainWindowTitle}"/>
-                <Run Text="{Binding RoleName}"/>
                 <Run Text="{x:Static lang:Lang.ModeTitle}"/>
+                <Run Text="{Binding RoleName}"/>
             </TextBlock>
             <Border CornerRadius="5"
                     Grid.ColumnSpan="2"
