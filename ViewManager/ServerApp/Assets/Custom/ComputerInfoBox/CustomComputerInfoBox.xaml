@@ -118,20 +118,17 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <TextBlock x:Name="descriptionAnotherPcTextBlock"
+                       FontSize="15"
+                       Margin="10"
+                       Grid.ColumnSpan="2"/>
             <ScrollViewer Grid.Column="0"
                       Margin="10"
                           x:Name="scrollPcInfo"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto">
-
                 <TextBlock x:Name="descriptionTextBlock"
-                       Text="{Binding S_Answer}"
-                   FontSize="15"
-                   >
-                    <TextBlock.DataContext>
-                        <Controllers:TcpController/>
-                    </TextBlock.DataContext>
-                </TextBlock>
+                   FontSize="15"/>
             </ScrollViewer>
             <lvc:CartesianChart Grid.Column="1"
                                 Margin="10"

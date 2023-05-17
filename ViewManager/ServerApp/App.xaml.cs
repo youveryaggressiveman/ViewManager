@@ -46,16 +46,6 @@ namespace ServerApp
         
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            _fileManager = new AppStatisticsFileManager();
-
-            SaveClient(_fileManager);
-            SaveStat(_fileManager);
-
-            base.OnExit(e);
-        }
-
         private async void GetTrans()
         {
             _fileManager = new AppStatisticsFileManager();
@@ -132,39 +122,6 @@ namespace ServerApp
                     TranslationSingleton.S_TranslationList.Add(translationModel);
                 }
             }
-        }
-
-        private async void SaveStat(IFileManager fileManager)
-        {
-            var allAppStat = string.Empty;
-
-            foreach (var stat in AppStatSingleton.S_ListAppStat)
-            {
-                if (stat.Title == "Verified")
-                {
-                    allAppStat += "Verified: ";
-                }
-
-                allAppStat += $"{stat.ProcessName}, Client: {stat.ClientName}\n";
-            }
-
-            await fileManager.FileWriter("Statistics", allAppStat);
-        }
-
-        private async void SaveClient(IFileManager fileManager)
-        {
-            string clientList = string.Empty;
-            string key = "1652456";
-
-            foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
-            {
-                clientList += client.Name + key;
-                clientList += client.Ip + key;
-                clientList += client.Port + key;
-                clientList += "Disconnected" + "\n";
-            }
-
-            await fileManager.FileWriter("Clients", clientList);
         }
     }
 }

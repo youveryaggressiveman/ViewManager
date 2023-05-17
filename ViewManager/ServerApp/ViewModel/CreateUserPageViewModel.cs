@@ -4,6 +4,7 @@ using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,7 +37,7 @@ namespace ServerApp.ViewModel
             get => _selectedSpecializationOfSelectedList;
             set
             {
-                _selectedSpecializationOfSelectedList= value;
+                _selectedSpecializationOfSelectedList = value;
                 OnPropertyChanged(nameof(SelectedSpecializationOfSelectedList));
             }
         }
@@ -46,7 +47,7 @@ namespace ServerApp.ViewModel
             get => _selectedSpecializationList;
             set
             {
-                _selectedSpecializationList= value;
+                _selectedSpecializationList = value;
                 OnPropertyChanged(nameof(SelectedSpecializationList));
             }
         }
@@ -73,7 +74,7 @@ namespace ServerApp.ViewModel
 
         public Specialization SelectedSpecialization
         {
-            get=> _selectedSpecialization;
+            get => _selectedSpecialization;
             set
             {
                 _selectedSpecialization = value;
@@ -93,7 +94,7 @@ namespace ServerApp.ViewModel
 
         public ObservableCollection<Specialization> SpecializationList
         {
-            get => _specializationList; 
+            get => _specializationList;
             set
             {
                 _specializationList = value;
@@ -135,7 +136,7 @@ namespace ServerApp.ViewModel
 
         private void AddSpec(object obj)
         {
-            if(SelectedSpecialization == null || SelectedSpecializationList.Contains(SelectedSpecialization))
+            if (SelectedSpecialization == null || SelectedSpecializationList.Contains(SelectedSpecialization))
             {
                 return;
             }
@@ -145,7 +146,7 @@ namespace ServerApp.ViewModel
 
         private void RemoveSpec(object obj)
         {
-            if(SelectedSpecializationOfSelectedList == null)
+            if (SelectedSpecializationOfSelectedList == null)
             {
                 return;
             }
@@ -160,10 +161,10 @@ namespace ServerApp.ViewModel
 
         private async void CreateUser(object obj)
         {
-            if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName) 
+            if (string.IsNullOrWhiteSpace(NewUser.FirstName) || string.IsNullOrWhiteSpace(NewUser.LastName)
                     || SelectedOffice == null)
             {
-                CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "All fields must be filled in!", "Все поля должны быть заполнены!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing); 
+                CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "All fields must be filled in!", "Все поля должны быть заполнены!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -186,6 +187,40 @@ namespace ServerApp.ViewModel
                 NewUser.Password = string.Empty;
                 NewUser.Id = string.Empty;
 
+                foreach (var translation in TranslationSingleton.S_TranslationList)
+                {
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        if (NewUser.Office.Value == translation.Data)
+                        {
+                            NewUser.Office.Value = translation.Data;
+                        }
+
+                        foreach (var spec in NewUser.Specializations)
+                        {
+                            if (translation.Data == spec.Value)
+                            {
+                                spec.Value = translation.Data;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (NewUser.Office.Value == translation.Translation)
+                        {
+                            NewUser.Office.Value = translation.Data;
+                        }
+
+                        foreach (var spec in NewUser.Specializations)
+                        {
+                            if (translation.Translation == spec.Value)
+                            {
+                                spec.Value = translation.Data;
+                            }
+                        }
+                    }
+                }
+
                 try
                 {
 
@@ -193,13 +228,13 @@ namespace ServerApp.ViewModel
 
                     if (newUser != default)
                     {
-                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, 
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName,
                             "New user successfully added to the system!\n" +
                             $"Login: {newUser.Login}\n" +
                             $"Password: {newUser.Password}",
                             "Новый пользователь успешно добавлен в систему!\n" +
                             $"Логин: {newUser.Login}\n" +
-                            $"Пароль: {newUser.Password}"), 
+                            $"Пароль: {newUser.Password}"),
                             Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LoadInfo();
@@ -213,7 +248,7 @@ namespace ServerApp.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    if(ex.GetBaseException() is Exception) 
+                    if (ex.GetBaseException() is Exception)
                     {
                         if (await ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).CheckToken())
                         {
@@ -223,7 +258,7 @@ namespace ServerApp.ViewModel
                     else
                     {
                         CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                    }                        
+                    }
                 }
                 finally
                 {
@@ -248,6 +283,39 @@ namespace ServerApp.ViewModel
                     CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
+                }
+
+                foreach (var translation in TranslationSingleton.S_TranslationList)
+                {
+                    foreach (var office in officeList)
+                    {
+                        if (office.Value == translation.Data)
+                        {
+                            if (Settings.Default.LanguageName == "en-US")
+                            {
+                                office.Value = translation.Data;
+                            }
+                            else
+                            {
+                                office.Value = translation.Translation;
+                            }
+                        }
+                    }
+
+                    foreach (var spec in specList)
+                    {
+                        if (spec.Value == translation.Data)
+                        {
+                            if (Settings.Default.LanguageName == "en-US")
+                            {
+                                spec.Value = translation.Data;
+                            }
+                            else
+                            {
+                                spec.Value = translation.Translation;
+                            }
+                        }
+                    }
                 }
 
                 officeList.ToList().ForEach(OfficeList.Add);

@@ -181,6 +181,34 @@ namespace ServerApp.ViewModel
                 SelectedUser.Role = SelectedRole;
                 SelectedUser.Password = Password;
 
+                foreach (var translation in TranslationSingleton.S_TranslationList)
+                {
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        if (SelectedUser.Office.Value == translation.Data)
+                        {
+                            SelectedUser.Office.Value = translation.Data;
+                        }
+
+                        if (SelectedUser.Role.Value == translation.Data)
+                        {
+                            SelectedUser.Role.Value = translation.Data;
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedUser.Office.Value == translation.Translation)
+                        {
+                            SelectedUser.Office.Value = translation.Data;
+                        }
+
+                        if (SelectedUser.Role.Value == translation.Translation)
+                        {
+                            SelectedUser.Role.Value = translation.Data;
+                        }
+                    }
+                }
+
                 try
                 {
                     if (await _userController.Put(SelectedUser))
@@ -237,6 +265,39 @@ namespace ServerApp.ViewModel
                     CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "No data yet!", "Данных пока нет!"), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     return;
+                }
+
+                foreach (var translation in TranslationSingleton.S_TranslationList)
+                {
+                    foreach (var office in officeList)
+                    {
+                        if (office.Value == translation.Data)
+                        {
+                            if (Settings.Default.LanguageName == "en-US")
+                            {
+                                office.Value = translation.Data;
+                            }
+                            else
+                            {
+                                office.Value = translation.Translation;
+                            }
+                        }
+                    }
+
+                    foreach (var role in roleList)
+                    {
+                        if (role.Value == translation.Data)
+                        {
+                            if (Settings.Default.LanguageName == "en-US")
+                            {
+                                role.Value = translation.Data;
+                            }
+                            else
+                            {
+                                role.Value = translation.Translation;
+                            }
+                        }
+                    }
                 }
 
                 userList.ToList().ForEach(UserList.Add);

@@ -193,6 +193,18 @@ namespace ClientApp.ViewModel
             FileWork();
         }
 
+        private string GetDataByCulture(string culture, string enData, string ruData)
+        {
+            if (culture == "en-US")
+            {
+                return enData;
+            }
+            else
+            {
+                return ruData;
+            }
+        }
+
         private async Task SendApp()
         {
             try
@@ -279,7 +291,7 @@ namespace ClientApp.ViewModel
             }
             catch
             {
-                CustomMessageBox.Show("Could not get data about your computer!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Could not get data about your computer!", "Не удалось получить данные о вашем компьютере!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
         }
 
@@ -287,7 +299,7 @@ namespace ClientApp.ViewModel
         {
             if (string.IsNullOrEmpty(ServerPort) || string.IsNullOrEmpty(ServerIp))
             {
-                CustomMessageBox.Show("The fields for entering data about the local network cannot be empty!", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The fields for entering data about the local network cannot be empty!", "Поля для ввода данных о локальной сети не могут быть пустыми!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -296,7 +308,7 @@ namespace ClientApp.ViewModel
 
             if (serverPort <= 1023)
             {
-                CustomMessageBox.Show("This port is reserved by the system.", Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "This port is reserved by the system.", "Этот порт зарезервирован системой."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 return;
             }
@@ -322,7 +334,7 @@ namespace ClientApp.ViewModel
 
             Settings.Default.Save();
 
-            if (CustomMessageBox.Show("The saves have been saved successfully! The application will be restarted.", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing))
+            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The saves have been saved successfully! Сохранения были успешно сохранены! "), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing))
             {
                 ProcessStartInfo Info = new ProcessStartInfo();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;
@@ -392,7 +404,7 @@ namespace ClientApp.ViewModel
 
                 await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort));
 
-                CustomMessageBox.Show("The connection is established, for the full operation of the application, click the \"Save changes\" button.", Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The connection is established, for the full operation of the application, click the \"Save changes\" button.", "Соединение установлено, для полноценной работы приложения нажмите кнопку \"Сохранить изменения\"."), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                 Status = "Connected";
             }
@@ -400,7 +412,7 @@ namespace ClientApp.ViewModel
             {
                 Status = "Disconnected";
 
-                CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Server connection error!", "Ошибка подключения к серверу!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
             }
             finally

@@ -19,6 +19,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;
 using GeneralLogic.Services.PcFeatures.ArrangeData;
+using ClientApp.Properties;
 
 namespace ClientApp.Assets.Custom.ComputerInfoBox
 {
@@ -49,7 +50,7 @@ namespace ClientApp.Assets.Custom.ComputerInfoBox
                 new LineSeries<ObservableValue>
                 {
                     Values = s_observableValues,
-                    Name = "CPU load:",
+                    Name =  Settings.Default.LanguageName == "en-US" ? "CPU load:" : "Загрузка ЦПУ:",
                     Stroke = new SolidColorPaint(new SKColor(255, 207, 0)),
                     GeometryFill = new SolidColorPaint(new SKColor(255, 207, 0)),
                     GeometryStroke= new SolidColorPaint(new SKColor(36, 36, 36)),

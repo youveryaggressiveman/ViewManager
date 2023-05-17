@@ -238,9 +238,9 @@ namespace ServerApp.ViewModel
         {
             Series = new ISeries[]
             {
-                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = "Verified", Fill= new SolidColorPaint(new SKColor(100, 149, 237))},
-                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = "Warning", Fill = new SolidColorPaint(new SKColor(238, 32, 77))},
-                 new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = "Approved", Fill = new SolidColorPaint(new SKColor(168, 228, 160))}
+                 new PieSeries<double> { Values = new double[] { CountStat[0] }, Name = Settings.Default.LanguageName == "en-US" ? "Verified:" : "Проверено:", Fill= new SolidColorPaint(new SKColor(100, 149, 237))},
+                 new PieSeries<double> { Values = new double[] { CountStat[1] }, Name = Settings.Default.LanguageName == "en-US" ? "Warning:" : "Предупреждений:", Fill = new SolidColorPaint(new SKColor(238, 32, 77))},
+                 new PieSeries<double> { Values = new double[] { CountStat[2] }, Name = Settings.Default.LanguageName == "en-US" ? "Approved:" : "Одобрено:", Fill = new SolidColorPaint(new SKColor(168, 228, 160))}
             };
         }
     }

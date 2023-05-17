@@ -98,6 +98,9 @@ namespace ServerApp.Controllers
         {
             try
             {
+                if (s_udpSocketClient == null)
+                    return;
+
                 s_udpSocketClient.Close();
                 s_udpSocketClient.Dispose();
 

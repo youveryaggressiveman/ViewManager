@@ -7,6 +7,7 @@ using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using ServerApp.Controllers;
+using ServerApp.Properties;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -51,13 +52,15 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
 
             scrollPcInfo.Visibility = Visibility.Collapsed;
             descriptionTextBlock.Visibility = Visibility.Collapsed;
+            chart.Visibility = Visibility.Collapsed;
+            descriptionAnotherPcTextBlock.Visibility = Visibility.Collapsed;
 
             s_series = new ObservableCollection<ISeries>
             {
                 new LineSeries<ObservableValue>
                 {
                     Values = s_observableValues,
-                    Name = "CPU load:",
+                    Name = Settings.Default.LanguageName == "en-US" ? "CPU load:" : "Загрузка ЦПУ:",
                     Stroke = new SolidColorPaint(new SKColor(255, 207, 0)),
                     GeometryFill = new SolidColorPaint(new SKColor(255, 207, 0)),
                     GeometryStroke= new SolidColorPaint(new SKColor(36, 36, 36)),
@@ -73,12 +76,13 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
             s_customComputerInfoBox.descriptionTextBlock.Text = await s_fileManger.FileReader("Server");
 
             System.Timers.Timer timer = new System.Timers.Timer(5000);
-            ArrangeHelper helper;        
+            ArrangeHelper helper;
 
             if (availible)
             {
-                s_customComputerInfoBox.scrollPcInfo.Visibility = Visibility.Visible;
                 s_customComputerInfoBox.descriptionTextBlock.Visibility = Visibility.Visible;
+                s_customComputerInfoBox.scrollPcInfo.Visibility = Visibility.Visible;
+                s_customComputerInfoBox.chart.Visibility = Visibility.Visible;      
 
                 helper = new();
 
@@ -98,11 +102,13 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
             }
             else
             {
+                s_customComputerInfoBox.descriptionAnotherPcTextBlock.Visibility = Visibility.Visible;
+
                 s_dispatcherTimer = new DispatcherTimer();
                 s_dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
                 s_dispatcherTimer.Tick += (object? sender, EventArgs e) =>
                 {
-                    s_customComputerInfoBox.descriptionTextBlock.Text = TcpController.S_Answer;
+                    s_customComputerInfoBox.descriptionAnotherPcTextBlock.Text = TcpController.S_Answer;
                 };
                 s_dispatcherTimer.Start();
             }

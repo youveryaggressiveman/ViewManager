@@ -8,6 +8,7 @@ using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Settings;
 using ServerApp.Core.Singleton;
+using ServerApp.Core.Statistics;
 using ServerApp.Model;
 using ServerApp.Properties;
 using System;
@@ -169,10 +170,13 @@ namespace ServerApp.ViewModel
             }
         }
 
-        private void CloseApp(object obj)
+        private async void CloseApp(object obj)
         {
             if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
+                await StatForm.SaveClient();
+                await StatForm.SaveStat();
+
                 Application.Current.Shutdown();
             } 
         }

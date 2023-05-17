@@ -128,7 +128,7 @@ namespace ServerApp.Controllers
                         }
                         else
                         {
-                            S_Answer = (message.Remove(0, 7));
+                            S_Answer = (message.Remove(0, 8));
 
                             LogManager.SaveLog("Server", DateTime.Today, $"TcpClient: {message}.");
                         }
