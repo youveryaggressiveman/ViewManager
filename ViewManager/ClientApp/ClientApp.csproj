@@ -16,7 +16,6 @@
     <None Remove="Assets\Fonts\DMSans-MediumItalic.ttf" />
     <None Remove="Assets\Fonts\DMSans-Regular.ttf" />
     <None Remove="Assets\Images\Icon.ico" />
-    <None Remove="Assets\Images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +45,6 @@
     <Resource Include="Assets\Fonts\DMSans-MediumItalic.ttf" />
     <Resource Include="Assets\Fonts\DMSans-Regular.ttf" />
     <Resource Include="Assets\Images\Icon.ico" />
-    <Resource Include="Assets\Images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>

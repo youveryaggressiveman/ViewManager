@@ -7,7 +7,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer; Install-Package Microso
 
 Scaffold-DbContext "Server=*название сервера*;Database=*название бд*;Trusted_Connection=True;User ID=*имя пользователя(можно убрать полностью, если такого нет*;Password=*пароль пользователя (тоже самое, что и с логином)*" Microsoft.EntityFrameworkCore.SqlServer - для загрузки бд
 
-Scaffold-DbContext "Server=DESKTOP-BB20U5H;Database=BetPrediction;Trusted_Connection=True;User=fff;Password=123456" Microsoft.EntityFrameworkCore.SqlServer -f -OutputDir Models -ContextDir Data
+Scaffold-DbContext "Server=DESKTOP-BB20U5H;Database=BetPrediction;Trusted_Connection=True;User=fff;Password=123456;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -f -OutputDir Models -ContextDir Data
 
 optionsBuilder.UseLazyLoadingProxies(); - ленивая загрузка (просто нужно добавить в контекст)
 

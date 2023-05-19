@@ -156,9 +156,9 @@ namespace ClientApp.ViewModel
                 timer.Elapsed += async (sender, e) => await SendApp();
                 timer.Start();
             }
-            catch (Exception ex)
+            catch
             {
-                CustomMessageBox.Show(ex.Message, Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Server connection error!", "Ошибка подключения к серверу!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
             }
 
             LogManager.CreateMainFolder();
@@ -334,7 +334,7 @@ namespace ClientApp.ViewModel
 
             Settings.Default.Save();
 
-            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The saves have been saved successfully! Сохранения были успешно сохранены! "), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing))
+            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The saves have been saved successfully!", "Сохранения были успешно сохранены! "), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing))
             {
                 ProcessStartInfo Info = new ProcessStartInfo();
                 Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location;
@@ -408,7 +408,7 @@ namespace ClientApp.ViewModel
 
                 Status = "Connected";
             }
-            catch (Exception ex)
+            catch
             {
                 Status = "Disconnected";
 

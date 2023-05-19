@@ -55,25 +55,25 @@ namespace ServerApp
 
             var fileTranslation = string.Empty;
 
-            _roleController = new UniversalController<Role>(ApiServerSingleton.GetConnectionApiString());
-            _officeCintroller = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
-            _specializtionController = new UniversalController<Specialization>(ApiServerSingleton.GetConnectionApiString());
-
-            foreach (var role in await _roleController.GetList())
-            {
-                _listData.Add(role.Value);
-            }
-            foreach (var office in await _officeCintroller.GetList())
-            {
-                _listData.Add(office.Value);
-            }
-            foreach (var spec in await _specializtionController.GetList())
-            {
-                _listData.Add(spec.Value);
-            }
-
             try
             {
+                _roleController = new UniversalController<Role>(ApiServerSingleton.GetConnectionApiString());
+                _officeCintroller = new UniversalController<Office>(ApiServerSingleton.GetConnectionApiString());
+                _specializtionController = new UniversalController<Specialization>(ApiServerSingleton.GetConnectionApiString());
+
+                foreach (var role in await _roleController.GetList())
+                {
+                    _listData.Add(role.Value);
+                }
+                foreach (var office in await _officeCintroller.GetList())
+                {
+                    _listData.Add(office.Value);
+                }
+                foreach (var spec in await _specializtionController.GetList())
+                {
+                    _listData.Add(spec.Value);
+                }
+
                 await _fileManager.FileWriter("Translation", null);
 
                 fileTranslation = await _fileManager.FileReader("Translation");

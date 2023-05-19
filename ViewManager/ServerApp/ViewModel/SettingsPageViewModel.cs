@@ -173,9 +173,12 @@ namespace ServerApp.ViewModel
         private async void CloseApp(object obj)
         {
             if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
-            {
-                await StatForm.SaveClient();
-                await StatForm.SaveStat();
+            {   
+                if (!string.IsNullOrEmpty(AuthUserSingleton.AuthUser.RoleValue) && AuthUserSingleton.AuthUser.RoleValue == "Admin")
+                {
+                    await StatForm.SaveClient();
+                    await StatForm.SaveStat();
+                }
 
                 Application.Current.Shutdown();
             } 

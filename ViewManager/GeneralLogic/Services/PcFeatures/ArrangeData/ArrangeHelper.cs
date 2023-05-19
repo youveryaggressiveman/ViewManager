@@ -36,7 +36,10 @@ namespace GeneralLogic.Services.PcFeatures.ArrangeData
                 }
                 else
                 {
-                    newData.NameHardware.Add(item);
+                    if(item != "\n")
+                    {
+                        newData.NameHardware.Add(item);
+                    }
                 }
             }
 

@@ -1,4 +1,6 @@
 ﻿using ClientApp.Assets.Custom.MessageBox.Basic;
+using ClientApp.Properties;
+using GeneralLogic.Services.Translator;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,7 +39,16 @@ namespace ClientApp.Assets.Custom.MessageBox
             s_customMessageBox = new();
 
             s_customMessageBox.description.Text = message;
-            s_customMessageBox.title.Text = s_customMessageBox.GetTitle(title);
+
+            if (Settings.Default.LanguageName == "en-US")
+            {
+                s_customMessageBox.title.Text = s_customMessageBox.GetTitle(title);
+            }
+            else
+            {
+                s_customMessageBox.title.Text = MessageBoxTranslator.GetTitle(s_customMessageBox.GetTitle(title), Settings.Default.LanguageName);
+            }
+
 
             s_customMessageBox.firstButton.Visibility = Visibility.Collapsed;
             s_customMessageBox.secondButton.Visibility = Visibility.Collapsed;
@@ -47,40 +58,96 @@ namespace ClientApp.Assets.Custom.MessageBox
                 case Titles.Error:
                     s_customMessageBox.image.Source = s_customMessageBox.GetImage("Error");
 
-                    s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    }
+                    else
+                    {
+                        s_customMessageBox.firstButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonOk), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.firstButton.Visibility = Visibility.Visible;
                     break;
                 case Titles.Information:
                     s_customMessageBox.image.Source = s_customMessageBox.GetImage("Info");
 
-                    s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    }
+                    else
+                    {
+                        s_customMessageBox.firstButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonOk), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.firstButton.Visibility = Visibility.Visible;
 
                     if (buttonNo != Buttons.Nothing)
                     {
-                        s_customMessageBox.secondButton.Content = s_customMessageBox.GetButton(buttonNo);
+                        if (Settings.Default.LanguageName == "en-US")
+                        {
+                            s_customMessageBox.secondButton.Content = s_customMessageBox.GetButton(buttonNo);
+                        }
+                        else
+                        {
+                            s_customMessageBox.secondButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonNo), Settings.Default.LanguageName);
+                        }
+
                         s_customMessageBox.secondButton.Visibility = Visibility.Visible;
                     }
                     break;
                 case Titles.Ask:
                     s_customMessageBox.image.Source = s_customMessageBox.GetImage("Ask");
 
-                    s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    }
+                    else
+                    {
+                        s_customMessageBox.firstButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonOk), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.firstButton.Visibility = Visibility.Visible;
 
-                    s_customMessageBox.secondButton.Content = s_customMessageBox.GetButton(buttonNo);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.secondButton.Content = s_customMessageBox.GetButton(buttonNo);
+                    }
+                    else
+                    {
+                        s_customMessageBox.secondButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonNo), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.secondButton.Visibility = Visibility.Visible;
                     break;
                 case Titles.Warning:
                     s_customMessageBox.image.Source = s_customMessageBox.GetImage("Warning");
 
-                    s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    }
+                    else
+                    {
+                        s_customMessageBox.firstButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonOk), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.firstButton.Visibility = Visibility.Visible;
                     break;
                 case Titles.Confirm:
                     s_customMessageBox.image.Source = s_customMessageBox.GetImage("Confirm");
 
-                    s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    if (Settings.Default.LanguageName == "en-US")
+                    {
+                        s_customMessageBox.firstButton.Content = s_customMessageBox.GetButton(buttonOk);
+                    }
+                    else
+                    {
+                        s_customMessageBox.firstButton.Content = MessageBoxTranslator.GetButtonName(s_customMessageBox.GetButton(buttonOk), Settings.Default.LanguageName);
+                    }
+
                     s_customMessageBox.firstButton.Visibility = Visibility.Visible;
                     break;
                 default:
