@@ -223,6 +223,24 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Maximaze window.
+        /// </summary>
+        public static string MaxButton {
+            get {
+                return ResourceManager.GetString("MaxButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Minimaze window.
+        /// </summary>
+        public static string MinButton {
+            get {
+                return ResourceManager.GetString("MinButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Mode:.
         /// </summary>
         public static string ModeTitle {

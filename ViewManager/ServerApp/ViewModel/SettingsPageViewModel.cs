@@ -29,14 +29,11 @@ namespace ServerApp.ViewModel
     {
         private readonly ISettingsManager _settingsManager;
 
-        private readonly UniversalController<User> _userController;
         private readonly CheckSettings _checkSettings;
 
         private List<string> _localIpList;
         private List<string> _themeList;
         private List<string> _languageList;
-
-        private Visibility _visibility = Visibility.Collapsed;
 
         private string _selectedTheme;
         private string _selectedLanguage;
@@ -70,16 +67,6 @@ namespace ServerApp.ViewModel
             {
                 _localIpList = value;
                 OnPropertyChanged(nameof(LocalIpList));
-            }
-        }
-
-        public Visibility Visibility
-        {
-            get => _visibility;
-            set
-            {
-                _visibility= value;
-                OnPropertyChanged(nameof(Visibility));
             }
         }
 
@@ -125,19 +112,13 @@ namespace ServerApp.ViewModel
             }
         }
 
-        public ICommand OpenListAppCommand { get; }
-        public ICommand CheckPcFeaturesCommand { get; }
+
         public ICommand SaveChangesCommand { get; }
-        public ICommand CloseAppCommand { get; }
 
         public SettingsPageViewModel()
         {
-            OpenListAppCommand = new DelegateCommand(OpenListApp);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
-            CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
-            CloseAppCommand = new DelegateCommand(CloseApp);
 
-            _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
             _settingsManager = new SettingsManager();
 
             _checkSettings = new();
@@ -154,7 +135,6 @@ namespace ServerApp.ViewModel
                 "Русский"
             };
 
-            CheckUserRole();
             LoadInfo();
         }
 
@@ -168,93 +148,6 @@ namespace ServerApp.ViewModel
             {
                 return ruData;
             }
-        }
-
-        private async void CloseApp(object obj)
-        {
-            if (CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
-            {   
-                if (!string.IsNullOrEmpty(AuthUserSingleton.AuthUser.RoleValue) && AuthUserSingleton.AuthUser.RoleValue == "Admin")
-                {
-                    await StatForm.SaveClient();
-                    await StatForm.SaveStat();
-                }
-
-                Application.Current.Shutdown();
-            } 
-        }
-
-        private void OpenListApp(object obj)
-        {
-            string message = string.Empty;
-
-            try
-            {
-                CustomListAllowAppBox.Show();
-
-                message = "Approved applications have been successfully added.";
-            }
-            catch 
-            {
-                message = "An error occurred while adding the application.";
-            }
-            finally
-            {
-                LogManager.SaveLog("Server", DateTime.Today, $"TeacherMode: {message}");
-            }
-        }
-
-        private async void CheckPcFeatures(object obj)
-        {
-            try
-            {
-                await CustomComputerInfoBox.Show(true, "Server");
-            }
-            catch
-            {
-                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Could not get data about your computer!", "Не удалось получить данные о вашем компьютере!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-            }
-        }
-
-        private async void CheckUserRole()
-        {
-            try
-            {
-                var user = await _userController.Get(AuthUserSingleton.AuthUser.Id);
-
-                if (user == null)
-                {
-                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-
-                    return;
-                }
-
-                if (user.RoleId == 1)
-                {
-                    Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    Visibility = Visibility.Collapsed;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                if (ex.GetBaseException() is Exception)
-                {
-                    if (await ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).CheckToken())
-                    {
-                        CheckUserRole();
-                    }
-                }
-                else
-                {
-                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                }
-            }
-
-            
         }
 
         private void LoadInfo()

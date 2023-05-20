@@ -120,6 +120,15 @@
   <data name="CheckConnectionButton" xml:space="preserve">
     <value>Check connection</value>
   </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Close the program</value>
+  </data>
+  <data name="MaxButton" xml:space="preserve">
+    <value>Maximaze window</value>
+  </data>
+  <data name="MinButton" xml:space="preserve">
+    <value>Minimaze window</value>
+  </data>
   <data name="PcName" xml:space="preserve">
     <value>PC Name:</value>
   </data>

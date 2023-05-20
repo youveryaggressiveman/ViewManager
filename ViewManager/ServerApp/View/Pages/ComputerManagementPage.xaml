@@ -10,53 +10,42 @@
       Background="{DynamicResource MainColor}"
       FontFamily="DM Sans"
       Title="ComputerManagementPage">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{x:Static lang:Lang.ComputerManagementTitle}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{x:Static lang:Lang.ComputerManagementTitle}"
                            FontSize="25"
                            HorizontalAlignment="Center"
                            FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
 
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                    <Button Content="{x:Static lang:Lang.InfoButton}"                       
-                        Command="{Binding InfoCommand}"
-                            IsEnabled="{Binding IsEnabled}"
-                        Padding="10"/>
-                    <Button Content="{x:Static lang:Lang.BroadcastButton}"
-                        Command="{Binding BroadcastCommand}"
-                            IsEnabled="{Binding IsEnabled}"
-                        Padding="10"/>
-                    <Button Content="{x:Static lang:Lang.TurnOffButton}"
-                        Command="{Binding TurnOffCommand}"
-                            IsEnabled="{Binding IsEnabled}"
-                        Padding="10"/>
-                </StackPanel>
-                <ListView ItemsSource="{Binding ConnectedClientList}"
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding ConnectedClientList}"
                       Margin="10"
                       Grid.Row="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectedItem="{Binding SelectedConnectedClient}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{DynamicResource AdditionalColor}"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                Padding="3 3 20 3"
+                                Margin="3">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="50"
-                                       Width="90"
+                                       Width="65"
                                        Source="{Binding Image}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
@@ -95,64 +84,65 @@
                                     </TextBlock>
                                 </Grid>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Foreground"
+                        </Border>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Foreground"
                 Value="{DynamicResource AdditionalColor}"/>
-                            <Setter Property="FontSize"
+                        <Setter Property="FontSize"
                 Value="18"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="ListViewItem">
-                                        <Border Background="{DynamicResource MainColor}"
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border Background="{DynamicResource MainColor}"
                             x:Name="border"
                             Margin="2"
                             Padding="2"
                             CornerRadius="2"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{DynamicResource MainColor}">
-                                            <ContentPresenter/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsFocused" Value="True">
-                                                <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
-                                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
-                                            </Trigger>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
-                                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver"
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource NeutralColor}"/>
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource NeutralColor}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver"
                                                      Value="True">
-                                                <Setter Property="Background"
+                                            <Setter Property="Background"
                                                         TargetName="border"
                                                         Value="{DynamicResource NeutralColor}" />
-                                                <Setter Property="BorderBrush"
+                                            <Setter Property="BorderBrush"
                                                         TargetName="border"
                                                         Value="{DynamicResource NeutralColor}" />
-                                            </Trigger>
-                                            <EventTrigger RoutedEvent="Loaded">
-                                                <EventTrigger.Actions>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2">
-                                                            </DoubleAnimation>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger.Actions>
-                                            </EventTrigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
+                                        </Trigger>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2">
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
 
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-               
-            </Grid>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
         </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>

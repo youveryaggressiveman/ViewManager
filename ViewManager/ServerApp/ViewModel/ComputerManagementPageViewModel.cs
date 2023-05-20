@@ -8,6 +8,7 @@ using ServerApp.Controllers;
 using ServerApp.Core.Clients;
 using ServerApp.Core.Singleton;
 using ServerApp.Model;
+using ServerApp.View.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,32 +18,22 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace ServerApp.ViewModel
 {
     public class ComputerManagementPageViewModel : BaseViewModel
     {
-        private readonly IFileManager _fileManager;
         private readonly ClientsSort _clientSort;
 
         private ConnectedClient _selectedConnectedClient;
 
         private ObservableCollection<ConnectedClient> _connectedClientList;
-
-        private bool _isEnabled = false;
-
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                _isEnabled= value;
-                OnPropertyChanged(nameof(IsEnabled));
-            }
-        }
 
         public ObservableCollection<ConnectedClient> ConnectedClientList
         {
@@ -61,58 +52,37 @@ namespace ServerApp.ViewModel
             {
                 _selectedConnectedClient = value;
                 OnPropertyChanged(nameof(SelectedConnectedClient));
+
+                SelectedConnectedClientSingleton.ConnectedClient = _selectedConnectedClient;
             }
         }
-
-        public ICommand InfoCommand { get; }
-        public ICommand BroadcastCommand { get; }
-        public ICommand TurnOffCommand { get; }
 
         public ComputerManagementPageViewModel()
         {
-            _fileManager = new PcFeaturesFileManager();
+            foreach (Window window in App.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    var mainPage = ((window as MainWindow).mainFrame.Content as Page).DataContext as MainPageViewModel;
+
+                    mainPage.VisibilityPc = Visibility.Visible;
+                }
+            }
+
             _clientSort = new();
 
-            ConnectedClientList = ConnectedClientSingleton.S_ListConnectedClient;
+            ConnectedClientList = LoadImage(ConnectedClientSingleton.S_ListConnectedClient);
 
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(3);
-            dispatcherTimer.Tick += (object? sender, EventArgs e) =>
+            System.Timers.Timer timer = new System.Timers.Timer(3000);
+            timer.Elapsed += (sender, e) =>
             {
-                ConnectedClientList = LoadImage(ConnectedClientSingleton.S_ListConnectedClient);
-                CheckConnectedPc();
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    ConnectedClientList = LoadImage(ConnectedClientSingleton.S_ListConnectedClient);
+                });
+
             };
-            dispatcherTimer.Start();
-
-            InfoCommand = new DelegateCommand(Info);
-            BroadcastCommand = new DelegateCommand(Broadcast);
-            TurnOffCommand = new DelegateCommand(TurnOff);
-
-            CheckConnectedPc();
-        }
-
-        private string GetDataByCulture(string culture, string enData, string ruData)
-        {
-            if (culture == "en-US")
-            {
-                return enData;
-            }
-            else
-            {
-                return ruData;
-            }
-        }
-
-        private void CheckConnectedPc()
-        {
-            if (ConnectedClientList.Count == 0)
-            {
-                IsEnabled= false;
-            }
-            else
-            {
-                IsEnabled= true;
-            }
+            timer.Start();
         }
 
         private ObservableCollection<ConnectedClient> LoadImage(ObservableCollection<ConnectedClient> connectedClients)
@@ -131,55 +101,5 @@ namespace ServerApp.ViewModel
             return connectedClients;
         }
 
-        private async void TurnOff(object obj)
-        {
-            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
-            {
-                try
-                {
-                    await TcpController.SendMessage(SelectedConnectedClient, "3");
-                }
-                catch
-                {
-                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "The selected PC could not be turned off.", "Выбранный компьютер не удалось выключить."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                }
-
-            }
-        }
-
-        private async void Broadcast(object obj)
-        {
-            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
-            {
-                try
-                {
-                    await TcpController.SendMessage(SelectedConnectedClient, "2");
-
-                    CustomClientScreenBox.Show(SelectedConnectedClient);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not enable the broadcast of the selected client.", "Не удалось включить широковещательную передачу выбранного клиента."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                }
-
-            }
-        }
-
-        private async void Info(object obj)
-        {
-            if (SelectedConnectedClient != null && SelectedConnectedClient.Status == "Connected")
-            {
-                try
-                {
-                    await TcpController.SendMessage(SelectedConnectedClient, "1");
-
-                    await CustomComputerInfoBox.Show(false, SelectedConnectedClient.Name);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not get information about the selected PC.", "Не удалось получить информацию о выбранном компьютере."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-                }
-            }
-        }
     }
 }

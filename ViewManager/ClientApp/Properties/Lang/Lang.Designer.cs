@@ -70,6 +70,33 @@ namespace ClientApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Close the program.
+        /// </summary>
+        public static string CloseButton {
+            get {
+                return ResourceManager.GetString("CloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Maximaze window.
+        /// </summary>
+        public static string MaxButton {
+            get {
+                return ResourceManager.GetString("MaxButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Minimaze window.
+        /// </summary>
+        public static string MinButton {
+            get {
+                return ResourceManager.GetString("MinButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на PC Name:.
         /// </summary>
         public static string PcName {

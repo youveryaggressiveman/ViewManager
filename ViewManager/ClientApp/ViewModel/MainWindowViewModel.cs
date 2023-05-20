@@ -138,12 +138,14 @@ namespace ClientApp.ViewModel
         public ICommand CheckPcFeaturesCommand { get; }
         public ICommand SaveChangesCommand { get; }
         public ICommand CheckConnectionCommand { get; }
+        public ICommand CloseAppCommand { get; }
 
         public MainWindowViewModel()
         {
             ServerIp = ServerSingleton.GetServerIp();
             ServerPort = ServerSingleton.GetServerPort().ToString();
 
+            CloseAppCommand = new DelegateCommand(CloseApp);
             CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
@@ -191,6 +193,14 @@ namespace ClientApp.ViewModel
 
             LoadInfo();
             FileWork();
+        }
+
+        private void CloseApp(object obj)
+        {
+            if (CustomMessageBox.Show(GetDataByCulture(ClientApp.Properties.Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private string GetDataByCulture(string culture, string enData, string ruData)

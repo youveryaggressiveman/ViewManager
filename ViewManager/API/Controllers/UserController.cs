@@ -134,7 +134,7 @@ namespace API.Controllers
 
         private async Task<bool> CheckLogin(string value, string? Id = null)
         {
-            var existingUser = await _db.Users.FirstOrDefaultAsync(user => user.Login == value);
+            var existingUser = await _db.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Login == value);
 
             if (existingUser == null)
             {

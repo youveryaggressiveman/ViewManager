@@ -1,11 +1,15 @@
 ﻿using GeneralLogic.Services.Files;
 using GeneralLogic.Services.PcFeatures.ArrangeData;
 using GeneralLogic.Services.PcFeatures.LibreHardwareMonitorLib;
+using Microsoft.VisualBasic;
 using Mono.Unix.Native;
 using ServerApp.Assets.Custom.MessageBox;
+using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
+using ServerApp.Core.Clients;
 using ServerApp.Core.Singleton;
+using ServerApp.Core.Statistics;
 using ServerApp.Model;
 using ServerApp.Properties;
 using ServerApp.View.Pages;
@@ -13,9 +17,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Timer = System.Timers.Timer;
 
 namespace ServerApp.ViewModel
 {
@@ -27,8 +35,45 @@ namespace ServerApp.ViewModel
         private readonly AuthController _authController;
         private readonly Visitor _visitor;
         private readonly ArrangeHelper _arrangeHelper;
+        private readonly StatisticsSort _statisticsSort;
+        private readonly ClientsSort _clientsSort;
+
+        private Thread _start;
 
         private Visibility _visibility = Visibility.Collapsed;
+        private Visibility _accountantButtonVisibility = Visibility.Collapsed;
+        private Visibility _teacherButtonVisibility = Visibility.Collapsed;
+        private Visibility _commonButtonVisibility = Visibility.Collapsed;
+
+        public Visibility CommonButtonVisibility
+        {
+            get => _commonButtonVisibility;
+            set
+            {
+                _commonButtonVisibility = value;
+                OnPropertyChanged(nameof(CommonButtonVisibility));
+            }
+        }
+
+        public Visibility TeacherButtonVisibility
+        {
+            get => _teacherButtonVisibility;
+            set
+            {
+                _teacherButtonVisibility = value;
+                OnPropertyChanged(nameof(TeacherButtonVisibility));
+            }
+        }
+
+        public Visibility AccountantButtonVisibility
+        {
+            get => _accountantButtonVisibility;
+            set
+            {
+                _accountantButtonVisibility = value;
+                OnPropertyChanged(nameof(AccountantButtonVisibility));
+            }
+        }
 
         public Visibility Visibility
         {
@@ -40,15 +85,33 @@ namespace ServerApp.ViewModel
             }
         }
 
+        public ICommand StatisticsCommand { get; }
+        public ICommand CreateCommand { get; }
+        public ICommand UpdateCommand { get; }
+        public ICommand ComputerManagmentCommand { get; }
+        public ICommand SettingsCommand { get; }
+        public ICommand CloseAppCommand { get; }
+
         public MainWindowViewModel()
         {
             LogManager.CreateMainFolder();
 
-            _fileManager= new PcFeaturesFileManager();
+            StatisticsCommand = new DelegateCommand(Statistics);
+            ComputerManagmentCommand = new DelegateCommand(ComputerManagment);
+            CreateCommand = new DelegateCommand(Create);
+            UpdateCommand = new DelegateCommand(Update);
+            SettingsCommand = new DelegateCommand(Settings);
+            CloseAppCommand = new DelegateCommand(CloseApp);
+
+            _fileManager = new PcFeaturesFileManager();
             _fileStatManager = new AppStatisticsFileManager();
+            _clientsSort = new ClientsSort();
 
             _authController = new(ApiServerSingleton.GetConnectionApiString());
 
+            _start = new Thread(TcpConnect);
+
+            _statisticsSort = new();
             _arrangeHelper = new();
             _visitor = new();
 
@@ -57,6 +120,101 @@ namespace ServerApp.ViewModel
             timer.Start();
 
             FileWork();
+        }
+
+        private void Statistics(object obj)
+        {
+            foreach (Window window in App.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    var mainPage = ((window as MainWindow).mainFrame.Content as Page).DataContext as MainPageViewModel;
+
+                    mainPage.VisibilityPc = Visibility.Collapsed;
+                }
+            }
+
+            FrameManager.SetPage(new StatisticsPage(), "mainPageFrame");
+        }
+
+        private void ComputerManagment(object obj)
+        {
+            FrameManager.SetPage(new ComputerManagementPage(), "mainPageFrame");
+        }
+
+        private void Settings(object obj)
+        {
+            foreach (Window window in App.Current.Windows)
+            {
+                if (window is MainWindow)
+                {
+                    var mainPage = ((window as MainWindow).mainFrame.Content as Page).DataContext as MainPageViewModel;
+
+                    mainPage.VisibilityPc = Visibility.Collapsed;
+                }
+            }
+
+            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
+        }
+
+        private void Update(object obj)
+        {
+            FrameManager.SetPage(new UpdateUserListPage(), "mainPageFrame");
+        }
+
+        private void Create(object obj)
+        {
+            FrameManager.SetPage(new CreateUserPage(), "mainPageFrame");
+        }
+
+        private async void TcpConnect(object? obj)
+        {
+            await TcpController.StartTcp();
+        }
+
+        public async void CheckRole(User user, IFileManager fileManager)
+        {
+            if (user.RoleId == 1)
+            {
+                TeacherButtonVisibility = Visibility.Visible;
+                AccountantButtonVisibility = Visibility.Collapsed;
+                CommonButtonVisibility = Visibility.Visible;
+
+                TcpServerSingleton.SetIp(string.Empty);
+                await _clientsSort.Sort();
+
+                await GetAllowApp(fileManager);
+
+                var allStat = await fileManager.FileReader("Statistics");
+                var statList = await _statisticsSort.Sort(allStat);
+
+                statList.ToList().ForEach(AppStatSingleton.S_ListAppStat.Add);
+
+                _start.Start();
+            }
+            else
+            {
+                TeacherButtonVisibility = Visibility.Collapsed;
+                AccountantButtonVisibility = Visibility.Visible;
+                CommonButtonVisibility = Visibility.Visible;
+
+            }
+
+            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
+        }
+
+        private async Task GetAllowApp(IFileManager fileManager)
+        {
+            var allApp = await fileManager.FileReader("AllowedApplications");
+            var appList = allApp.Split('\n');
+
+            foreach (var app in appList)
+            {
+                if (app != string.Empty)
+                {
+                    ListAllowAppSingleton.S_AllowAppList.Add(app);
+                }
+            }
         }
 
         private string GetDataByCulture(string culture, string enData, string ruData)
@@ -71,16 +229,30 @@ namespace ServerApp.ViewModel
             }
         }
 
+        private async void CloseApp(object obj)
+        {
+            if (CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Are you sure you want to close the program?", "Вы уверены, что хотите закрыть программу?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            {
+                if (!string.IsNullOrEmpty(AuthUserSingleton.AuthUser.RoleValue) && AuthUserSingleton.AuthUser.RoleValue == "Teacher")
+                {
+                    await StatForm.SaveClient();
+                    await StatForm.SaveStat();
+                }
+
+                Application.Current.Shutdown();
+            }
+        }
+
         public async Task<bool> CheckToken()
         {
-            if(CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Your session is outdated. Do you want to reauthorize?", "Ваш сеанс устарел. Вы хотите повторно авторизоваться?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
+            if(CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Your session is outdated. Do you want to reauthorize?", "Ваш сеанс устарел. Вы хотите повторно авторизоваться?"), Assets.Custom.MessageBox.Basic.Titles.Ask, Assets.Custom.MessageBox.Basic.Buttons.Yes, Assets.Custom.MessageBox.Basic.Buttons.No))
             {
                 LoadBorder(true);
 
                 var user = new User()
                 {
-                    Login = Settings.Default.Login,
-                    Password = Settings.Default.Password
+                    Login = ServerApp.Properties.Settings.Default.Login,
+                    Password = ServerApp.Properties.Settings.Default.Password
                 };
 
                 try
@@ -93,7 +265,7 @@ namespace ServerApp.ViewModel
                     }
                     else
                     {
-                        CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "There is no user with such data.", "Пользователя с такими данными нет."), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                        CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "There is no user with such data.", "Пользователя с такими данными нет."), Assets.Custom.MessageBox.Basic.Titles.Information, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                         LogManager.SaveLog("Server", DateTime.Today, "Auth: There is no user with such data.");
 
@@ -102,7 +274,7 @@ namespace ServerApp.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
                     LogManager.SaveLog("Server", DateTime.Today, $"Auth: {ex.Message}.");
 
@@ -153,12 +325,12 @@ namespace ServerApp.ViewModel
 
         private async Task CheckAllConnection()
         {
-            if (Settings.Default.Date != DateTime.Today)
+            if (ServerApp.Properties.Settings.Default.Date != DateTime.Today)
             {
                 await _fileStatManager.FileWriter("Statistics", string.Empty);
 
-                Settings.Default.Date = DateTime.Today;
-                Settings.Default.Save();
+                ServerApp.Properties.Settings.Default.Date = DateTime.Today;
+                ServerApp.Properties.Settings.Default.Save();
             }
 
             if (await ApiServerSingleton.CheckConnection())

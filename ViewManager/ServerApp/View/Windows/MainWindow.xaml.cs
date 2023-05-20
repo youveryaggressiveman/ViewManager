@@ -51,18 +51,39 @@ namespace ServerApp
             base.OnStateChanged(e);
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-
-            Hide();
-
-            base.OnClosing(e);
-        }
-
         private void TaskbarIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
             Show();
+        }
+
+        private void minButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+        }
+
+        private void DragWindow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
+
+        private void maxButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else if(WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
         }
     }
 }

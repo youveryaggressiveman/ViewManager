@@ -40,7 +40,8 @@
             VerticalAlignment="Center"
             BorderThickness="1"
             Margin="0 50 0 50"
-
+            Height="500"
+            Width="600"
             CornerRadius="8">
 
 

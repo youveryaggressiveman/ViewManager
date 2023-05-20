@@ -171,6 +171,12 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Главное окно.</value>
   </data>
+  <data name="MaxButton" xml:space="preserve">
+    <value>Развернуть окно</value>
+  </data>
+  <data name="MinButton" xml:space="preserve">
+    <value>Свернуть окно</value>
+  </data>
   <data name="ModeTitle" xml:space="preserve">
     <value>Режим:</value>
   </data>

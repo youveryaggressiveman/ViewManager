@@ -120,6 +120,15 @@
   <data name="CheckConnectionButton" xml:space="preserve">
     <value>Проверить</value>
   </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Закрыть программу</value>
+  </data>
+  <data name="MaxButton" xml:space="preserve">
+    <value>Развернуть окно</value>
+  </data>
+  <data name="MinButton" xml:space="preserve">
+    <value>Свернуть окно</value>
+  </data>
   <data name="PcName" xml:space="preserve">
     <value>Название ПК:</value>
   </data>

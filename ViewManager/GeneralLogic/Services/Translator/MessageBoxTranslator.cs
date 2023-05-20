@@ -25,10 +25,10 @@ namespace GeneralLogic.Services.Translator
                         message = "Информация";
                         break;
                     case "Confirm":
-                        message = "Подтверждать";
+                        message = "Подтверждение";
                         break;
                     case "Ask":
-                        message = "Подтверждать";
+                        message = "Вопрос";
                         break;
                     default:
                         break;

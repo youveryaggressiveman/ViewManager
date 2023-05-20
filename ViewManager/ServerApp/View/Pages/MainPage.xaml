@@ -15,84 +15,100 @@
         <ViewModel:MainPageViewModel/>
     </Page.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock FontWeight="SemiBold"
-                       Grid.ColumnSpan="2"
-                       Margin="40 0 0 0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       FontSize="30"
-                       Foreground="{DynamicResource AdditionalColor}">
-                <Run Text="{x:Static lang:Lang.MainWindowTitle}"/>
-                <Run Text="{x:Static lang:Lang.ModeTitle}"/>
-                <Run Text="{Binding RoleName}"/>
-            </TextBlock>
-            <Border CornerRadius="5"
-                    Grid.ColumnSpan="2"
-                    Padding="10"
-                    Margin="0 0 20 0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    BorderBrush="{DynamicResource AdditionalColor}"
-                    BorderThickness="1">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center"
-                       Grid.Column="1"
-                       Foreground="{DynamicResource AdditionalColor}"
-                       VerticalAlignment="Center"
-                       FontSize="21">
-                        <Run Text="{x:Static lang:Lang.TextBlockFIO}" FontWeight="SemiBold"/>
-                        <Run Text="{Binding User.FIO, Mode=OneWay}"/>
-                    </TextBlock>
-                </StackPanel>
-
-            </Border>
-
-
-        </Grid >
         <Border  Grid.Row="1"
+                 Margin="0 30 0 0"
                  BorderBrush="{DynamicResource ColorHighlight}"
                  Background="{DynamicResource MainColor}"
                  CornerRadius="0 5 5 0"
                  BorderThickness="0 1 1 1">
             <StackPanel Orientation="Vertical"
                     Grid.Row="1">
-                <Button Content="{x:Static lang:Lang.UpdateButton}"
-                        Visibility="{Binding AccountantButtonVisibility}"
-                        Command="{Binding UpdateCommand}"
-                    Padding="15"/>
-                <Button Content="{x:Static lang:Lang.ButtonCreate}"
-                        Command="{Binding CreateCommand}"
-                        Visibility="{Binding AccountantButtonVisibility}"
-                    Padding="15"/>
-                <Button Content="{x:Static lang:Lang.ComputerManagement}"
-                        Command="{Binding ComputerManagmentCommand}"
-                        Visibility="{Binding TeacherButtonVisibility}"
-                    Padding="15"/>
-                <Button Content="{x:Static lang:Lang.StatisticsTitle}"
-                        Command="{Binding StatisticsCommand}"
-                        Visibility="{Binding TeacherButtonVisibility}"
-                    Padding="15"/>
-                <Button Content="{x:Static lang:Lang.Settings}"
-                        Command="{Binding SettingsCommand}"
-                        Visibility="{Binding CommonButtonVisibility}"
-                    Padding="15"/>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding Image}"
+                           Margin="10"
+                           Height="50"
+                           Width="50"/>
+                    <TextBlock HorizontalAlignment="Center"
+                       Grid.Column="1"
+                       Foreground="{DynamicResource AdditionalColor}"
+                           Margin="10"
+                       VerticalAlignment="Center"
+                       FontSize="21">
+                        <Run Text="{x:Static lang:Lang.TextBlockFIO}"
+                             FontWeight="SemiBold"
+                             FontSize="21"/>
+                        <Run Text="{Binding User.FIO, Mode=OneWay}"
+                             FontSize="18"/>
+                    <LineBreak/>
+                        <Run Text="{x:Static lang:Lang.ModeTitle}" FontWeight="SemiBold"
+                             FontSize="18"/>
+                        <Run Text="{Binding RoleName}"
+                             FontSize="15"/>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="10"
+                    VerticalAlignment="Center">
+                    <Button Content="🖥️"
+                        Command="{Binding CheckPcFeaturesCommand}"
+                        Margin="20 0 10 10"
+                        ToolTip="{x:Static lang:Lang.ToolTipPcInfoButton}"
+                        Padding="5"/>
+                    <Button Content="✔"
+                    Visibility="{Binding Visibility}"
+                        Command="{Binding OpenListAppCommand}"
+                        Margin="10 0 10 10"
+                        ToolTip="{x:Static lang:Lang.ToolTipListAppButton}"
+                        Padding="5"/>
+                </StackPanel>
+                <Border BorderThickness="0 1 0 0"
+                        BorderBrush="{DynamicResource ColorHighlight}"
+                        />
+    
+                    <StackPanel Orientation="Vertical"
+                        VerticalAlignment="Center">
+                        <Button Content="{x:Static lang:Lang.InfoButton}"                       
+                        Command="{Binding InfoCommand}"
+                            FontSize="22"
+                            Margin="10 10 10 10"
+                            Padding="10"
+                            Visibility="{Binding VisibilityPc}"
+                            IsEnabled="{Binding IsEnabled}"/>
+                        <Button Content="{x:Static lang:Lang.BroadcastButton}"
+                        Command="{Binding BroadcastCommand}"
+                            Visibility="{Binding VisibilityPc}"
+                            IsEnabled="{Binding IsEnabled}"
+                            Margin="10 0 10 10"
+                        FontSize="22"
+                            Padding="10"/>
+                        <Button Content="{x:Static lang:Lang.TurnOffButton}"
+                        Command="{Binding TurnOffCommand}"
+                            Visibility="{Binding VisibilityPc}"
+                            IsEnabled="{Binding IsEnabled}"
+                            Margin="10 0 10 10"
+                        FontSize="22"
+                            Padding="10"/>
+                    </StackPanel>
+
+                
+
+
             </StackPanel>
+                
         </Border>
-        
+        <Image Source="/Assets/Images/Icon.ico"
+                       Opacity="0.2"
+                       Width="130"
+                       Height="130"
+                       
+                       VerticalAlignment="Bottom"
+                       Margin="20">
+        </Image>
         <Frame x:Name="mainPageFrame"
                NavigationUIVisibility="Hidden"
                Grid.Row="1"

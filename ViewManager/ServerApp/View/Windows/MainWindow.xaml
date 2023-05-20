@@ -10,6 +10,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FontFamily="DM Sans"
+        
+        WindowStyle="None"
         Background="{DynamicResource MainColor}"
         Title="ViewManager: Server" Height="750" Width="850"
         MinHeight="800" MinWidth="850">
@@ -109,6 +111,7 @@
     </Window.Triggers>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="100"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
@@ -117,7 +120,48 @@
                         ToolTipText="ViewManager"
                         TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"
                         IconSource="/Assets/Images/Icon.ico" />
-        <Grid Background="{DynamicResource ColorHighlight}">
+        <Grid>
+            <Border Background="Transparent"
+                    Panel.ZIndex="3"
+                    MouseLeftButtonDown="DragWindow">
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Button Content="_____"
+                    Grid.Column="1"
+                    x:Name="minButton"
+                        Click="minButton_Click"
+                    FontSize="7"
+                    HorizontalAlignment="Right"
+                    
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.MinButton}"
+                    Padding="4"/>
+                    <Button Content="◼️"
+                    Grid.Column="1"
+                        x:Name="maxButton"
+                        Click="maxButton_Click"
+                    FontSize="10"
+                    HorizontalAlignment="Right"
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.MaxButton}"
+                    Padding="4"/>
+                    <Button Content="✖"
+                    Grid.Column="1"
+                    FontSize="7"
+                    Command="{Binding CloseAppCommand}"
+                    HorizontalAlignment="Right"
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.CloseButton}"
+                    Padding="4"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Background="{DynamicResource ColorHighlight}" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
@@ -141,10 +185,41 @@
                        Grid.Row="1"
                        Margin="90 -35 0 0"
                        FontSize="21"/>
+            <Grid Grid.Column="1"
+                  Margin="10">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Content="{x:Static lang:Lang.UpdateButton}"
+                            FontSize="20"
+                        Visibility="{Binding AccountantButtonVisibility}"
+                        Command="{Binding UpdateCommand}"
+                    Padding="8"/>
+                    <Button Content="{x:Static lang:Lang.ButtonCreate}"
+                        Command="{Binding CreateCommand}"
+                            FontSize="20"
+                        Visibility="{Binding AccountantButtonVisibility}"
+                    Padding="8"/>
+                    <Button Content="{x:Static lang:Lang.ComputerManagement}"
+                        Command="{Binding ComputerManagmentCommand}"
+                            FontSize="20"
+                        Visibility="{Binding TeacherButtonVisibility}"
+                    Padding="8"/>
+                    <Button Content="{x:Static lang:Lang.StatisticsTitle}"
+                        Command="{Binding StatisticsCommand}"
+                            FontSize="20"
+                        Visibility="{Binding TeacherButtonVisibility}"
+                    Padding="8"/>
+                    <Button Content="{x:Static lang:Lang.Settings}"
+                        Command="{Binding SettingsCommand}"
+                            FontSize="20"
+                        Visibility="{Binding CommonButtonVisibility}"
+                    Padding="8"/>
+                </StackPanel>
+            </Grid>
         </Grid>
-        <Frame Grid.Row="1" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.Row="2"/>
         <TextBlock 
-                   Grid.Row="2"
+                   Grid.Row="3"
                    Opacity="0.6"
                    HorizontalAlignment="Right"
              Foreground="{DynamicResource AdditionalColor}"
@@ -156,19 +231,19 @@
         <Border
             x:Name="Splash"
             Visibility="{Binding Visibility}"
-            Grid.Row="0"
-            Grid.RowSpan="3"
+            Grid.Row="1"
+            Grid.RowSpan="4"
             Opacity=".35"
             Background="{DynamicResource AdditionalColor}" />
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             CornerRadius="12"
             BorderThickness="2"
             BorderBrush="{DynamicResource ColorHighlight}"
             Margin="12"
             Padding="5"
                 Visibility="{Binding Visibility}"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
             Background="{DynamicResource MainColor}"
             Height="150"
             Width="400">

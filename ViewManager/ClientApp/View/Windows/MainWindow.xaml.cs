@@ -1,4 +1,5 @@
-﻿using ClientApp.Core.Settings;
+﻿using ClientApp.Assets.Custom.MessageBox;
+using ClientApp.Core.Settings;
 using ClientApp.Properties;
 using ClientApp.ViewModel;
 using System;
@@ -55,13 +56,34 @@ namespace ClientApp
             base.OnStateChanged(e);
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        private void minButton_Click(object sender, RoutedEventArgs e)
         {
-            e.Cancel = true;
-
             Hide();
+        }
 
-            base.OnClosing(e);
+        private void DragWindow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DragMove();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
+
+        private void maxButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
         }
 
         private void TaskbarIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)

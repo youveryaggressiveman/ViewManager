@@ -171,6 +171,12 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>MainWindow.</value>
   </data>
+  <data name="MaxButton" xml:space="preserve">
+    <value>Maximaze window</value>
+  </data>
+  <data name="MinButton" xml:space="preserve">
+    <value>Minimaze window</value>
+  </data>
   <data name="ModeTitle" xml:space="preserve">
     <value>Mode:</value>
   </data>

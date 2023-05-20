@@ -1,15 +1,22 @@
 ﻿using GeneralLogic.Services.Files;
+using Newtonsoft.Json.Linq;
+using ServerApp.Assets.Custom.ClientScreenBox;
+using ServerApp.Assets.Custom.ComputerInfoBox;
+using ServerApp.Assets.Custom.ListAllowAppBox;
 using ServerApp.Assets.Custom.MessageBox;
 using ServerApp.Command;
 using ServerApp.Controllers;
 using ServerApp.Core;
 using ServerApp.Core.Clients;
+using ServerApp.Core.Screen;
 using ServerApp.Core.Singleton;
 using ServerApp.Core.Statistics;
 using ServerApp.Model;
+using ServerApp.Properties;
 using ServerApp.View.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -17,6 +24,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Ribbon.Primitives;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace ServerApp.ViewModel
 {
@@ -24,20 +33,57 @@ namespace ServerApp.ViewModel
     {
         private readonly IFileManager _fileManager;
 
-        private readonly StatisticsSort _statisticsSort;
-        private readonly ClientsSort _clientsSort;
-
         private readonly UniversalController<User> _userController;
 
-        private Thread _start;
+        private Visibility _visibility = Visibility.Collapsed;
+        private Visibility _visibilityPc = Visibility.Collapsed;
 
-        private Visibility _accountantButtonVisibility = Visibility.Collapsed;
-        private Visibility _teacherButtonVisibility = Visibility.Collapsed;
-        private Visibility _commonButtonVisibility = Visibility.Collapsed;
-
+        private BitmapImage _image;
         private User _user;
 
         private string _roleName;
+
+        private bool _isEnabled = false;
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        public Visibility VisibilityPc
+        {
+            get => _visibilityPc;
+            set
+            {
+                _visibilityPc = value;
+                OnPropertyChanged(nameof(VisibilityPc));
+            }
+        }
+
+        public Visibility Visibility
+        {
+            get => _visibility;
+            set
+            {
+                _visibility = value;
+                OnPropertyChanged(nameof(Visibility));
+            }
+        }
+
+        public BitmapImage Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                OnPropertyChanged(nameof(Image)); 
+            }
+        }
 
         public string RoleName
         {
@@ -46,36 +92,6 @@ namespace ServerApp.ViewModel
             {
                 _roleName = value;
                 OnPropertyChanged(nameof(RoleName));
-            }
-        }
-
-        public Visibility CommonButtonVisibility
-        {
-            get => _commonButtonVisibility;
-            set
-            {
-                _commonButtonVisibility = value;
-                OnPropertyChanged(nameof(CommonButtonVisibility));
-            }
-        }
-
-        public Visibility TeacherButtonVisibility
-        {
-            get => _teacherButtonVisibility;
-            set
-            {
-                _teacherButtonVisibility = value;
-                OnPropertyChanged(nameof(TeacherButtonVisibility));
-            }
-        }
-
-        public Visibility AccountantButtonVisibility
-        {
-            get=> _accountantButtonVisibility;
-            set
-            {
-                _accountantButtonVisibility = value;
-                OnPropertyChanged(nameof(AccountantButtonVisibility));
             }
         }
 
@@ -89,16 +105,21 @@ namespace ServerApp.ViewModel
             }
         }
 
-        public ICommand StatisticsCommand { get; }
-        public ICommand CreateCommand { get; }
-        public ICommand UpdateCommand { get; }
-        public ICommand ComputerManagmentCommand { get; }
-        public ICommand SettingsCommand { get; }
+        public ICommand InfoCommand { get; }
+        public ICommand BroadcastCommand { get; }
+        public ICommand TurnOffCommand { get; }
+        public ICommand OpenListAppCommand { get; }
+        public ICommand CheckPcFeaturesCommand { get; }
 
         public MainPageViewModel()
         {
             _fileManager = new AppStatisticsFileManager();
-            _clientsSort = new ClientsSort();
+
+            CheckPcFeaturesCommand = new DelegateCommand(CheckPcFeatures);
+            OpenListAppCommand = new DelegateCommand(OpenListApp);
+            InfoCommand = new DelegateCommand(Info);
+            BroadcastCommand = new DelegateCommand(Broadcast);
+            TurnOffCommand = new DelegateCommand(TurnOff);
 
             _fileManager.FileWriter("Statistics", null);
             _fileManager.FileWriter("AllowedApplications", null);
@@ -106,19 +127,115 @@ namespace ServerApp.ViewModel
 
             _userController = new UniversalController<User>(ApiServerSingleton.GetConnectionApiString());
 
-            _statisticsSort = new();
-
             User = new User();
 
-            _start = new Thread(TcpConnect);
-
-            StatisticsCommand = new DelegateCommand(Statistics);
-            ComputerManagmentCommand = new DelegateCommand(ComputerManagment);
-            CreateCommand = new DelegateCommand(Create);
-            UpdateCommand = new DelegateCommand(Update);
-            SettingsCommand = new DelegateCommand(Settings);
-
             LoadInfoAboutUser();
+
+            System.Timers.Timer timer = new System.Timers.Timer(3000);
+            timer.Elapsed += (sender, e) =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    CheckConnectedPc();
+                });
+
+            };
+            timer.Start();
+
+            System.Timers.Timer timerForCheckConnection = new System.Timers.Timer(30000);
+            timerForCheckConnection.Elapsed += (sender, e) =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    CheckConnection();
+                });
+
+            };
+            timerForCheckConnection.Start();
+        }
+
+        private async void CheckConnection()
+        {
+            if (ConnectedClientSingleton.S_ListConnectedClient.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
+            {
+                try
+                {
+                    await TcpController.SendMessage(client, "0");
+                }
+                catch
+                {
+                    client.Status = "Disconnected";
+                }
+            }
+        }
+
+        private void CheckConnectedPc()
+        {
+            if (ConnectedClientSingleton.S_ListConnectedClient.Count == 0)
+            {
+                IsEnabled = false;
+
+            }
+            else
+            {
+                IsEnabled = true;
+            }
+        }
+
+        private async void TurnOff(object obj)
+        {
+            if (SelectedConnectedClientSingleton.ConnectedClient != null && SelectedConnectedClientSingleton.ConnectedClient.Status == "Connected")
+            {
+                try
+                {
+                    await TcpController.SendMessage(SelectedConnectedClientSingleton.ConnectedClient, "3");
+                }
+                catch
+                {
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "The selected PC could not be turned off.", "Выбранный компьютер не удалось выключить."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+
+            }
+        }
+
+        private async void Broadcast(object obj)
+        {
+            if (SelectedConnectedClientSingleton.ConnectedClient != null && SelectedConnectedClientSingleton.ConnectedClient.Status == "Connected")
+            {
+                try
+                {
+                    await TcpController.SendMessage(SelectedConnectedClientSingleton.ConnectedClient, "2");
+
+                    CustomClientScreenBox.Show(SelectedConnectedClientSingleton.ConnectedClient);
+                }
+                catch
+                {
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not enable the broadcast of the selected client.", "Не удалось включить широковещательную передачу выбранного клиента."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+
+            }
+        }
+
+        private async void Info(object obj)
+        {
+            if (SelectedConnectedClientSingleton.ConnectedClient != null && SelectedConnectedClientSingleton.ConnectedClient.Status == "Connected")
+            {
+                try
+                {
+                    await TcpController.SendMessage(SelectedConnectedClientSingleton.ConnectedClient, "1");
+
+                    await CustomComputerInfoBox.Show(false, SelectedConnectedClientSingleton.ConnectedClient.Name);
+                }
+                catch
+                {
+                    CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Could not get information about the selected PC.", "Не удалось получить информацию о выбранном компьютере."), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                }
+            }
         }
 
         private string GetDataByCulture(string culture, string enData, string ruData)
@@ -133,39 +250,56 @@ namespace ServerApp.ViewModel
             }
         }
 
-        private void Statistics(object obj)
+        private void OpenListApp(object obj)
         {
-            FrameManager.SetPage(new StatisticsPage(), "mainPageFrame");
+            string message = string.Empty;
+
+            try
+            {
+                CustomListAllowAppBox.Show();
+
+                message = "Approved applications have been successfully added.";
+            }
+            catch
+            {
+                message = "An error occurred while adding the application.";
+            }
+            finally
+            {
+                LogManager.SaveLog("Server", DateTime.Today, $"TeacherMode: {message}");
+            }
         }
 
-        private void ComputerManagment(object obj)
+        private async void CheckPcFeatures(object obj)
         {
-            FrameManager.SetPage(new ComputerManagementPage(), "mainPageFrame");
-        }
-
-        private void Settings(object obj)
-        {
-            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
-        }
-
-        private void Update(object obj)
-        {
-            FrameManager.SetPage(new UpdateUserListPage(), "mainPageFrame");
-        }
-
-        private void Create(object obj)
-        {
-            FrameManager.SetPage(new CreateUserPage(), "mainPageFrame");
-        }
-
-        private async void TcpConnect(object? obj)
-        {
-            await TcpController.StartTcp();
+            try
+            {
+                await CustomComputerInfoBox.Show(true, "Server");
+            }
+            catch
+            {
+                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Could not get data about your computer!", "Не удалось получить данные о вашем компьютере!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+            }
         }
 
         private void SetBorder(bool switchBorder)
         {
             ((Application.Current.MainWindow as MainWindow).DataContext as MainWindowViewModel).LoadBorder(switchBorder);
+        }
+
+        private BitmapImage GetImage(string value)
+        {
+            DirectoryInfo directoryInfo = new(@"../../../Assets/Images");
+
+            foreach (var image in directoryInfo.GetFiles())
+            {
+                if (image.Name == value + ".png")
+                {
+                    return new BitmapImage(new Uri(image.FullName));
+                }
+            }
+
+            return null;
         }
 
         private async void LoadInfoAboutUser()
@@ -202,7 +336,24 @@ namespace ServerApp.ViewModel
                     }
                 }
 
-                CheckRole();
+                Image = GetImage(User.Role.Value);
+
+                if(User.RoleId == 1)
+                {
+                    Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Visibility = Visibility.Collapsed;
+                }
+
+                foreach (Window window in App.Current.Windows)
+                {
+                    if (window is MainWindow)
+                    {
+                        (window.DataContext as MainWindowViewModel).CheckRole(User, _fileManager);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -223,51 +374,6 @@ namespace ServerApp.ViewModel
                 SetBorder(false);
             }
             
-        }
-
-        private async Task GetAllowApp()
-        {
-            var allApp = await _fileManager.FileReader("AllowedApplications");
-            var appList = allApp.Split('\n');
-
-            foreach (var app in appList)
-            {
-                if (app != string.Empty)
-                {
-                    ListAllowAppSingleton.S_AllowAppList.Add(app);
-                }
-            }
-        }
-
-        private async void CheckRole()
-        {
-            if(User.RoleId == 1)
-            {
-                TeacherButtonVisibility = Visibility.Visible;
-                AccountantButtonVisibility = Visibility.Collapsed;
-                CommonButtonVisibility = Visibility.Visible;
-
-                TcpServerSingleton.SetIp(string.Empty);
-                await _clientsSort.Sort();
-
-                await GetAllowApp();
-
-                var allStat = await _fileManager.FileReader("Statistics");
-                var statList = await _statisticsSort.Sort(allStat);
-
-                statList.ToList().ForEach(AppStatSingleton.S_ListAppStat.Add);
-
-                _start.Start();
-            }
-            else
-            {
-                TeacherButtonVisibility = Visibility.Collapsed;
-                AccountantButtonVisibility = Visibility.Visible;
-                CommonButtonVisibility = Visibility.Visible;
-                
-            }
-
-            FrameManager.SetPage(new SettingsPage(), "mainPageFrame");
         }
     }
 }

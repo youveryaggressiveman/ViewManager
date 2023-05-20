@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Background="{DynamicResource MainColor}"
         FontFamily="DM Sans"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Title="ViewManager: Client"
         Height="650"
@@ -108,6 +109,7 @@
     </Window.Triggers>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="100"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
@@ -116,7 +118,45 @@
                         ToolTipText="ViewManager"
                         TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"
                         IconSource="/Assets/Images/Icon.ico" />
-        <Grid Background="{StaticResource ColorHighlight}">
+        <Grid>
+            <Border Background="Transparent"
+                    Panel.ZIndex="3"
+                    MouseLeftButtonDown="DragWindow">
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Button Content="_____"
+                    Grid.Column="1"
+                    x:Name="minButton"
+                        Click="minButton_Click"
+                    FontSize="7"
+                    HorizontalAlignment="Right"
+                    
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.MinButton}"
+                    Padding="4"/>
+                    <Button Content="◼️"
+                    Grid.Column="1"
+                        x:Name="maxButton"
+                        Click="maxButton_Click"
+                    FontSize="10"
+                    HorizontalAlignment="Right"
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.MaxButton}"
+                    Padding="4"/>
+                    <Button Content="✖"
+                    Grid.Column="1"
+                    FontSize="7"
+                    Command="{Binding CloseAppCommand}"
+                    HorizontalAlignment="Right"
+                    Margin="3"
+                    ToolTip="{x:Static lang:Lang.CloseButton}"
+                    Padding="4"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Background="{StaticResource ColorHighlight}"
+              Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
@@ -141,7 +181,7 @@
                        Margin="90 -35 0 0"
                        FontSize="21"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition/>
@@ -292,7 +332,7 @@
 
         </Grid>
         <TextBlock 
-                   Grid.Row="2"
+                   Grid.Row="3"
                    Opacity="0.6"
                    HorizontalAlignment="Right"
              Foreground="{DynamicResource AdditionalColor}"
@@ -303,18 +343,18 @@
         </TextBlock>
         <Border x:Name="Splash"
                 Visibility="{Binding Visibility}"
-                Grid.Row="0"
-                Grid.RowSpan="3"
+                Grid.Row="1"
+                Grid.RowSpan="4"
                 Opacity=".35"
                 Background="{DynamicResource AdditionalColor}" />
-        <Border Grid.Row="1"
+        <Border Grid.Row="2"
                 CornerRadius="12"
                 BorderThickness="2"
                 BorderBrush="{DynamicResource ColorHighlight}"
                 Margin="12"
                 Padding="5"
                 Visibility="{Binding Visibility}"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Background="{DynamicResource MainColor}"
                 Height="150"
                 Width="400">

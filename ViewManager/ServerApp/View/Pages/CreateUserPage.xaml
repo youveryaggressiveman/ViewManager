@@ -145,7 +145,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Content="🠕" 
+                        <Button Content="-" 
                                 Height="50"
                                 Width="50"
                                 Command="{Binding RemoveSpecCommand}"
@@ -157,7 +157,7 @@
                                 VerticalAlignment="Center"
                                 Height="60"
                                 Grid.Column="1" />
-                        <Button Content="🠗"
+                        <Button Content="+"
                                 Grid.Column="2"
                                 Command="{Binding AddSpecCommand}"
                                 Height="50"
