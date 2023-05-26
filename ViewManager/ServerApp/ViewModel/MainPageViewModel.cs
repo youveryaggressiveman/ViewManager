@@ -81,7 +81,7 @@ namespace ServerApp.ViewModel
             set
             {
                 _image = value;
-                OnPropertyChanged(nameof(Image)); 
+                OnPropertyChanged(nameof(Image));
             }
         }
 
@@ -142,7 +142,7 @@ namespace ServerApp.ViewModel
             };
             timer.Start();
 
-            System.Timers.Timer timerForCheckConnection = new System.Timers.Timer(30000);
+            System.Timers.Timer timerForCheckConnection = new System.Timers.Timer(10000);
             timerForCheckConnection.Elapsed += (sender, e) =>
             {
                 App.Current.Dispatcher.Invoke(() =>
@@ -160,18 +160,21 @@ namespace ServerApp.ViewModel
             {
                 return;
             }
-
-            foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
+            try
             {
-                try
+                foreach (var client in ConnectedClientSingleton.S_ListConnectedClient)
                 {
-                    await TcpController.SendMessage(client, "0");
-                }
-                catch
-                {
-                    client.Status = "Disconnected";
+                    if (!await TcpController.SendMessage(client, "0"))
+                    {
+                        client.Status = "Disconnected";
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Server", DateTime.Today, $"ListConnection: {ex.Message}");
+            }
+
         }
 
         private void CheckConnectedPc()
@@ -310,7 +313,7 @@ namespace ServerApp.ViewModel
 
                 var user = await _userController.Get(AuthUserSingleton.AuthUser.Id);
 
-                if(user == null)
+                if (user == null)
                 {
                     CustomMessageBox.Show(GetDataByCulture(ServerApp.Properties.Settings.Default.LanguageName, "Error server!", "Ошибка сервера!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
 
@@ -321,9 +324,9 @@ namespace ServerApp.ViewModel
 
                 foreach (var translation in TranslationSingleton.S_TranslationList)
                 {
-                    if(User.Role.Value == translation.Data)
+                    if (User.Role.Value == translation.Data)
                     {
-                        if(ServerApp.Properties.Settings.Default.LanguageName == "en-US")
+                        if (ServerApp.Properties.Settings.Default.LanguageName == "en-US")
                         {
                             RoleName = translation.Data;
                         }
@@ -338,7 +341,7 @@ namespace ServerApp.ViewModel
 
                 Image = GetImage(User.Role.Value);
 
-                if(User.RoleId == 1)
+                if (User.RoleId == 1)
                 {
                     Visibility = Visibility.Visible;
                 }
@@ -373,7 +376,7 @@ namespace ServerApp.ViewModel
             {
                 SetBorder(false);
             }
-            
+
         }
     }
 }

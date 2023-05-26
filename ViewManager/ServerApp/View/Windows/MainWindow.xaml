@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FontFamily="DM Sans"
-        
         WindowStyle="None"
         Background="{DynamicResource MainColor}"
         Title="ViewManager: Server" Height="750" Width="850"

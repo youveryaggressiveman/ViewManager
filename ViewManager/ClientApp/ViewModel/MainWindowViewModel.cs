@@ -150,6 +150,8 @@ namespace ClientApp.ViewModel
             SaveChangesCommand = new DelegateCommand(SaveChanges);
             CheckConnectionCommand = new DelegateCommand(CheckConnection);
 
+            LogManager.CreateMainFolder();
+
             try
             {
                 _controller = new MainWindowViewModelController(int.Parse(ServerPort), ServerIp);
@@ -158,12 +160,10 @@ namespace ClientApp.ViewModel
                 timer.Elapsed += async (sender, e) => await SendApp();
                 timer.Start();
             }
-            catch
+            catch (Exception ex)
             {
-                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Server connection error!", "Ошибка подключения к серверу!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
+                LogManager.SaveLog("Client", DateTime.Today, $"CheckConnection: {ex.Message}.");
             }
-
-            LogManager.CreateMainFolder();
 
             LanguageList = new List<string>()
             {
@@ -414,16 +414,11 @@ namespace ClientApp.ViewModel
 
                 await _controller.SendFirstMessageTcp(ServerIp, int.Parse(ServerPort));
 
-                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "The connection is established, for the full operation of the application, click the \"Save changes\" button.", "Соединение установлено, для полноценной работы приложения нажмите кнопку \"Сохранить изменения\"."), Assets.Custom.MessageBox.Basic.Titles.Confirm, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-
                 Status = "Connected";
             }
             catch
             {
                 Status = "Disconnected";
-
-                CustomMessageBox.Show(GetDataByCulture(Settings.Default.LanguageName, "Server connection error!", "Ошибка подключения к серверу!"), Assets.Custom.MessageBox.Basic.Titles.Warning, Assets.Custom.MessageBox.Basic.Buttons.Ok, Assets.Custom.MessageBox.Basic.Buttons.Nothing);
-
             }
             finally
             {

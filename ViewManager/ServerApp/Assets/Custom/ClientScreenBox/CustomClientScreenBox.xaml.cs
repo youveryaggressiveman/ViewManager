@@ -54,6 +54,18 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             }
         }
 
+        private void maxButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
+        }
+
         public static void Show(ConnectedClient client)
         {
             s_customClientScreenBox = new();
@@ -101,6 +113,8 @@ namespace ServerApp.Assets.Custom.ClientScreenBox
             try
             {
                 await TcpController.SendMessage(s_client, "4");
+
+                ToScreenConverter.S_Image.Clear();
 
                 s_udpController.StopUdp();
                 Close();

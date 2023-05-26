@@ -277,10 +277,11 @@ namespace ClientApp.Controllers
             {
                 if (s_socketClient != null)
                 {
-                    s_udpSocketClient.Close();
+                    _start.Interrupt();
+                    _start = new Thread(StartUdp);
                 }
             }
-            catch 
+            catch
             {
 
             }
