@@ -153,6 +153,9 @@
   <data name="SubTitleInputYourNetwork" xml:space="preserve">
     <value>Your Network settings:</value>
   </data>
+  <data name="TitleCPU" xml:space="preserve">
+    <value>CPU load</value>
+  </data>
   <data name="ToolTipPcInfoButton" xml:space="preserve">
     <value>Information about your computer</value>
   </data>

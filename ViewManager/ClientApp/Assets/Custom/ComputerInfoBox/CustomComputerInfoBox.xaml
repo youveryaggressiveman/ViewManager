@@ -132,9 +132,21 @@
                    FontSize="15"
                    />
             </ScrollViewer>
-            <lvc:CartesianChart Grid.Column="1"
-                                Margin="10"
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Static lang:Lang.TitleCPU}"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           FontSize="18"/>
+                <lvc:CartesianChart Grid.Column="1"
+                                Margin="10 5 10 10"
+                                    Grid.Row="1"
                                 x:Name="chart"/>
+            </Grid>
         </Grid>
 
         <Button Grid.Row="2"

@@ -457,6 +457,15 @@ namespace ServerApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на CPU load.
+        /// </summary>
+        public static string TitleCPU {
+            get {
+                return ResourceManager.GetString("TitleCPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на List of allowed applications.
         /// </summary>
         public static string ToolTipListAppButton {

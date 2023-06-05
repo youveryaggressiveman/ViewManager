@@ -53,7 +53,9 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
             scrollPcInfo.Visibility = Visibility.Collapsed;
             descriptionTextBlock.Visibility = Visibility.Collapsed;
             chart.Visibility = Visibility.Collapsed;
+            titleCPUTextBlock.Visibility = Visibility.Collapsed;
             descriptionAnotherPcTextBlock.Visibility = Visibility.Collapsed;
+            gridForChart.Visibility = Visibility.Collapsed;
 
             s_series = new ObservableCollection<ISeries>
             {
@@ -82,7 +84,9 @@ namespace ServerApp.Assets.Custom.ComputerInfoBox
             {
                 s_customComputerInfoBox.descriptionTextBlock.Visibility = Visibility.Visible;
                 s_customComputerInfoBox.scrollPcInfo.Visibility = Visibility.Visible;
-                s_customComputerInfoBox.chart.Visibility = Visibility.Visible;      
+                s_customComputerInfoBox.chart.Visibility = Visibility.Visible;
+                s_customComputerInfoBox.gridForChart.Visibility = Visibility.Visible;
+                s_customComputerInfoBox.titleCPUTextBlock.Visibility = Visibility.Visible;
 
                 helper = new();
 

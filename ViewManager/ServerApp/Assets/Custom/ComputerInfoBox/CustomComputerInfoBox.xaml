@@ -130,9 +130,24 @@
                 <TextBlock x:Name="descriptionTextBlock"
                    FontSize="15"/>
             </ScrollViewer>
-            <lvc:CartesianChart Grid.Column="1"
-                                Margin="10"
+
+            <Grid Grid.Column="1" x:Name="gridForChart">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Static lang:Lang.TitleCPU}"
+                           HorizontalAlignment="Center"
+                           x:Name="titleCPUTextBlock"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           FontSize="18"/>
+                <lvc:CartesianChart
+                    Grid.Row="1"
+                                Margin="10 5 10 10"
                                 x:Name="chart"/>
+            </Grid>
+            
         </Grid>
        
 

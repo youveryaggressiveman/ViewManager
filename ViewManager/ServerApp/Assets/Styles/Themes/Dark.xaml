@@ -9,4 +9,8 @@
     <SolidColorBrush x:Key="ColorBotton.Click" Color="#FFE573"/>
     <SolidColorBrush x:Key="ForegroundColor" Color="#242424" />
 
+    <SolidColorBrush x:Key="MainWindowButton.Background" Color="#242424"/>
+    <SolidColorBrush x:Key="MainWindowButton.Foreground" Color="#ffffff"/>
+    <SolidColorBrush x:Key="MainWindowButton.Border" Color="#242424"/>
+
 </ResourceDictionary>

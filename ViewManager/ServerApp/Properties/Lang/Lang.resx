@@ -249,6 +249,9 @@
   <data name="TitleAuth" xml:space="preserve">
     <value>Authorization</value>
   </data>
+  <data name="TitleCPU" xml:space="preserve">
+    <value>CPU load</value>
+  </data>
   <data name="ToolTipListAppButton" xml:space="preserve">
     <value>List of allowed applications</value>
   </data>

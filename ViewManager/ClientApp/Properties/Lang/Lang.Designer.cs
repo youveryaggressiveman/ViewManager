@@ -169,6 +169,15 @@ namespace ClientApp.Properties.Lang {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на CPU load.
+        /// </summary>
+        public static string TitleCPU {
+            get {
+                return ResourceManager.GetString("TitleCPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Information about your computer.
         /// </summary>
         public static string ToolTipPcInfoButton {

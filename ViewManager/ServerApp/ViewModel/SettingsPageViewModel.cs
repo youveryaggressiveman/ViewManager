@@ -31,6 +31,8 @@ namespace ServerApp.ViewModel
 
         private readonly CheckSettings _checkSettings;
 
+        private Visibility _visibility = Visibility.Collapsed;
+
         private List<string> _localIpList;
         private List<string> _themeList;
         private List<string> _languageList;
@@ -39,6 +41,16 @@ namespace ServerApp.ViewModel
         private string _selectedLanguage;
         private string _port;
         private string _selectedLocalIp;
+
+        public Visibility Visibility
+        {
+            get => _visibility;
+            set
+            {
+                _visibility = value;
+                OnPropertyChanged(nameof(Visibility));
+            }
+        }
 
         public string Port
         {
@@ -136,6 +148,19 @@ namespace ServerApp.ViewModel
             };
 
             LoadInfo();
+            CheckRole();
+        }
+
+        private void CheckRole()
+        {
+            if (AuthUserSingleton.AuthUser.RoleValue == "Admin")
+            {
+                Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Visibility = Visibility.Visible;
+            }
         }
 
         private string GetDataByCulture(string culture, string enData, string ruData)

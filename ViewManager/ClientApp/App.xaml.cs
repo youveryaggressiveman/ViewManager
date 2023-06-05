@@ -1,6 +1,7 @@
 ﻿using ClientApp.Controllers;
 using ClientApp.Core.Singleton;
 using ClientApp.Properties;
+using GeneralLogic.Services.Files;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -31,13 +32,26 @@ namespace ClientApp
             base.OnStartup(e);
         }
 
-        protected override async void OnExit(ExitEventArgs e)
+        protected override void OnExit(ExitEventArgs e)
         {
-            _controller = new(ServerSingleton.GetServerPort(), ServerSingleton.GetServerIp());
-
-            await _controller.SendMessage($"{Environment.MachineName}: The app was turned off");
+            SendLastMessage();
 
             base.OnExit(e);
+        }
+
+        private async void SendLastMessage()
+        {
+            try
+            {
+                _controller = new(ServerSingleton.GetServerPort(), ServerSingleton.GetServerIp());
+
+                await _controller.SendMessage($"{Environment.MachineName}: The app was turned off");
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog("Client", DateTime.Today, $"SendApp: {ex.Message}.");
+            }
+            
         }
     }
 }

@@ -249,6 +249,9 @@
   <data name="TitleAuth" xml:space="preserve">
     <value>Авторизация</value>
   </data>
+  <data name="TitleCPU" xml:space="preserve">
+    <value>Загруженность ЦПУ</value>
+  </data>
   <data name="ToolTipListAppButton" xml:space="preserve">
     <value>Список разрешенных приложений</value>
   </data>
