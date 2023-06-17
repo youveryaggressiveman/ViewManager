@@ -25,6 +25,8 @@ namespace GeneralLogic.Services.PcFeatures.ArrangeData
 
             var dataArray = data.Split("\n");
 
+            int count = 0;
+
             Data newData = new();
             newData.NameHardware = new List<string>();
 
@@ -32,6 +34,8 @@ namespace GeneralLogic.Services.PcFeatures.ArrangeData
             {
                 if(double.TryParse(item, out double outResult))
                 {
+                    count ++;
+
                     newData.Load += outResult;
                 }
                 else
@@ -43,7 +47,7 @@ namespace GeneralLogic.Services.PcFeatures.ArrangeData
                 }
             }
 
-            newData.Load = Math.Round(newData.Load, 2);
+            newData.Load = Math.Round(newData.Load / count, 2);
 
             return newData;
         }

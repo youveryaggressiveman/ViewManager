@@ -11,7 +11,7 @@ namespace ServerApp.Core.Singleton
 {
     public static class ApiServerSingleton
     {
-        private static readonly string s_connectionApiString = "http://localhost:5194/";
+        private static readonly string s_connectionApiString = "http://45.138.157.71:5194/";
 
         public static string GetConnectionApiString() =>
             s_connectionApiString;
