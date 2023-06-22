@@ -12,7 +12,7 @@ For the server part, you need to run the file Server.exe .
 2. .NET Runtime;
 3. Opened TCP and UDP ports
 
-## Авторы
+## Authors
 
 * **youveryaggressiveman** - (github.com/youveryaggressiveman)
 
